@@ -5,6 +5,7 @@ import { $transaction, PrismaClient, prisma } from "~/db.server";
 import { logger } from "~/services/logger.server";
 import { workerQueue } from "~/services/worker.server";
 import { safeJsonParse } from "~/utils/json";
+import { serverOnly$ } from "vite-env-only"
 
 const ParamsSchema = z.object({
   environmentId: z.string(),
@@ -26,7 +27,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   const { environmentId, endpointSlug, indexHookIdentifier } = parsedParams.data;
 
-  const service = new TriggerEndpointIndexHookService();
+  const service = new TriggerEndpointIndexHookService!();
 
   await service.call({
     environmentId,
@@ -55,7 +56,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const body = await request.text();
 
-  const service = new TriggerEndpointIndexHookService();
+  const service = new TriggerEndpointIndexHookService!();
 
   await service.call({
     environmentId,
@@ -73,7 +74,7 @@ type TriggerEndpointDeployHookOptions = z.infer<typeof ParamsSchema> & {
   body?: any;
 };
 
-export class TriggerEndpointIndexHookService {
+const TriggerEndpointIndexHookService = serverOnly$(class TriggerEndpointIndexHookService{
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -141,7 +142,7 @@ export class TriggerEndpointIndexHookService {
       );
     });
   }
-}
+})
 
 function parseReasonFromBody(body: any): string | undefined {
   const vercelDeployment = VercelDeploymentWebhookSchema.safeParse(body);

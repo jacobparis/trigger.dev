@@ -6,6 +6,8 @@ import {
   CompleteTaskBodyInputSchema,
   CompleteTaskBodyV2InputSchema,
 } from "@trigger.dev/core";
+import invariant from "tiny-invariant";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { PrismaClientOrTransaction, prisma } from "~/db.server";
 import { taskWithAttemptsToServerTask } from "~/models/task.server";
@@ -94,6 +96,7 @@ async function completeRunTask(
   id: string,
   taskBody: CompleteTaskBodyOutput
 ) {
+  invariant(CompleteRunTaskService, 'Must run on the server');
   const service = new CompleteRunTaskService();
 
   try {
@@ -119,7 +122,7 @@ async function completeRunTask(
   }
 }
 
-export class CompleteRunTaskService {
+export const CompleteRunTaskService = serverOnly$(class CompleteRunTaskService {
   #prismaClient: PrismaClientOrTransaction;
 
   constructor(prismaClient: PrismaClientOrTransaction = prisma) {
@@ -204,4 +207,4 @@ export class CompleteRunTaskService {
 
     return taskWithAttemptsToServerTask(updatedTask);
   }
-}
+})

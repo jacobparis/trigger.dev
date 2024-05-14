@@ -877,7 +877,7 @@ export class PerformRunExecutionV3Service {
         },
       });
 
-      const service = new CompleteRunTaskService(tx);
+      const service = new CompleteRunTaskService!(tx);
 
       await service.call(run.environment, run.id, data.id, {
         properties: data.properties,

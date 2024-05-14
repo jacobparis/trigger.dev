@@ -5,6 +5,7 @@ import {
   CreateExternalConnectionBodySchema,
   ErrorWithStackSchema,
 } from "@trigger.dev/core";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { generateErrorMessage } from "zod-error";
 import { PrismaClientOrTransaction, prisma } from "~/db.server";
@@ -47,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   try {
-    const service = new CreateExternalConnectionService();
+    const service = new CreateExternalConnectionService!();
 
     const connection = await service.call(
       parsedParams.data.accountId,
@@ -68,7 +69,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-class CreateExternalConnectionService {
+const CreateExternalConnectionService = serverOnly$(class CreateExternalConnectionService {
   #prismaClient: PrismaClientOrTransaction;
 
   constructor(prismaClient: PrismaClientOrTransaction = prisma) {
@@ -111,4 +112,4 @@ class CreateExternalConnectionService {
       token: payload,
     });
   }
-}
+})

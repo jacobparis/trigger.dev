@@ -1,5 +1,6 @@
 import type { ActionFunctionArgs } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { $transaction, PrismaClient, PrismaClientOrTransaction, prisma } from "~/db.server";
 import { logger } from "~/services/logger.server";
@@ -22,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   // Parse body as JSON (no schema parsing)
   const body = await request.json();
 
-  const service = new CallbackRunTaskService();
+  const service = new CallbackRunTaskService!();
 
   try {
     // Complete task with request body as output
@@ -39,7 +40,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-export class CallbackRunTaskService {
+const CallbackRunTaskService = serverOnly$(class CallbackRunTaskService {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -102,7 +103,7 @@ export class CallbackRunTaskService {
   async #resumeRunExecution(task: NonNullable<FoundTask>, prisma: PrismaClientOrTransaction) {
     await ResumeTaskService.enqueue(task.id, undefined, prisma);
   }
-}
+})
 
 type FoundTask = Awaited<ReturnType<typeof findTask>>;
 

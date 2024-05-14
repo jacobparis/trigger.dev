@@ -9,6 +9,7 @@ import {
   StatusUpdateSchema,
   StatusUpdateState,
 } from "@trigger.dev/core";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { $transaction, PrismaClient, prisma } from "~/db.server";
 import { authenticateApiRequest } from "~/services/apiAuth.server";
@@ -81,7 +82,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-export class SetStatusService {
+const SetStatusService = serverOnly$(class SetStatusService {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -141,4 +142,4 @@ export class SetStatusService {
 
     return statusRecord;
   }
-}
+})

@@ -3,7 +3,8 @@ import { parse } from "@conform-to/zod";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Form, useActionData, useLocation, useNavigation } from "@remix-run/react";
 import { ActionFunctionArgs, json } from "@remix-run/server-runtime";
-import { parseExpression } from "cron-parser";
+import cronParser from "cron-parser";
+const { parseExpression } = cronParser
 import cronstrue from "cronstrue";
 import { useState } from "react";
 import {

@@ -5,7 +5,10 @@ import {
   ScheduleMetadataSchema,
 } from "@trigger.dev/core";
 import { $transaction, PrismaClientOrTransaction, prisma } from "~/db.server";
-import { parseExpression } from "cron-parser";
+
+import pkg from 'cron-parser';
+const { parseExpression } = pkg;
+
 import { workerQueue } from "../worker.server";
 import { logger } from "../logger.server";
 

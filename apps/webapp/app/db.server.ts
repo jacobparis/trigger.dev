@@ -2,7 +2,7 @@ import { PrismaClient, Prisma } from "@trigger.dev/database";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { logger } from "./services/logger.server";
-import { env } from "./env.server";
+import { env } from './env.server'
 import { singleton } from "./utils/singleton";
 import { isValidDatabaseUrl } from "./utils/db";
 

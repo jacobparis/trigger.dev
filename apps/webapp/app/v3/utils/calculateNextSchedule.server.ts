@@ -1,4 +1,6 @@
-import { parseExpression } from "cron-parser";
+
+import pkg from 'cron-parser';
+const { parseExpression } = pkg;
 
 export function calculateNextScheduledTimestamp(
   schedule: string,

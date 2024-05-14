@@ -2,7 +2,10 @@ import type { VirtualElement as IVirtualElement } from "@popperjs/core";
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePopper } from "react-popper";
-import { useEvent } from "react-use";
+import pkg from "react-use";
+
+const { useEvent } = pkg;
+
 import useLazyRef from "~/hooks/useLazyRef";
 
 // Recharts 3.x will have portal support, but until then we're using this:

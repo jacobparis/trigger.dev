@@ -6,6 +6,7 @@ import {
   RunTaskResponseWithCachedTasksBody,
   ServerTask,
 } from "@trigger.dev/core";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { PrismaClient, prisma } from "~/db.server";
 import { prepareTasksForCaching } from "~/models/task.server";
@@ -83,7 +84,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     }
 
     if (triggerVersion === API_VERSIONS.LAZY_LOADED_CACHED_TASKS) {
-      const requestMigration = new ChangeRequestLazyLoadedCachedTasks();
+      const requestMigration = new ChangeRequestLazyLoadedCachedTasks!();
 
       const responseBody = await requestMigration.call(runId, task, cachedTasksCursor);
 
@@ -112,7 +113,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-class ChangeRequestLazyLoadedCachedTasks {
+const ChangeRequestLazyLoadedCachedTasks = serverOnly$(class ChangeRequestLazyLoadedCachedTasks {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -155,4 +156,4 @@ class ChangeRequestLazyLoadedCachedTasks {
       cachedTasks: preparedTasks,
     };
   }
-}
+})

@@ -8,6 +8,7 @@ import type { PrismaClient } from "~/db.server";
 import { prisma } from "~/db.server";
 import { authenticateApiRequest, AuthenticatedEnvironment } from "~/services/apiAuth.server";
 import { logger } from "~/services/logger.server";
+import { serverOnly$ } from "vite-env-only";
 
 const ParamsSchema = z.object({
   runId: z.string(),
@@ -39,7 +40,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const service = new CreateRunLogService();
+  const service = new CreateRunLogService!();
 
   try {
     const log = await service.call(authenticatedEnv, runId, body.data);
@@ -54,7 +55,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-export class CreateRunLogService {
+const CreateRunLogService = serverOnly$(class CreateRunLogService {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -67,4 +68,4 @@ export class CreateRunLogService {
 
     return logMessage;
   }
-}
+})

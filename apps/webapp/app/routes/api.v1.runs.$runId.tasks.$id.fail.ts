@@ -1,6 +1,7 @@
 import type { ActionFunctionArgs } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 import { FailTaskBodyInput, FailTaskBodyInputSchema, ServerTask } from "@trigger.dev/core";
+import { serverOnly$ } from "vite-env-only";
 import { z } from "zod";
 import { PrismaClient, prisma } from "~/db.server";
 import { taskWithAttemptsToServerTask } from "~/models/task.server";
@@ -71,7 +72,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-export class FailRunTaskService {
+const FailRunTaskService = serverOnly$(class FailRunTaskService {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {
@@ -159,4 +160,4 @@ export class FailRunTaskService {
 
     return task ? taskWithAttemptsToServerTask(task) : undefined;
   }
-}
+})
