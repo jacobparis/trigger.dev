@@ -1,4 +1,4 @@
-import { Outlet } from "@remix-run/react";
+import { Link, Outlet } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/server-runtime";
 import { redirect, typedjson } from "remix-typedjson";
 import { RouteErrorDisplay } from "~/components/ErrorDisplay";
@@ -7,27 +7,15 @@ import { clearRedirectTo, commitSession } from "~/services/redirectTo.server";
 import { requireUser } from "~/services/session.server";
 import { confirmBasicDetailsPath } from "~/utils/pathBuilder";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const user = await requireUser(request);
-
-  //you have to confirm basic details before you can do anything
-  if (!user.confirmedBasicDetails) {
-    return redirect(confirmBasicDetailsPath());
-  }
-
-  return typedjson(
-    {},
-    {
-      headers: { "Set-Cookie": await commitSession(await clearRedirectTo(request)) },
-    }
-  );
-};
-
 export default function App() {
   return (
-    <AppContainer>
+    <div>
+      <div>
+        <Link to="/good"> Good link </Link>
+        <Link to="/bad"> Bad link </Link>
+      </div>
       <Outlet />
-    </AppContainer>
+    </div>
   );
 }
 
