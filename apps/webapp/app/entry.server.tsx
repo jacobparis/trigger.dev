@@ -1,105 +1,57 @@
-import {
-  createReadableStreamFromReadable,
-  type DataFunctionArgs,
-  type EntryContext,
-} from "@remix-run/node"; // or cloudflare/deno
+import type { EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
-import { parseAcceptLanguage } from "intl-parse-accept-language";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
-import { LocaleContextProvider } from "./components/primitives/LocaleProvider";
-import {
-  OperatingSystemContextProvider,
-  OperatingSystemPlatform,
-} from "./components/primitives/OperatingSystemProvider";
+import { createExpressApp } from "remix-create-express-app";
 
-const ABORT_DELAY = 30000;
+export const express = createExpressApp();
+const ABORT_DELAY = 10 * 60 * 1000;
 
-export default function handleRequest(
+export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  const acceptLanguage = request.headers.get("accept-language");
-  const locales = parseAcceptLanguage(acceptLanguage, {
-    validate: Intl.DateTimeFormat.supportedLocalesOf,
-  });
+  const url = new URL(request.url);
 
-  //get whether it's a mac or pc from the headers
-  const platform: OperatingSystemPlatform = request.headers.get("user-agent")?.includes("Mac")
-    ? "mac"
-    : "windows";
+  // if there's a trailing slash in the URL, redirect to the one without it
+  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+    // remove the trailing slash from the pathname and reassemble the href include search params
+    url.pathname = url.pathname.slice(0, -1);
 
-  // If the request is from a bot, we want to wait for the full
-  // response to render before sending it to the client. This
-  // ensures that bots can see the full page content.
-  if (isbot(request.headers.get("user-agent"))) {
-    return handleBotRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext,
-      locales,
-      platform
-    );
+    return Response.redirect(url.toString(), 301);
   }
+  const callbackName = isbot(request.headers.get("user-agent")) ? "onAllReady" : "onShellReady";
 
-  return handleBrowserRequest(
-    request,
-    responseStatusCode,
-    responseHeaders,
-    remixContext,
-    locales,
-    platform
-  );
-}
-
-function handleBotRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
-  locales: string[],
-  platform: OperatingSystemPlatform
-) {
   return new Promise((resolve, reject) => {
-    let shellRendered = false;
+    let didError = false;
+
     const { pipe, abort } = renderToPipeableStream(
-      <OperatingSystemContextProvider platform={platform}>
-        <LocaleContextProvider locales={locales}>
-          <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
-        </LocaleContextProvider>
-      </OperatingSystemContextProvider>,
+      <RemixServer context={remixContext} url={request.url} />,
       {
-        onAllReady() {
-          shellRendered = true;
+        [callbackName]: () => {
           const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
-            new Response(stream, {
+            new Response(body, {
               headers: responseHeaders,
-              status: responseStatusCode,
+              status: didError ? 500 : responseStatusCode,
             })
           );
 
           pipe(body);
         },
-        onShellError(error: unknown) {
-          reject(error);
+        onShellError: (err: unknown) => {
+          reject(err);
         },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
+        onError: (error: unknown) => {
+          didError = true;
+
+          console.error(error);
         },
       }
     );
@@ -107,69 +59,3 @@ function handleBotRequest(
     setTimeout(abort, ABORT_DELAY);
   });
 }
-
-function handleBrowserRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
-  locales: string[],
-  platform: OperatingSystemPlatform
-) {
-  return new Promise((resolve, reject) => {
-    let shellRendered = false;
-    const { pipe, abort } = renderToPipeableStream(
-      <OperatingSystemContextProvider platform={platform}>
-        <LocaleContextProvider locales={locales}>
-          <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
-        </LocaleContextProvider>
-      </OperatingSystemContextProvider>,
-      {
-        onShellReady() {
-          shellRendered = true;
-          const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
-
-          responseHeaders.set("Content-Type", "text/html");
-
-          resolve(
-            new Response(stream, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            })
-          );
-
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
-        },
-      }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
-  });
-}
-
-export function handleError(error: unknown, { request, params, context }: DataFunctionArgs) {
-  logError(error, request);
-}
-
-function logError(error: unknown, request?: Request) {
-  console.error(error);
-
-  if (error instanceof Error && error.message.startsWith("There are locked jobs present")) {
-    console.log("⚠️  graphile-worker migration issue detected!");
-  }
-}
-
-export { express } from "./express.server";
