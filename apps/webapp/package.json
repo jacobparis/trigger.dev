@@ -49,7 +49,6 @@
     "emails": "workspace:*",
     "intl-parse-accept-language": "^1.0.0",
     "isbot": "^3.6.5",
-    "nanoid": "^3.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remix-create-express-app": "^0.3.7",
@@ -57,7 +56,6 @@
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-animate": "^1.0.5",
     "tailwindcss-textshadow": "^2.1.3",
-    "tiny-invariant": "^1.2.0",
     "zod": "3.22.3"
   },
   "devDependencies": {
