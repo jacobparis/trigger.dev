@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "TaskRun" ADD COLUMN     "number" INTEGER NOT NULL DEFAULT 0;

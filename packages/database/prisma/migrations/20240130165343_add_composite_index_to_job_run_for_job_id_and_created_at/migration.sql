@@ -1,1 +1,0 @@
-CREATE INDEX idx_jobrun_jobId_createdAt ON "public"."JobRun" ("jobId", "createdAt" DESC);

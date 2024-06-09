@@ -1,2 +1,0 @@
--- AlterEnum
-ALTER TYPE "JobRunStatus" ADD VALUE 'WAITING_ON_CONNECTIONS';

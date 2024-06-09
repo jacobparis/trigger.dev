@@ -1,3 +1,0 @@
-src/generated/*
-!src/generated/.gitkeep
-protoc.exe
