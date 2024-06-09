@@ -67,7 +67,7 @@ export const RUNNING_STATUSES: TaskRunStatus[] = [
   "WAITING_TO_RESUME",
 ];
 
-export const FINISHED_STATUSES: TaskRunStatus[] = [
+const FINISHED_STATUSES: TaskRunStatus[] = [
   "COMPLETED_SUCCESSFULLY",
   "CANCELED",
   "COMPLETED_WITH_ERRORS",

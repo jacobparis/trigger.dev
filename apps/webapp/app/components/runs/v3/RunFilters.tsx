@@ -96,7 +96,7 @@ type RunFiltersProps = {
   hasFilters: boolean;
 };
 
-export function RunsFilters(props: RunFiltersProps) {
+function RunsFilters(props: RunFiltersProps) {
   const location = useOptimisticLocation();
   const searchParams = new URLSearchParams(location.search);
   const hasFilters =

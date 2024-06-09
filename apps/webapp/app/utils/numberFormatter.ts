@@ -6,7 +6,7 @@ export const formatNumberCompact = (num: number): string => {
 
 const formatter = Intl.NumberFormat("en");
 
-export const formatNumber = (num: number): string => {
+const formatNumber = (num: number): string => {
   return formatter.format(num);
 };
 

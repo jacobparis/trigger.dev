@@ -218,7 +218,7 @@ export const TableCellChevron = forwardRef<
   );
 });
 
-export const TableCellMenu = forwardRef<
+const TableCellMenu = forwardRef<
   HTMLTableCellElement,
   {
     className?: string;
