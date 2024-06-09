@@ -1,18 +1,18 @@
 import { z } from "zod";
 
-export const CreateAuthorizationCodeResponseSchema = z.object({
+const CreateAuthorizationCodeResponseSchema = z.object({
   url: z.string().url(),
   authorizationCode: z.string(),
 });
 
-export type CreateAuthorizationCodeResponse = z.infer<typeof CreateAuthorizationCodeResponseSchema>;
+type CreateAuthorizationCodeResponse = z.infer<typeof CreateAuthorizationCodeResponseSchema>;
 
-export const GetPersonalAccessTokenRequestSchema = z.object({
+const GetPersonalAccessTokenRequestSchema = z.object({
   authorizationCode: z.string(),
 });
-export type GetPersonalAccessTokenRequest = z.infer<typeof GetPersonalAccessTokenRequestSchema>;
+type GetPersonalAccessTokenRequest = z.infer<typeof GetPersonalAccessTokenRequestSchema>;
 
-export const GetPersonalAccessTokenResponseSchema = z.object({
+const GetPersonalAccessTokenResponseSchema = z.object({
   token: z
     .object({
       token: z.string(),
@@ -20,4 +20,4 @@ export const GetPersonalAccessTokenResponseSchema = z.object({
     })
     .nullable(),
 });
-export type GetPersonalAccessTokenResponse = z.infer<typeof GetPersonalAccessTokenResponseSchema>;
+type GetPersonalAccessTokenResponse = z.infer<typeof GetPersonalAccessTokenResponseSchema>;

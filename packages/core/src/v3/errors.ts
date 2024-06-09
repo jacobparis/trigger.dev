@@ -32,7 +32,7 @@ export function parseError(error: unknown): TaskRunError {
   }
 }
 
-export function createErrorTaskError(error: TaskRunError): any {
+function createErrorTaskError(error: TaskRunError): any {
   switch (error.type) {
     case "BUILT_IN_ERROR": {
       const e = new Error(error.message);
@@ -62,7 +62,7 @@ export const SerializedError = z.object({
 
 export type SerializedError = z.infer<typeof SerializedError>;
 
-export function createJsonErrorObject(error: TaskRunError): SerializedError {
+function createJsonErrorObject(error: TaskRunError): SerializedError {
   switch (error.type) {
     case "BUILT_IN_ERROR": {
       return {
@@ -89,7 +89,7 @@ export function createJsonErrorObject(error: TaskRunError): SerializedError {
   }
 }
 
-export function correctErrorStackTrace(
+function correctErrorStackTrace(
   stackTrace: string,
   projectDir?: string,
   options?: { removeFirstLine?: boolean; isDev?: boolean }
@@ -131,7 +131,7 @@ function correctStackTraceLine(line: string, projectDir?: string, isDev?: boolea
   return line.trim();
 }
 
-export function groupTaskMetadataIssuesByTask(tasks: any, issues: z.ZodIssue[]) {
+function groupTaskMetadataIssuesByTask(tasks: any, issues: z.ZodIssue[]) {
   return issues.reduce(
     (acc, issue) => {
       if (issue.path.length === 0) {

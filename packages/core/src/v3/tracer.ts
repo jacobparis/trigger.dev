@@ -12,7 +12,7 @@ import { Logger, logs } from "@opentelemetry/api-logs";
 import { SemanticInternalAttributes } from "./semanticInternalAttributes";
 import { clock } from "./clock-api";
 
-export type TriggerTracerConfig =
+type TriggerTracerConfig =
   | {
       name: string;
       version: string;

@@ -43,13 +43,7 @@ import {
   UpdateEnvironmentVariableParams,
 } from "./types";
 
-export type {
-  CreateEnvironmentVariableParams,
-  ImportEnvironmentVariablesParams,
-  UpdateEnvironmentVariableParams,
-};
-
-export type TriggerOptions = {
+type TriggerOptions = {
   spanParentAsLink?: boolean;
 };
 

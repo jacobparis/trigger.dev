@@ -1,7 +1,7 @@
 import { calculateResetAt as calculateResetAtInternal } from "../../retry";
 import { FetchRetryOptions, type RetryOptions } from "../schemas";
 
-export const defaultRetryOptions = {
+const defaultRetryOptions = {
   maxAttempts: 3,
   factor: 2,
   minTimeoutInMs: 1000,
@@ -9,7 +9,7 @@ export const defaultRetryOptions = {
   randomize: true,
 } satisfies RetryOptions;
 
-export const defaultFetchRetryOptions = {
+const defaultFetchRetryOptions = {
   byStatus: {
     "429,408,409,5xx": {
       strategy: "backoff",
@@ -43,7 +43,7 @@ export function calculateNextRetryDelay(options: RetryOptions, attempt: number) 
   return Math.round(timeout);
 }
 
-export function calculateResetAt(
+function calculateResetAt(
   resets: string | undefined | null,
   format:
     | "unix_timestamp"

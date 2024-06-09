@@ -13,7 +13,7 @@ import {
 } from "./schemas";
 import { TaskResource } from "./resources";
 
-export const BackgroundWorkerServerMessages = z.discriminatedUnion("type", [
+const BackgroundWorkerServerMessages = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("EXECUTE_RUNS"),
     payloads: z.array(TaskRunExecutionPayload),
@@ -42,9 +42,9 @@ export const BackgroundWorkerServerMessages = z.discriminatedUnion("type", [
   }),
 ]);
 
-export type BackgroundWorkerServerMessages = z.infer<typeof BackgroundWorkerServerMessages>;
+type BackgroundWorkerServerMessages = z.infer<typeof BackgroundWorkerServerMessages>;
 
-export const serverWebsocketMessages = {
+const serverWebsocketMessages = {
   SERVER_READY: z.object({
     version: z.literal("v1").default("v1"),
     id: z.string(),
@@ -56,7 +56,7 @@ export const serverWebsocketMessages = {
   }),
 };
 
-export const BackgroundWorkerClientMessages = z.discriminatedUnion("type", [
+const BackgroundWorkerClientMessages = z.discriminatedUnion("type", [
   z.object({
     version: z.literal("v1").default("v1"),
     type: z.literal("TASK_RUN_COMPLETED"),
@@ -80,7 +80,7 @@ export const BackgroundWorkerClientMessages = z.discriminatedUnion("type", [
   }),
 ]);
 
-export type BackgroundWorkerClientMessages = z.infer<typeof BackgroundWorkerClientMessages>;
+type BackgroundWorkerClientMessages = z.infer<typeof BackgroundWorkerClientMessages>;
 
 export const BackgroundWorkerProperties = z.object({
   id: z.string(),
@@ -90,7 +90,7 @@ export const BackgroundWorkerProperties = z.object({
 
 export type BackgroundWorkerProperties = z.infer<typeof BackgroundWorkerProperties>;
 
-export const clientWebsocketMessages = {
+const clientWebsocketMessages = {
   READY_FOR_TASKS: z.object({
     version: z.literal("v1").default("v1"),
     backgroundWorkerId: z.string(),
@@ -107,7 +107,7 @@ export const clientWebsocketMessages = {
   }),
 };
 
-export const workerToChildMessages = {
+const workerToChildMessages = {
   EXECUTE_TASK_RUN: z.object({
     version: z.literal("v1").default("v1"),
     execution: TaskRunExecution,
@@ -132,7 +132,7 @@ export const workerToChildMessages = {
   }),
 };
 
-export const UncaughtExceptionMessage = z.object({
+const UncaughtExceptionMessage = z.object({
   version: z.literal("v1").default("v1"),
   error: z.object({
     name: z.string(),
@@ -142,7 +142,7 @@ export const UncaughtExceptionMessage = z.object({
   origin: z.enum(["uncaughtException", "unhandledRejection"]),
 });
 
-export const TaskMetadataFailedToParseData = z.object({
+const TaskMetadataFailedToParseData = z.object({
   version: z.literal("v1").default("v1"),
   tasks: z.unknown(),
   zodIssues: z.custom<z.ZodIssue[]>((v) => {
@@ -150,7 +150,7 @@ export const TaskMetadataFailedToParseData = z.object({
   }),
 });
 
-export const childToWorkerMessages = {
+const childToWorkerMessages = {
   TASK_RUN_COMPLETED: z.object({
     version: z.literal("v1").default("v1"),
     execution: TaskRunExecution,
@@ -307,7 +307,7 @@ export const ProdWorkerToChildMessages = {
   },
 };
 
-export const ProviderToPlatformMessages = {
+const ProviderToPlatformMessages = {
   LOG: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -346,7 +346,7 @@ export const ProviderToPlatformMessages = {
   },
 };
 
-export const PlatformToProviderMessages = {
+const PlatformToProviderMessages = {
   HEALTH: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -430,7 +430,7 @@ const CreateWorkerMessage = z.object({
   }),
 });
 
-export const CoordinatorToPlatformMessages = {
+const CoordinatorToPlatformMessages = {
   LOG: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -598,7 +598,7 @@ export const CoordinatorToPlatformMessages = {
   },
 };
 
-export const PlatformToCoordinatorMessages = {
+const PlatformToCoordinatorMessages = {
   RESUME_AFTER_DEPENDENCY: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -638,7 +638,7 @@ export const PlatformToCoordinatorMessages = {
   },
 };
 
-export const ClientToSharedQueueMessages = {
+const ClientToSharedQueueMessages = {
   READY_FOR_TASKS: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -660,7 +660,7 @@ export const ClientToSharedQueueMessages = {
   },
 };
 
-export const SharedQueueToClientMessages = {
+const SharedQueueToClientMessages = {
   SERVER_READY: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -683,7 +683,7 @@ const IndexTasksMessage = z.object({
   packageVersion: z.string(),
 });
 
-export const ProdWorkerToCoordinatorMessages = {
+const ProdWorkerToCoordinatorMessages = {
   LOG: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -857,7 +857,7 @@ export const ProdWorkerToCoordinatorMessages = {
 };
 
 // TODO: The coordinator can only safely use v1 worker messages, higher versions will need a new flag, e.g. SUPPORTS_VERSIONED_MESSAGES
-export const CoordinatorToProdWorkerMessages = {
+const CoordinatorToProdWorkerMessages = {
   RESUME_AFTER_DEPENDENCY: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -909,7 +909,7 @@ export const CoordinatorToProdWorkerMessages = {
   },
 };
 
-export const ProdWorkerSocketData = z.object({
+const ProdWorkerSocketData = z.object({
   contentHash: z.string(),
   projectRef: z.string(),
   envId: z.string(),

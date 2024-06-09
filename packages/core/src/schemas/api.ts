@@ -19,14 +19,14 @@ import { RunStatusSchema } from "./runs";
 import { JobRunStatusRecordSchema } from "./statuses";
 import { RequestFilterSchema } from "./requestFilter";
 
-export const UpdateTriggerSourceBodyV1Schema = z.object({
+const UpdateTriggerSourceBodyV1Schema = z.object({
   registeredEvents: z.array(z.string()),
   secret: z.string().optional(),
   data: SerializableJsonSchema.optional(),
 });
-export type UpdateTriggerSourceBodyV1 = z.infer<typeof UpdateTriggerSourceBodyV1Schema>;
+type UpdateTriggerSourceBodyV1 = z.infer<typeof UpdateTriggerSourceBodyV1Schema>;
 
-export const UpdateTriggerSourceBodyV2Schema = z.object({
+const UpdateTriggerSourceBodyV2Schema = z.object({
   secret: z.string().optional(),
   data: SerializableJsonSchema.optional(),
   options: z
@@ -35,9 +35,9 @@ export const UpdateTriggerSourceBodyV2Schema = z.object({
     })
     .and(z.record(z.string(), z.array(z.string())).optional()),
 });
-export type UpdateTriggerSourceBodyV2 = z.infer<typeof UpdateTriggerSourceBodyV2Schema>;
+type UpdateTriggerSourceBodyV2 = z.infer<typeof UpdateTriggerSourceBodyV2Schema>;
 
-export const UpdateWebhookBodySchema = z.discriminatedUnion("active", [
+const UpdateWebhookBodySchema = z.discriminatedUnion("active", [
   z.object({
     active: z.literal(false),
   }),
@@ -47,31 +47,31 @@ export const UpdateWebhookBodySchema = z.discriminatedUnion("active", [
   }),
 ]);
 
-export type UpdateWebhookBody = z.infer<typeof UpdateWebhookBodySchema>;
+type UpdateWebhookBody = z.infer<typeof UpdateWebhookBodySchema>;
 
-export const RegisterHTTPTriggerSourceBodySchema = z.object({
+const RegisterHTTPTriggerSourceBodySchema = z.object({
   type: z.literal("HTTP"),
   url: z.string().url(),
 });
 
-export const RegisterSMTPTriggerSourceBodySchema = z.object({
+const RegisterSMTPTriggerSourceBodySchema = z.object({
   type: z.literal("SMTP"),
 });
 
-export const RegisterSQSTriggerSourceBodySchema = z.object({
+const RegisterSQSTriggerSourceBodySchema = z.object({
   type: z.literal("SQS"),
 });
 
-export const RegisterSourceChannelBodySchema = z.discriminatedUnion("type", [
+const RegisterSourceChannelBodySchema = z.discriminatedUnion("type", [
   RegisterHTTPTriggerSourceBodySchema,
   RegisterSMTPTriggerSourceBodySchema,
   RegisterSQSTriggerSourceBodySchema,
 ]);
 
-export const REGISTER_WEBHOOK = "dev.trigger.webhook.register";
-export const DELIVER_WEBHOOK_REQUEST = "dev.trigger.webhook.deliver";
+const REGISTER_WEBHOOK = "dev.trigger.webhook.register";
+const DELIVER_WEBHOOK_REQUEST = "dev.trigger.webhook.deliver";
 
-export const RegisterWebhookSourceSchema = z.object({
+const RegisterWebhookSourceSchema = z.object({
   key: z.string(),
   params: z.any(),
   config: z.any(),
@@ -82,9 +82,9 @@ export const RegisterWebhookSourceSchema = z.object({
   clientId: z.string().optional(),
 });
 
-export type RegisterWebhookSource = z.infer<typeof RegisterWebhookSourceSchema>;
+type RegisterWebhookSource = z.infer<typeof RegisterWebhookSourceSchema>;
 
-export const RegisterWebhookPayloadSchema = z.object({
+const RegisterWebhookPayloadSchema = z.object({
   active: z.boolean(),
   params: z.any().optional(),
   config: z.object({
@@ -96,12 +96,12 @@ export const RegisterWebhookPayloadSchema = z.object({
   secret: z.string(),
 });
 
-export type RegisterWebhookPayload = z.infer<typeof RegisterWebhookPayloadSchema>;
+type RegisterWebhookPayload = z.infer<typeof RegisterWebhookPayloadSchema>;
 
-export const REGISTER_SOURCE_EVENT_V1 = "dev.trigger.source.register";
-export const REGISTER_SOURCE_EVENT_V2 = "dev.trigger.source.register.v2";
+const REGISTER_SOURCE_EVENT_V1 = "dev.trigger.source.register";
+const REGISTER_SOURCE_EVENT_V2 = "dev.trigger.source.register.v2";
 
-export const RegisterTriggerSourceSchema = z.object({
+const RegisterTriggerSourceSchema = z.object({
   key: z.string(),
   params: z.any(),
   active: z.boolean(),
@@ -111,16 +111,16 @@ export const RegisterTriggerSourceSchema = z.object({
   clientId: z.string().optional(),
 });
 
-export type RegisterTriggerSource = z.infer<typeof RegisterTriggerSourceSchema>;
+type RegisterTriggerSource = z.infer<typeof RegisterTriggerSourceSchema>;
 
 const SourceEventOptionSchema = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export type SourceEventOption = z.infer<typeof SourceEventOptionSchema>;
+type SourceEventOption = z.infer<typeof SourceEventOptionSchema>;
 
-export const RegisterSourceEventSchemaV1 = z.object({
+const RegisterSourceEventSchemaV1 = z.object({
   /** The id of the source */
   id: z.string(),
   source: RegisterTriggerSourceSchema,
@@ -130,7 +130,7 @@ export const RegisterSourceEventSchemaV1 = z.object({
   dynamicTriggerId: z.string().optional(),
 });
 
-export type RegisterSourceEventV1 = z.infer<typeof RegisterSourceEventSchemaV1>;
+type RegisterSourceEventV1 = z.infer<typeof RegisterSourceEventSchemaV1>;
 
 const RegisteredOptionsDiffSchema = z.object({
   desired: z.array(z.string()),
@@ -138,7 +138,7 @@ const RegisteredOptionsDiffSchema = z.object({
   orphaned: z.array(z.string()),
 });
 
-export type RegisteredOptionsDiff = Prettify<z.infer<typeof RegisteredOptionsDiffSchema>>;
+type RegisteredOptionsDiff = Prettify<z.infer<typeof RegisteredOptionsDiffSchema>>;
 
 const RegisterSourceEventOptionsSchema = z
   .object({
@@ -146,9 +146,9 @@ const RegisterSourceEventOptionsSchema = z
   })
   .and(z.record(z.string(), RegisteredOptionsDiffSchema));
 
-export type RegisterSourceEventOptions = z.infer<typeof RegisterSourceEventOptionsSchema>;
+type RegisterSourceEventOptions = z.infer<typeof RegisterSourceEventOptionsSchema>;
 
-export const RegisterSourceEventSchemaV2 = z.object({
+const RegisterSourceEventSchemaV2 = z.object({
   /** The id of the source */
   id: z.string(),
   source: RegisterTriggerSourceSchema,
@@ -156,17 +156,17 @@ export const RegisterSourceEventSchemaV2 = z.object({
   dynamicTriggerId: z.string().optional(),
 });
 
-export type RegisterSourceEventV2 = z.infer<typeof RegisterSourceEventSchemaV2>;
+type RegisterSourceEventV2 = z.infer<typeof RegisterSourceEventSchemaV2>;
 
-export const TriggerSourceSchema = z.object({
+const TriggerSourceSchema = z.object({
   id: z.string(),
   key: z.string(),
 });
 
 const HttpSourceResponseMetadataSchema = DeserializedJsonSchema;
-export type HttpSourceResponseMetadata = z.infer<typeof HttpSourceResponseMetadataSchema>;
+type HttpSourceResponseMetadata = z.infer<typeof HttpSourceResponseMetadataSchema>;
 
-export const HandleTriggerSourceSchema = z.object({
+const HandleTriggerSourceSchema = z.object({
   key: z.string(),
   secret: z.string(),
   data: z.any(),
@@ -175,11 +175,11 @@ export const HandleTriggerSourceSchema = z.object({
   metadata: HttpSourceResponseMetadataSchema.optional(),
 });
 
-export type HandleTriggerSource = z.infer<typeof HandleTriggerSourceSchema>;
+type HandleTriggerSource = z.infer<typeof HandleTriggerSourceSchema>;
 
-export type TriggerSource = z.infer<typeof TriggerSourceSchema>;
+type TriggerSource = z.infer<typeof TriggerSourceSchema>;
 
-export const HttpSourceRequestHeadersSchema = z.object({
+const HttpSourceRequestHeadersSchema = z.object({
   "x-ts-key": z.string(),
   "x-ts-dynamic-id": z.string().optional(),
   "x-ts-secret": z.string(),
@@ -206,16 +206,16 @@ export const HttpSourceRequestHeadersSchema = z.object({
     }),
 });
 
-export type HttpSourceRequestHeaders = z.output<typeof HttpSourceRequestHeadersSchema>;
+type HttpSourceRequestHeaders = z.output<typeof HttpSourceRequestHeadersSchema>;
 
-export const HttpEndpointRequestHeadersSchema = z.object({
+const HttpEndpointRequestHeadersSchema = z.object({
   "x-ts-key": z.string(),
   "x-ts-http-url": z.string(),
   "x-ts-http-method": z.string(),
   "x-ts-http-headers": z.string().transform((s) => z.record(z.string()).parse(JSON.parse(s))),
 });
 
-export const WebhookSourceRequestHeadersSchema = z.object({
+const WebhookSourceRequestHeadersSchema = z.object({
   "x-ts-key": z.string(),
   "x-ts-dynamic-id": z.string().optional(),
   "x-ts-secret": z.string(),
@@ -225,60 +225,60 @@ export const WebhookSourceRequestHeadersSchema = z.object({
   "x-ts-http-headers": z.string().transform((s) => z.record(z.string()).parse(JSON.parse(s))),
 });
 
-export type WebhookSourceRequestHeaders = z.output<typeof WebhookSourceRequestHeadersSchema>;
+type WebhookSourceRequestHeaders = z.output<typeof WebhookSourceRequestHeadersSchema>;
 
-export const PongSuccessResponseSchema = z.object({
+const PongSuccessResponseSchema = z.object({
   ok: z.literal(true),
   triggerVersion: z.string().optional(),
   triggerSdkVersion: z.string().optional(),
 });
 
-export const PongErrorResponseSchema = z.object({
+const PongErrorResponseSchema = z.object({
   ok: z.literal(false),
   error: z.string(),
   triggerVersion: z.string().optional(),
   triggerSdkVersion: z.string().optional(),
 });
 
-export const PongResponseSchema = z.discriminatedUnion("ok", [
+const PongResponseSchema = z.discriminatedUnion("ok", [
   PongSuccessResponseSchema,
   PongErrorResponseSchema,
 ]);
 
-export type PongResponse = z.infer<typeof PongResponseSchema>;
+type PongResponse = z.infer<typeof PongResponseSchema>;
 
-export const ValidateSuccessResponseSchema = z.object({
+const ValidateSuccessResponseSchema = z.object({
   ok: z.literal(true),
   endpointId: z.string(),
   triggerVersion: z.string().optional(),
 });
 
-export const ValidateErrorResponseSchema = z.object({
+const ValidateErrorResponseSchema = z.object({
   ok: z.literal(false),
   error: z.string(),
   triggerVersion: z.string().optional(),
 });
 
-export const ValidateResponseSchema = z.discriminatedUnion("ok", [
+const ValidateResponseSchema = z.discriminatedUnion("ok", [
   ValidateSuccessResponseSchema,
   ValidateErrorResponseSchema,
 ]);
 
-export type ValidateResponse = z.infer<typeof ValidateResponseSchema>;
+type ValidateResponse = z.infer<typeof ValidateResponseSchema>;
 
-export const QueueOptionsSchema = z.object({
+const QueueOptionsSchema = z.object({
   name: z.string(),
   maxConcurrent: z.number().optional(),
 });
 
-export type QueueOptions = z.infer<typeof QueueOptionsSchema>;
+type QueueOptions = z.infer<typeof QueueOptionsSchema>;
 
-export const ConcurrencyLimitOptionsSchema = z.object({
+const ConcurrencyLimitOptionsSchema = z.object({
   id: z.string(),
   limit: z.number(),
 });
 
-export const JobMetadataSchema = z.object({
+const JobMetadataSchema = z.object({
   id: z.string(),
   name: z.string(),
   version: z.string(),
@@ -292,7 +292,7 @@ export const JobMetadataSchema = z.object({
   concurrencyLimit: ConcurrencyLimitOptionsSchema.or(z.number().int().positive()).optional(),
 });
 
-export type JobMetadata = z.infer<typeof JobMetadataSchema>;
+type JobMetadata = z.infer<typeof JobMetadataSchema>;
 
 const SourceMetadataV1Schema = z.object({
   version: z.literal("1"),
@@ -309,9 +309,9 @@ const SourceMetadataV1Schema = z.object({
     .optional(),
 });
 
-export type SourceMetadataV1 = z.infer<typeof SourceMetadataV1Schema>;
+type SourceMetadataV1 = z.infer<typeof SourceMetadataV1Schema>;
 
-export const SourceMetadataV2Schema = z.object({
+const SourceMetadataV2Schema = z.object({
   version: z.literal("2"),
   channel: z.enum(["HTTP", "SQS", "SMTP"]),
   integration: IntegrationConfigSchema,
@@ -326,7 +326,7 @@ export const SourceMetadataV2Schema = z.object({
     .optional(),
 });
 
-export type SourceMetadataV2 = z.infer<typeof SourceMetadataV2Schema>;
+type SourceMetadataV2 = z.infer<typeof SourceMetadataV2Schema>;
 
 const SourceMetadataSchema = z.preprocess(
   addMissingVersionField,
@@ -335,7 +335,7 @@ const SourceMetadataSchema = z.preprocess(
 
 type SourceMetadata = Prettify<z.infer<typeof SourceMetadataSchema>>;
 
-export const WebhookMetadataSchema = z.object({
+const WebhookMetadataSchema = z.object({
   key: z.string(),
   params: z.any(),
   config: z.record(z.array(z.string())),
@@ -345,17 +345,17 @@ export const WebhookMetadataSchema = z.object({
   }),
 });
 
-export type WebhookMetadata = z.infer<typeof WebhookMetadataSchema>;
+type WebhookMetadata = z.infer<typeof WebhookMetadataSchema>;
 
-export const WebhookContextMetadataSchema = z.object({
+const WebhookContextMetadataSchema = z.object({
   params: z.any(),
   config: z.record(z.string().array()),
   secret: z.string(),
 });
 
-export type WebhookContextMetadata = z.infer<typeof WebhookContextMetadataSchema>;
+type WebhookContextMetadata = z.infer<typeof WebhookContextMetadataSchema>;
 
-export const DynamicTriggerEndpointMetadataSchema = z.object({
+const DynamicTriggerEndpointMetadataSchema = z.object({
   id: z.string(),
   jobs: z.array(JobMetadataSchema.pick({ id: true, version: true })),
   registerSourceJob: z
@@ -366,7 +366,7 @@ export const DynamicTriggerEndpointMetadataSchema = z.object({
     .optional(),
 });
 
-export type DynamicTriggerEndpointMetadata = z.infer<typeof DynamicTriggerEndpointMetadataSchema>;
+type DynamicTriggerEndpointMetadata = z.infer<typeof DynamicTriggerEndpointMetadataSchema>;
 
 const HttpEndpointMetadataSchema = z.object({
   id: z.string(),
@@ -381,9 +381,9 @@ const HttpEndpointMetadataSchema = z.object({
   source: z.string(),
 });
 
-export type HttpEndpointMetadata = z.infer<typeof HttpEndpointMetadataSchema>;
+type HttpEndpointMetadata = z.infer<typeof HttpEndpointMetadataSchema>;
 
-export const IndexEndpointResponseSchema = z.object({
+const IndexEndpointResponseSchema = z.object({
   jobs: z.array(JobMetadataSchema),
   sources: z.array(SourceMetadataSchema),
   webhooks: z.array(WebhookMetadataSchema).optional(),
@@ -392,14 +392,14 @@ export const IndexEndpointResponseSchema = z.object({
   httpEndpoints: z.array(HttpEndpointMetadataSchema).optional(),
 });
 
-export type IndexEndpointResponse = z.infer<typeof IndexEndpointResponseSchema>;
+type IndexEndpointResponse = z.infer<typeof IndexEndpointResponseSchema>;
 
-export const EndpointIndexErrorSchema = z.object({
+const EndpointIndexErrorSchema = z.object({
   message: z.string(),
   raw: z.any().optional(),
 });
 
-export type EndpointIndexError = z.infer<typeof EndpointIndexErrorSchema>;
+type EndpointIndexError = z.infer<typeof EndpointIndexErrorSchema>;
 
 const IndexEndpointStatsSchema = z.object({
   jobs: z.number(),
@@ -411,16 +411,16 @@ const IndexEndpointStatsSchema = z.object({
   httpEndpoints: z.number().default(0),
 });
 
-export type IndexEndpointStats = z.infer<typeof IndexEndpointStatsSchema>;
+type IndexEndpointStats = z.infer<typeof IndexEndpointStatsSchema>;
 
-export function parseEndpointIndexStats(stats: unknown): IndexEndpointStats | undefined {
+function parseEndpointIndexStats(stats: unknown): IndexEndpointStats | undefined {
   if (stats === null || stats === undefined) {
     return;
   }
   return IndexEndpointStatsSchema.parse(stats);
 }
 
-export const GetEndpointIndexResponseSchema = z.discriminatedUnion("status", [
+const GetEndpointIndexResponseSchema = z.discriminatedUnion("status", [
   z.object({
     status: z.literal("PENDING"),
     updatedAt: z.coerce.date(),
@@ -441,25 +441,25 @@ export const GetEndpointIndexResponseSchema = z.discriminatedUnion("status", [
   }),
 ]);
 
-export type GetEndpointIndexResponse = z.infer<typeof GetEndpointIndexResponseSchema>;
+type GetEndpointIndexResponse = z.infer<typeof GetEndpointIndexResponseSchema>;
 
-export const EndpointHeadersSchema = z.object({
+const EndpointHeadersSchema = z.object({
   "trigger-version": z.string().optional(),
   "trigger-sdk-version": z.string().optional(),
 });
 
-export const ExecuteJobRunMetadataSchema = z.object({
+const ExecuteJobRunMetadataSchema = z.object({
   successSubscription: z.boolean().optional(),
   failedSubscription: z.boolean().optional(),
 });
 
-export const ExecuteJobHeadersSchema = EndpointHeadersSchema.extend({
+const ExecuteJobHeadersSchema = EndpointHeadersSchema.extend({
   "x-trigger-run-metadata": z
     .preprocess((val) => typeof val === "string" && JSON.parse(val), ExecuteJobRunMetadataSchema)
     .optional(),
 });
 
-export const RawEventSchema = z.object({
+const RawEventSchema = z.object({
   /** The `name` property must exactly match any subscriptions you want to
       trigger. */
   name: z.string(),
@@ -488,13 +488,13 @@ export const RawEventSchema = z.object({
   payloadType: z.union([z.literal("JSON"), z.literal("REQUEST")]).optional(),
 });
 
-export type RawEvent = z.infer<typeof RawEventSchema>;
+type RawEvent = z.infer<typeof RawEventSchema>;
 
 /** The event you wish to send to Trigger a Job */
-export type SendEvent = z.input<typeof RawEventSchema>;
+type SendEvent = z.input<typeof RawEventSchema>;
 
 /** The event that was sent */
-export const ApiEventLogSchema = z.object({
+const ApiEventLogSchema = z.object({
   /** The `id` of the event that was sent.
    */
   id: z.string(),
@@ -519,10 +519,10 @@ export const ApiEventLogSchema = z.object({
   cancelledAt: z.coerce.date().optional().nullable(),
 });
 
-export type ApiEventLog = z.infer<typeof ApiEventLogSchema>;
+type ApiEventLog = z.infer<typeof ApiEventLogSchema>;
 
 /** Options to control the delivery of the event */
-export const SendEventOptionsSchema = z.object({
+const SendEventOptionsSchema = z.object({
   /** An optional Date when you want the event to trigger Jobs. The event will
       be sent to the platform immediately but won't be acted upon until the
       specified time. */
@@ -536,26 +536,26 @@ export const SendEventOptionsSchema = z.object({
   accountId: z.string().optional(),
 });
 
-export const SendEventBodySchema = z.object({
+const SendEventBodySchema = z.object({
   event: RawEventSchema,
   options: SendEventOptionsSchema.optional(),
 });
 
-export const SendBulkEventsBodySchema = z.object({
+const SendBulkEventsBodySchema = z.object({
   events: RawEventSchema.array(),
   options: SendEventOptionsSchema.optional(),
 });
 
-export type SendEventBody = z.infer<typeof SendEventBodySchema>;
-export type SendEventOptions = z.infer<typeof SendEventOptionsSchema>;
+type SendEventBody = z.infer<typeof SendEventBodySchema>;
+type SendEventOptions = z.infer<typeof SendEventOptionsSchema>;
 
-export const DeliverEventResponseSchema = z.object({
+const DeliverEventResponseSchema = z.object({
   deliveredAt: z.string().datetime(),
 });
 
-export type DeliverEventResponse = z.infer<typeof DeliverEventResponseSchema>;
+type DeliverEventResponse = z.infer<typeof DeliverEventResponseSchema>;
 
-export const RuntimeEnvironmentTypeSchema = z.enum([
+const RuntimeEnvironmentTypeSchema = z.enum([
   "PRODUCTION",
   "STAGING",
   "DEVELOPMENT",
@@ -564,23 +564,23 @@ export const RuntimeEnvironmentTypeSchema = z.enum([
 
 export type RuntimeEnvironmentType = z.infer<typeof RuntimeEnvironmentTypeSchema>;
 
-export const RunSourceContextSchema = z.object({
+const RunSourceContextSchema = z.object({
   id: z.string(),
   metadata: z.any(),
 });
 
-export type RunSourceContext = z.infer<typeof RunSourceContextSchema>;
+type RunSourceContext = z.infer<typeof RunSourceContextSchema>;
 
-export const AutoYieldConfigSchema = z.object({
+const AutoYieldConfigSchema = z.object({
   startTaskThreshold: z.number(),
   beforeExecuteTaskThreshold: z.number(),
   beforeCompleteTaskThreshold: z.number(),
   afterCompleteTaskThreshold: z.number(),
 });
 
-export type AutoYieldConfig = z.infer<typeof AutoYieldConfigSchema>;
+type AutoYieldConfig = z.infer<typeof AutoYieldConfigSchema>;
 
-export const RunJobBodySchema = z.object({
+const RunJobBodySchema = z.object({
   event: ApiEventLogSchema,
   job: z.object({
     id: z.string(),
@@ -625,41 +625,41 @@ export const RunJobBodySchema = z.object({
   autoYieldConfig: AutoYieldConfigSchema.optional(),
 });
 
-export type RunJobBody = z.infer<typeof RunJobBodySchema>;
+type RunJobBody = z.infer<typeof RunJobBodySchema>;
 
-export const RunJobErrorSchema = z.object({
+const RunJobErrorSchema = z.object({
   status: z.literal("ERROR"),
   error: ErrorWithStackSchema,
   task: TaskSchema.optional(),
 });
 
-export type RunJobError = z.infer<typeof RunJobErrorSchema>;
+type RunJobError = z.infer<typeof RunJobErrorSchema>;
 
-export const RunJobYieldExecutionErrorSchema = z.object({
+const RunJobYieldExecutionErrorSchema = z.object({
   status: z.literal("YIELD_EXECUTION"),
   key: z.string(),
 });
 
-export type RunJobYieldExecutionError = z.infer<typeof RunJobYieldExecutionErrorSchema>;
+type RunJobYieldExecutionError = z.infer<typeof RunJobYieldExecutionErrorSchema>;
 
-export const AutoYieldMetadataSchema = z.object({
+const AutoYieldMetadataSchema = z.object({
   location: z.string(),
   timeRemaining: z.number(),
   timeElapsed: z.number(),
   limit: z.number().optional(),
 });
 
-export type AutoYieldMetadata = z.infer<typeof AutoYieldMetadataSchema>;
+type AutoYieldMetadata = z.infer<typeof AutoYieldMetadataSchema>;
 
-export const RunJobAutoYieldExecutionErrorSchema = AutoYieldMetadataSchema.extend({
+const RunJobAutoYieldExecutionErrorSchema = AutoYieldMetadataSchema.extend({
   status: z.literal("AUTO_YIELD_EXECUTION"),
 });
 
-export type RunJobAutoYieldExecutionError = Prettify<
+type RunJobAutoYieldExecutionError = Prettify<
   z.infer<typeof RunJobAutoYieldExecutionErrorSchema>
 >;
 
-export const RunJobAutoYieldWithCompletedTaskExecutionErrorSchema = z.object({
+const RunJobAutoYieldWithCompletedTaskExecutionErrorSchema = z.object({
   status: z.literal("AUTO_YIELD_EXECUTION_WITH_COMPLETED_TASK"),
   id: z.string(),
   properties: z.array(DisplayPropertySchema).optional(),
@@ -667,62 +667,62 @@ export const RunJobAutoYieldWithCompletedTaskExecutionErrorSchema = z.object({
   data: AutoYieldMetadataSchema,
 });
 
-export type RunJobAutoYieldWithCompletedTaskExecutionError = z.infer<
+type RunJobAutoYieldWithCompletedTaskExecutionError = z.infer<
   typeof RunJobAutoYieldWithCompletedTaskExecutionErrorSchema
 >;
 
-export const RunJobAutoYieldRateLimitErrorSchema = z.object({
+const RunJobAutoYieldRateLimitErrorSchema = z.object({
   status: z.literal("AUTO_YIELD_RATE_LIMIT"),
   reset: z.coerce.number(),
 });
 
-export type RunJobAutoYieldRateLimitError = z.infer<typeof RunJobAutoYieldRateLimitErrorSchema>;
+type RunJobAutoYieldRateLimitError = z.infer<typeof RunJobAutoYieldRateLimitErrorSchema>;
 
-export const RunJobInvalidPayloadErrorSchema = z.object({
+const RunJobInvalidPayloadErrorSchema = z.object({
   status: z.literal("INVALID_PAYLOAD"),
   errors: z.array(SchemaErrorSchema),
 });
 
-export type RunJobInvalidPayloadError = z.infer<typeof RunJobInvalidPayloadErrorSchema>;
+type RunJobInvalidPayloadError = z.infer<typeof RunJobInvalidPayloadErrorSchema>;
 
-export const RunJobUnresolvedAuthErrorSchema = z.object({
+const RunJobUnresolvedAuthErrorSchema = z.object({
   status: z.literal("UNRESOLVED_AUTH_ERROR"),
   issues: z.record(z.object({ id: z.string(), error: z.string() })),
 });
 
-export type RunJobUnresolvedAuthError = z.infer<typeof RunJobUnresolvedAuthErrorSchema>;
+type RunJobUnresolvedAuthError = z.infer<typeof RunJobUnresolvedAuthErrorSchema>;
 
-export const RunJobResumeWithTaskSchema = z.object({
+const RunJobResumeWithTaskSchema = z.object({
   status: z.literal("RESUME_WITH_TASK"),
   task: TaskSchema,
 });
 
-export type RunJobResumeWithTask = z.infer<typeof RunJobResumeWithTaskSchema>;
+type RunJobResumeWithTask = z.infer<typeof RunJobResumeWithTaskSchema>;
 
-export const RunJobRetryWithTaskSchema = z.object({
+const RunJobRetryWithTaskSchema = z.object({
   status: z.literal("RETRY_WITH_TASK"),
   task: TaskSchema,
   error: ErrorWithStackSchema,
   retryAt: z.coerce.date(),
 });
 
-export type RunJobRetryWithTask = z.infer<typeof RunJobRetryWithTaskSchema>;
+type RunJobRetryWithTask = z.infer<typeof RunJobRetryWithTaskSchema>;
 
-export const RunJobCanceledWithTaskSchema = z.object({
+const RunJobCanceledWithTaskSchema = z.object({
   status: z.literal("CANCELED"),
   task: TaskSchema,
 });
 
-export type RunJobCanceledWithTask = z.infer<typeof RunJobCanceledWithTaskSchema>;
+type RunJobCanceledWithTask = z.infer<typeof RunJobCanceledWithTaskSchema>;
 
-export const RunJobSuccessSchema = z.object({
+const RunJobSuccessSchema = z.object({
   status: z.literal("SUCCESS"),
   output: DeserializedJsonSchema.optional(),
 });
 
-export type RunJobSuccess = z.infer<typeof RunJobSuccessSchema>;
+type RunJobSuccess = z.infer<typeof RunJobSuccessSchema>;
 
-export const RunJobErrorResponseSchema = z.union([
+const RunJobErrorResponseSchema = z.union([
   RunJobAutoYieldExecutionErrorSchema,
   RunJobAutoYieldWithCompletedTaskExecutionErrorSchema,
   RunJobYieldExecutionErrorSchema,
@@ -735,17 +735,17 @@ export const RunJobErrorResponseSchema = z.union([
   RunJobCanceledWithTaskSchema,
 ]);
 
-export type RunJobErrorResponse = z.infer<typeof RunJobErrorResponseSchema>;
+type RunJobErrorResponse = z.infer<typeof RunJobErrorResponseSchema>;
 
-export const RunJobResumeWithParallelTaskSchema = z.object({
+const RunJobResumeWithParallelTaskSchema = z.object({
   status: z.literal("RESUME_WITH_PARALLEL_TASK"),
   task: TaskSchema,
   childErrors: z.array(RunJobErrorResponseSchema),
 });
 
-export type RunJobResumeWithParallelTask = z.infer<typeof RunJobResumeWithParallelTaskSchema>;
+type RunJobResumeWithParallelTask = z.infer<typeof RunJobResumeWithParallelTaskSchema>;
 
-export const RunJobResponseSchema = z.discriminatedUnion("status", [
+const RunJobResponseSchema = z.discriminatedUnion("status", [
   RunJobAutoYieldExecutionErrorSchema,
   RunJobAutoYieldWithCompletedTaskExecutionErrorSchema,
   RunJobYieldExecutionErrorSchema,
@@ -760,9 +760,9 @@ export const RunJobResponseSchema = z.discriminatedUnion("status", [
   RunJobSuccessSchema,
 ]);
 
-export type RunJobResponse = z.infer<typeof RunJobResponseSchema>;
+type RunJobResponse = z.infer<typeof RunJobResponseSchema>;
 
-export const PreprocessRunBodySchema = z.object({
+const PreprocessRunBodySchema = z.object({
   event: ApiEventLogSchema,
   job: z.object({
     id: z.string(),
@@ -790,14 +790,14 @@ export const PreprocessRunBodySchema = z.object({
     .optional(),
 });
 
-export type PreprocessRunBody = z.infer<typeof PreprocessRunBodySchema>;
+type PreprocessRunBody = z.infer<typeof PreprocessRunBodySchema>;
 
-export const PreprocessRunResponseSchema = z.object({
+const PreprocessRunResponseSchema = z.object({
   abort: z.boolean(),
   properties: z.array(DisplayPropertySchema).optional(),
 });
 
-export type PreprocessRunResponse = z.infer<typeof PreprocessRunResponseSchema>;
+type PreprocessRunResponse = z.infer<typeof PreprocessRunResponseSchema>;
 
 const CreateRunResponseOkSchema = z.object({
   ok: z.literal(true),
@@ -811,12 +811,12 @@ const CreateRunResponseErrorSchema = z.object({
   error: z.string(),
 });
 
-export const CreateRunResponseBodySchema = z.discriminatedUnion("ok", [
+const CreateRunResponseBodySchema = z.discriminatedUnion("ok", [
   CreateRunResponseOkSchema,
   CreateRunResponseErrorSchema,
 ]);
 
-export type CreateRunResponseBody = z.infer<typeof CreateRunResponseBodySchema>;
+type CreateRunResponseBody = z.infer<typeof CreateRunResponseBodySchema>;
 
 export const RedactStringSchema = z.object({
   __redactedString: z.literal(true),
@@ -824,20 +824,20 @@ export const RedactStringSchema = z.object({
   interpolations: z.array(z.string()),
 });
 
-export type RedactString = z.infer<typeof RedactStringSchema>;
+type RedactString = z.infer<typeof RedactStringSchema>;
 
-export const LogMessageSchema = z.object({
+const LogMessageSchema = z.object({
   level: z.enum(["DEBUG", "INFO", "WARN", "ERROR"]),
   message: z.string(),
   data: SerializableJsonSchema.optional(),
 });
 
-export type LogMessage = z.infer<typeof LogMessageSchema>;
+type LogMessage = z.infer<typeof LogMessageSchema>;
 
-export type ClientTask = z.infer<typeof TaskSchema>;
-export type CachedTask = z.infer<typeof CachedTaskSchema>;
+type ClientTask = z.infer<typeof TaskSchema>;
+type CachedTask = z.infer<typeof CachedTaskSchema>;
 
-export const RedactSchema = z.object({
+const RedactSchema = z.object({
   paths: z.array(z.string()),
 });
 
@@ -856,7 +856,7 @@ export const RetryOptionsSchema = z.object({
 
 export type RetryOptions = z.infer<typeof RetryOptionsSchema>;
 
-export const RunTaskOptionsSchema = z.object({
+const RunTaskOptionsSchema = z.object({
   /** The name of the Task is required. This is displayed on the Task in the logs. */
   name: z.string().optional(),
   /** The Task will wait and only start at the specified Date  */
@@ -897,21 +897,21 @@ export const RunTaskOptionsSchema = z.object({
   parallel: z.boolean().optional(),
 });
 
-export type RunTaskOptions = z.input<typeof RunTaskOptionsSchema>;
+type RunTaskOptions = z.input<typeof RunTaskOptionsSchema>;
 
-export type OverridableRunTaskOptions = Pick<
+type OverridableRunTaskOptions = Pick<
   RunTaskOptions,
   "retry" | "delayUntil" | "description"
 >;
 
-export const RunTaskBodyInputSchema = RunTaskOptionsSchema.extend({
+const RunTaskBodyInputSchema = RunTaskOptionsSchema.extend({
   idempotencyKey: z.string(),
   parentId: z.string().optional(),
 });
 
-export type RunTaskBodyInput = z.infer<typeof RunTaskBodyInputSchema>;
+type RunTaskBodyInput = z.infer<typeof RunTaskBodyInputSchema>;
 
-export const RunTaskBodyOutputSchema = RunTaskBodyInputSchema.extend({
+const RunTaskBodyOutputSchema = RunTaskBodyInputSchema.extend({
   properties: z.array(DisplayPropertySchema.partial()).optional(),
   params: DeserializedJsonSchema.optional().nullable(),
   callback: z
@@ -922,9 +922,9 @@ export const RunTaskBodyOutputSchema = RunTaskBodyInputSchema.extend({
     .optional(),
 });
 
-export type RunTaskBodyOutput = z.infer<typeof RunTaskBodyOutputSchema>;
+type RunTaskBodyOutput = z.infer<typeof RunTaskBodyOutputSchema>;
 
-export const RunTaskResponseWithCachedTasksBodySchema = z.object({
+const RunTaskResponseWithCachedTasksBodySchema = z.object({
   task: ServerTaskSchema,
   cachedTasks: z
     .object({
@@ -934,11 +934,11 @@ export const RunTaskResponseWithCachedTasksBodySchema = z.object({
     .optional(),
 });
 
-export type RunTaskResponseWithCachedTasksBody = z.infer<
+type RunTaskResponseWithCachedTasksBody = z.infer<
   typeof RunTaskResponseWithCachedTasksBodySchema
 >;
 
-export const CompleteTaskBodyInputSchema = RunTaskBodyInputSchema.pick({
+const CompleteTaskBodyInputSchema = RunTaskBodyInputSchema.pick({
   properties: true,
   description: true,
   params: true,
@@ -948,10 +948,10 @@ export const CompleteTaskBodyInputSchema = RunTaskBodyInputSchema.pick({
   ),
 });
 
-export type CompleteTaskBodyInput = Prettify<z.input<typeof CompleteTaskBodyInputSchema>>;
-export type CompleteTaskBodyOutput = z.infer<typeof CompleteTaskBodyInputSchema>;
+type CompleteTaskBodyInput = Prettify<z.input<typeof CompleteTaskBodyInputSchema>>;
+type CompleteTaskBodyOutput = z.infer<typeof CompleteTaskBodyInputSchema>;
 
-export const CompleteTaskBodyV2InputSchema = RunTaskBodyInputSchema.pick({
+const CompleteTaskBodyV2InputSchema = RunTaskBodyInputSchema.pick({
   properties: true,
   description: true,
   params: true,
@@ -959,15 +959,15 @@ export const CompleteTaskBodyV2InputSchema = RunTaskBodyInputSchema.pick({
   output: z.string().optional(),
 });
 
-export type CompleteTaskBodyV2Input = Prettify<z.input<typeof CompleteTaskBodyV2InputSchema>>;
+type CompleteTaskBodyV2Input = Prettify<z.input<typeof CompleteTaskBodyV2InputSchema>>;
 
-export const FailTaskBodyInputSchema = z.object({
+const FailTaskBodyInputSchema = z.object({
   error: ErrorWithStackSchema,
 });
 
-export type FailTaskBodyInput = z.infer<typeof FailTaskBodyInputSchema>;
+type FailTaskBodyInput = z.infer<typeof FailTaskBodyInputSchema>;
 
-export const NormalizedRequestSchema = z.object({
+const NormalizedRequestSchema = z.object({
   headers: z.record(z.string()),
   method: z.string(),
   query: z.record(z.string()),
@@ -975,53 +975,53 @@ export const NormalizedRequestSchema = z.object({
   body: z.any(),
 });
 
-export type NormalizedRequest = z.infer<typeof NormalizedRequestSchema>;
+type NormalizedRequest = z.infer<typeof NormalizedRequestSchema>;
 
-export const NormalizedResponseSchema = z.object({
+const NormalizedResponseSchema = z.object({
   status: z.number(),
   body: z.any(),
   headers: z.record(z.string()).optional(),
 });
 
-export type NormalizedResponse = z.infer<typeof NormalizedResponseSchema>;
+type NormalizedResponse = z.infer<typeof NormalizedResponseSchema>;
 
-export const HttpSourceResponseSchema = z.object({
+const HttpSourceResponseSchema = z.object({
   response: NormalizedResponseSchema,
   events: z.array(RawEventSchema),
   metadata: HttpSourceResponseMetadataSchema.optional(),
 });
 
-export const WebhookDeliveryResponseSchema = z.object({
+const WebhookDeliveryResponseSchema = z.object({
   response: NormalizedResponseSchema,
   verified: z.boolean(),
   error: z.string().optional(),
 });
 
-export type WebhookDeliveryResponse = z.infer<typeof WebhookDeliveryResponseSchema>;
+type WebhookDeliveryResponse = z.infer<typeof WebhookDeliveryResponseSchema>;
 
-export const RegisterTriggerBodySchemaV1 = z.object({
+const RegisterTriggerBodySchemaV1 = z.object({
   rule: EventRuleSchema,
   source: SourceMetadataV1Schema,
 });
 
-export type RegisterTriggerBodyV1 = z.infer<typeof RegisterTriggerBodySchemaV1>;
+type RegisterTriggerBodyV1 = z.infer<typeof RegisterTriggerBodySchemaV1>;
 
-export const RegisterTriggerBodySchemaV2 = z.object({
+const RegisterTriggerBodySchemaV2 = z.object({
   rule: EventRuleSchema,
   source: SourceMetadataV2Schema,
   accountId: z.string().optional(),
 });
 
-export type RegisterTriggerBodyV2 = z.infer<typeof RegisterTriggerBodySchemaV2>;
+type RegisterTriggerBodyV2 = z.infer<typeof RegisterTriggerBodySchemaV2>;
 
-export const InitializeTriggerBodySchema = z.object({
+const InitializeTriggerBodySchema = z.object({
   id: z.string(),
   params: z.any(),
   accountId: z.string().optional(),
   metadata: z.any().optional(),
 });
 
-export type InitializeTriggerBody = z.infer<typeof InitializeTriggerBodySchema>;
+type InitializeTriggerBody = z.infer<typeof InitializeTriggerBodySchema>;
 
 const RegisterCommonScheduleBodySchema = z.object({
   /** A unique id for the schedule. This is used to identify and unregister the schedule later. */
@@ -1032,52 +1032,52 @@ const RegisterCommonScheduleBodySchema = z.object({
   accountId: z.string().optional(),
 });
 
-export const RegisterIntervalScheduleBodySchema =
+const RegisterIntervalScheduleBodySchema =
   RegisterCommonScheduleBodySchema.merge(IntervalMetadataSchema);
 
-export type RegisterIntervalScheduleBody = z.infer<typeof RegisterIntervalScheduleBodySchema>;
+type RegisterIntervalScheduleBody = z.infer<typeof RegisterIntervalScheduleBodySchema>;
 
-export const InitializeCronScheduleBodySchema =
+const InitializeCronScheduleBodySchema =
   RegisterCommonScheduleBodySchema.merge(CronMetadataSchema);
 
-export type RegisterCronScheduleBody = z.infer<typeof InitializeCronScheduleBodySchema>;
+type RegisterCronScheduleBody = z.infer<typeof InitializeCronScheduleBodySchema>;
 
-export const RegisterScheduleBodySchema = z.discriminatedUnion("type", [
+const RegisterScheduleBodySchema = z.discriminatedUnion("type", [
   RegisterIntervalScheduleBodySchema,
   InitializeCronScheduleBodySchema,
 ]);
 
-export type RegisterScheduleBody = z.infer<typeof RegisterScheduleBodySchema>;
+type RegisterScheduleBody = z.infer<typeof RegisterScheduleBodySchema>;
 
-export const RegisterScheduleResponseBodySchema = z.object({
+const RegisterScheduleResponseBodySchema = z.object({
   id: z.string(),
   schedule: ScheduleMetadataSchema,
   metadata: z.any(),
   active: z.boolean(),
 });
 
-export type RegisterScheduleResponseBody = z.infer<typeof RegisterScheduleResponseBodySchema>;
+type RegisterScheduleResponseBody = z.infer<typeof RegisterScheduleResponseBodySchema>;
 
-export const CreateExternalConnectionBodySchema = z.object({
+const CreateExternalConnectionBodySchema = z.object({
   accessToken: z.string(),
   type: z.enum(["oauth2"]),
   scopes: z.array(z.string()).optional(),
   metadata: z.any(),
 });
 
-export type CreateExternalConnectionBody = z.infer<typeof CreateExternalConnectionBodySchema>;
+type CreateExternalConnectionBody = z.infer<typeof CreateExternalConnectionBodySchema>;
 
-export const GetRunStatusesSchema = z.object({
+const GetRunStatusesSchema = z.object({
   run: z.object({ id: z.string(), status: RunStatusSchema, output: z.any().optional() }),
   statuses: z.array(JobRunStatusRecordSchema),
 });
-export type GetRunStatuses = z.infer<typeof GetRunStatusesSchema>;
+type GetRunStatuses = z.infer<typeof GetRunStatusesSchema>;
 
-export const InvokeJobResponseSchema = z.object({
+const InvokeJobResponseSchema = z.object({
   id: z.string(),
 });
 
-export const InvokeJobRequestBodySchema = z.object({
+const InvokeJobRequestBodySchema = z.object({
   payload: z.any(),
   context: z.any().optional(),
   options: z
@@ -1088,18 +1088,18 @@ export const InvokeJobRequestBodySchema = z.object({
     .optional(),
 });
 
-export type InvokeJobRequestBody = z.infer<typeof InvokeJobRequestBodySchema>;
+type InvokeJobRequestBody = z.infer<typeof InvokeJobRequestBodySchema>;
 
-export const InvokeOptionsSchema = z.object({
+const InvokeOptionsSchema = z.object({
   accountId: z.string().optional(),
   idempotencyKey: z.string().optional(),
   context: z.any().optional(),
   callbackUrl: z.string().optional(),
 });
 
-export type InvokeOptions = z.infer<typeof InvokeOptionsSchema>;
+type InvokeOptions = z.infer<typeof InvokeOptionsSchema>;
 
-export const EphemeralEventDispatcherRequestBodySchema = z.object({
+const EphemeralEventDispatcherRequestBodySchema = z.object({
   url: z.string(),
   name: z.string().or(z.array(z.string())),
   source: z.string().optional(),
@@ -1115,19 +1115,19 @@ export const EphemeralEventDispatcherRequestBodySchema = z.object({
     .default(3600),
 });
 
-export type EphemeralEventDispatcherRequestBody = z.infer<
+type EphemeralEventDispatcherRequestBody = z.infer<
   typeof EphemeralEventDispatcherRequestBodySchema
 >;
 
-export const EphemeralEventDispatcherResponseBodySchema = z.object({
+const EphemeralEventDispatcherResponseBodySchema = z.object({
   id: z.string(),
 });
 
-export type EphemeralEventDispatcherResponseBody = z.infer<
+type EphemeralEventDispatcherResponseBody = z.infer<
   typeof EphemeralEventDispatcherResponseBodySchema
 >;
 
-export const KeyValueStoreResponseBodySchema = z.discriminatedUnion("action", [
+const KeyValueStoreResponseBodySchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("DELETE"),
     key: z.string(),
@@ -1150,4 +1150,4 @@ export const KeyValueStoreResponseBodySchema = z.discriminatedUnion("action", [
   }),
 ]);
 
-export type KeyValueStoreResponseBody = z.infer<typeof KeyValueStoreResponseBodySchema>;
+type KeyValueStoreResponseBody = z.infer<typeof KeyValueStoreResponseBodySchema>;

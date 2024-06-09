@@ -11,7 +11,7 @@ export const TaskStatusSchema = z.enum([
   "CANCELED",
 ]);
 
-export type TaskStatus = z.infer<typeof TaskStatusSchema>;
+type TaskStatus = z.infer<typeof TaskStatusSchema>;
 
 export const TaskSchema = z.object({
   id: z.string(),
@@ -42,7 +42,7 @@ export const ServerTaskSchema = TaskSchema.extend({
   forceYield: z.boolean().optional().nullable(),
 });
 
-export type ServerTask = z.infer<typeof ServerTaskSchema>;
+type ServerTask = z.infer<typeof ServerTaskSchema>;
 
 export const CachedTaskSchema = z.object({
   id: z.string(),

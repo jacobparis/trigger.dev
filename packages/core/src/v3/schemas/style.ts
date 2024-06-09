@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-export const PRIMARY_VARIANT = "primary";
+const PRIMARY_VARIANT = "primary";
 
 const Variant = z.enum([PRIMARY_VARIANT]);
-export type Variant = z.infer<typeof Variant>;
+type Variant = z.infer<typeof Variant>;
 
 const AccessoryItem = z.object({
   text: z.string(),
@@ -18,7 +18,7 @@ const Accessory = z.object({
 
 export type Accessory = z.infer<typeof Accessory>;
 
-export const TaskEventStyle = z
+const TaskEventStyle = z
   .object({
     icon: z.string().optional(),
     variant: Variant.optional(),
@@ -29,4 +29,4 @@ export const TaskEventStyle = z
     variant: undefined,
   });
 
-export type TaskEventStyle = z.infer<typeof TaskEventStyle>;
+type TaskEventStyle = z.infer<typeof TaskEventStyle>;

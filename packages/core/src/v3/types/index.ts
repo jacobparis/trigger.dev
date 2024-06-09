@@ -4,16 +4,16 @@ import { Prettify } from "./utils";
 export * from "./utils";
 export * from "./config";
 
-export type InitOutput = Record<string, any> | void | undefined;
+type InitOutput = Record<string, any> | void | undefined;
 
-export type RunFnParams<TInitOutput extends InitOutput> = Prettify<{
+type RunFnParams<TInitOutput extends InitOutput> = Prettify<{
   /** Metadata about the task, run, attempt, queue, environment, organization, project and batch.  */
   ctx: Context;
   /** If you use the `init` function, this will be whatever you returned. */
   init?: TInitOutput;
 }>;
 
-export type MiddlewareFnParams = Prettify<{
+type MiddlewareFnParams = Prettify<{
   ctx: Context;
   next: () => Promise<void>;
 }>;
@@ -26,20 +26,20 @@ export type StartFnParams = Prettify<{
   ctx: Context;
 }>;
 
-export type Context = TaskRunContext;
+type Context = TaskRunContext;
 
 export type SuccessFnParams<TInitOutput extends InitOutput> = RunFnParams<TInitOutput>;
 
 export type FailureFnParams<TInitOutput extends InitOutput> = RunFnParams<TInitOutput>;
 
-export type HandleErrorFnParams<TInitOutput extends InitOutput> = RunFnParams<TInitOutput> &
+type HandleErrorFnParams<TInitOutput extends InitOutput> = RunFnParams<TInitOutput> &
   Prettify<{
     retry?: RetryOptions;
     retryAt?: Date;
     retryDelayInMs?: number;
   }>;
 
-export type HandleErrorModificationOptions = {
+type HandleErrorModificationOptions = {
   skipRetrying?: boolean | undefined;
   retryAt?: Date | undefined;
   retryDelayInMs?: number | undefined;
@@ -47,13 +47,13 @@ export type HandleErrorModificationOptions = {
   error?: unknown;
 };
 
-export type HandleErrorResult =
+type HandleErrorResult =
   | undefined
   | void
   | HandleErrorModificationOptions
   | Promise<undefined | void | HandleErrorModificationOptions>;
 
-export type HandleErrorArgs = {
+type HandleErrorArgs = {
   ctx: Context;
   retry?: RetryOptions;
   retryAt?: Date;
@@ -71,19 +71,19 @@ type ResolveEnvironmentVariablesOptions = {
   override?: boolean;
 };
 
-export type ResolveEnvironmentVariablesResult =
+type ResolveEnvironmentVariablesResult =
   | ResolveEnvironmentVariablesOptions
   | Promise<void | undefined | ResolveEnvironmentVariablesOptions>
   | void
   | undefined;
 
-export type ResolveEnvironmentVariablesParams = {
+type ResolveEnvironmentVariablesParams = {
   projectRef: string;
   environment: "dev" | "staging" | "prod";
   env: Record<string, string>;
 };
 
-export type ResolveEnvironmentVariablesFunction = (
+type ResolveEnvironmentVariablesFunction = (
   params: ResolveEnvironmentVariablesParams
 ) => ResolveEnvironmentVariablesResult;
 

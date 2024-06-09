@@ -1,27 +1,27 @@
 import { z } from "zod";
 
-export const TaskRunBuiltInError = z.object({
+const TaskRunBuiltInError = z.object({
   type: z.literal("BUILT_IN_ERROR"),
   name: z.string(),
   message: z.string(),
   stackTrace: z.string(),
 });
 
-export type TaskRunBuiltInError = z.infer<typeof TaskRunBuiltInError>;
+type TaskRunBuiltInError = z.infer<typeof TaskRunBuiltInError>;
 
-export const TaskRunCustomErrorObject = z.object({
+const TaskRunCustomErrorObject = z.object({
   type: z.literal("CUSTOM_ERROR"),
   raw: z.string(),
 });
 
-export type TaskRunCustomErrorObject = z.infer<typeof TaskRunCustomErrorObject>;
+type TaskRunCustomErrorObject = z.infer<typeof TaskRunCustomErrorObject>;
 
-export const TaskRunStringError = z.object({
+const TaskRunStringError = z.object({
   type: z.literal("STRING_ERROR"),
   raw: z.string(),
 });
 
-export type TaskRunStringError = z.infer<typeof TaskRunStringError>;
+type TaskRunStringError = z.infer<typeof TaskRunStringError>;
 
 export const TaskRunErrorCodes = {
   COULD_NOT_FIND_EXECUTOR: "COULD_NOT_FIND_EXECUTOR",
@@ -38,7 +38,7 @@ export const TaskRunErrorCodes = {
   GRACEFUL_EXIT_TIMEOUT: "GRACEFUL_EXIT_TIMEOUT",
 } as const;
 
-export const TaskRunInternalError = z.object({
+const TaskRunInternalError = z.object({
   type: z.literal("INTERNAL_ERROR"),
   code: z.enum([
     "COULD_NOT_FIND_EXECUTOR",
@@ -58,7 +58,7 @@ export const TaskRunInternalError = z.object({
   message: z.string().optional(),
 });
 
-export type TaskRunInternalError = z.infer<typeof TaskRunInternalError>;
+type TaskRunInternalError = z.infer<typeof TaskRunInternalError>;
 
 export const TaskRunError = z.discriminatedUnion("type", [
   TaskRunBuiltInError,
@@ -69,7 +69,7 @@ export const TaskRunError = z.discriminatedUnion("type", [
 
 export type TaskRunError = z.infer<typeof TaskRunError>;
 
-export const TaskRun = z.object({
+const TaskRun = z.object({
   id: z.string(),
   payload: z.string(),
   payloadType: z.string(),
@@ -80,17 +80,17 @@ export const TaskRun = z.object({
   idempotencyKey: z.string().optional(),
 });
 
-export type TaskRun = z.infer<typeof TaskRun>;
+type TaskRun = z.infer<typeof TaskRun>;
 
-export const TaskRunExecutionTask = z.object({
+const TaskRunExecutionTask = z.object({
   id: z.string(),
   filePath: z.string(),
   exportName: z.string(),
 });
 
-export type TaskRunExecutionTask = z.infer<typeof TaskRunExecutionTask>;
+type TaskRunExecutionTask = z.infer<typeof TaskRunExecutionTask>;
 
-export const TaskRunExecutionAttempt = z.object({
+const TaskRunExecutionAttempt = z.object({
   id: z.string(),
   number: z.number(),
   startedAt: z.coerce.date(),
@@ -99,41 +99,41 @@ export const TaskRunExecutionAttempt = z.object({
   status: z.string(),
 });
 
-export type TaskRunExecutionAttempt = z.infer<typeof TaskRunExecutionAttempt>;
+type TaskRunExecutionAttempt = z.infer<typeof TaskRunExecutionAttempt>;
 
-export const TaskRunExecutionEnvironment = z.object({
+const TaskRunExecutionEnvironment = z.object({
   id: z.string(),
   slug: z.string(),
   type: z.enum(["PRODUCTION", "STAGING", "DEVELOPMENT", "PREVIEW"]),
 });
 
-export type TaskRunExecutionEnvironment = z.infer<typeof TaskRunExecutionEnvironment>;
+type TaskRunExecutionEnvironment = z.infer<typeof TaskRunExecutionEnvironment>;
 
-export const TaskRunExecutionOrganization = z.object({
+const TaskRunExecutionOrganization = z.object({
   id: z.string(),
   slug: z.string(),
   name: z.string(),
 });
 
-export type TaskRunExecutionOrganization = z.infer<typeof TaskRunExecutionOrganization>;
+type TaskRunExecutionOrganization = z.infer<typeof TaskRunExecutionOrganization>;
 
-export const TaskRunExecutionProject = z.object({
+const TaskRunExecutionProject = z.object({
   id: z.string(),
   ref: z.string(),
   slug: z.string(),
   name: z.string(),
 });
 
-export type TaskRunExecutionProject = z.infer<typeof TaskRunExecutionProject>;
+type TaskRunExecutionProject = z.infer<typeof TaskRunExecutionProject>;
 
-export const TaskRunExecutionQueue = z.object({
+const TaskRunExecutionQueue = z.object({
   id: z.string(),
   name: z.string(),
 });
 
-export type TaskRunExecutionQueue = z.infer<typeof TaskRunExecutionQueue>;
+type TaskRunExecutionQueue = z.infer<typeof TaskRunExecutionQueue>;
 
-export const TaskRunExecutionBatch = z.object({
+const TaskRunExecutionBatch = z.object({
   id: z.string(),
 });
 
@@ -184,14 +184,14 @@ export const TaskRunFailedExecutionResult = z.object({
 
 export type TaskRunFailedExecutionResult = z.infer<typeof TaskRunFailedExecutionResult>;
 
-export const TaskRunSuccessfulExecutionResult = z.object({
+const TaskRunSuccessfulExecutionResult = z.object({
   ok: z.literal(true),
   id: z.string(),
   output: z.string().optional(),
   outputType: z.string(),
 });
 
-export type TaskRunSuccessfulExecutionResult = z.infer<typeof TaskRunSuccessfulExecutionResult>;
+type TaskRunSuccessfulExecutionResult = z.infer<typeof TaskRunSuccessfulExecutionResult>;
 
 export const TaskRunExecutionResult = z.discriminatedUnion("ok", [
   TaskRunSuccessfulExecutionResult,

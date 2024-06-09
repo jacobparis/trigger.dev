@@ -8,9 +8,9 @@ const StringMatchSchema = z.union([
   z.array(z.union(stringPatternMatchers)),
 ]);
 
-export type StringMatch = z.infer<typeof StringMatchSchema>;
+type StringMatch = z.infer<typeof StringMatchSchema>;
 
-export const HTTPMethodUnionSchema = z.union([
+const HTTPMethodUnionSchema = z.union([
   z.literal("GET"),
   z.literal("POST"),
   z.literal("PUT"),
@@ -20,7 +20,7 @@ export const HTTPMethodUnionSchema = z.union([
   z.literal("OPTIONS"),
 ]);
 
-export type HttpMethod = z.infer<typeof HTTPMethodUnionSchema>;
+type HttpMethod = z.infer<typeof HTTPMethodUnionSchema>;
 
 /** Only Requests that match this filter will cause the `handler` function to run.
  * For example, you can use this to only respond to `GET` Requests. */
@@ -58,7 +58,7 @@ export const RequestFilterSchema = z.object({
   body: EventFilterSchema.optional(),
 });
 
-export type RequestFilter = z.infer<typeof RequestFilterSchema>;
+type RequestFilter = z.infer<typeof RequestFilterSchema>;
 
 /** Only Requests that match this filter will cause the `handler` function to run.
  * For example, you can use this to only respond to `GET` Requests. */
@@ -66,4 +66,4 @@ export const ResponseFilterSchema = RequestFilterSchema.omit({ method: true, que
   status: z.array(z.number()).optional(),
 });
 
-export type ResponseFilter = Prettify<z.infer<typeof ResponseFilterSchema>>;
+type ResponseFilter = Prettify<z.infer<typeof ResponseFilterSchema>>;

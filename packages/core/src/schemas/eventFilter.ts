@@ -75,4 +75,4 @@ export const EventRuleSchema = z.object({
   context: EventFilterSchema.optional(),
 });
 
-export type EventRule = z.infer<typeof EventRuleSchema>;
+type EventRule = z.infer<typeof EventRuleSchema>;

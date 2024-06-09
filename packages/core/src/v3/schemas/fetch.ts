@@ -3,7 +3,7 @@ import { RetryOptions } from "./schemas";
 import { EventFilter } from "./eventFilter";
 import { Prettify } from "../types";
 
-export const FetchRetryHeadersStrategy = z.object({
+const FetchRetryHeadersStrategy = z.object({
   /** The `headers` strategy retries the request using info from the response headers. */
   strategy: z.literal("headers"),
   /** The header to use to determine the maximum number of times to retry the request. */
@@ -27,9 +27,9 @@ export const FetchRetryHeadersStrategy = z.object({
     .optional(),
 });
 
-export type FetchRetryHeadersStrategy = z.infer<typeof FetchRetryHeadersStrategy>;
+type FetchRetryHeadersStrategy = z.infer<typeof FetchRetryHeadersStrategy>;
 
-export const FetchRetryBackoffStrategy = RetryOptions.extend({
+const FetchRetryBackoffStrategy = RetryOptions.extend({
   /** The `backoff` strategy retries the request with an exponential backoff. */
   strategy: z.literal("backoff"),
   /** The event filter to use to determine if the request should be retried. */
@@ -37,31 +37,31 @@ export const FetchRetryBackoffStrategy = RetryOptions.extend({
 });
 
 /** The `backoff` strategy retries the request with an exponential backoff. */
-export type FetchRetryBackoffStrategy = z.infer<typeof FetchRetryBackoffStrategy>;
+type FetchRetryBackoffStrategy = z.infer<typeof FetchRetryBackoffStrategy>;
 
-export const FetchRetryStrategy = z.discriminatedUnion("strategy", [
+const FetchRetryStrategy = z.discriminatedUnion("strategy", [
   FetchRetryHeadersStrategy,
   FetchRetryBackoffStrategy,
 ]);
 
-export type FetchRetryStrategy = z.infer<typeof FetchRetryStrategy>;
+type FetchRetryStrategy = z.infer<typeof FetchRetryStrategy>;
 
-export const FetchRetryByStatusOptions = z.record(z.string(), FetchRetryStrategy);
+const FetchRetryByStatusOptions = z.record(z.string(), FetchRetryStrategy);
 
 /** An object where the key is a status code pattern and the value is a retrying strategy. Supported patterns are:
   - Specific status codes: 429
   - Ranges: 500-599
   - Wildcards: 2xx, 3xx, 4xx, 5xx 
   */
-export type FetchRetryByStatusOptions = Prettify<z.infer<typeof FetchRetryByStatusOptions>>;
+type FetchRetryByStatusOptions = Prettify<z.infer<typeof FetchRetryByStatusOptions>>;
 
-export const FetchTimeoutOptions = z.object({
+const FetchTimeoutOptions = z.object({
   /** The maximum time to wait for the request to complete. */
   durationInMs: z.number().optional(),
   retry: RetryOptions.optional(),
 });
 
-export type FetchTimeoutOptions = z.infer<typeof FetchTimeoutOptions>;
+type FetchTimeoutOptions = z.infer<typeof FetchTimeoutOptions>;
 
 export const FetchRetryOptions = z.object({
   /** The retrying strategy for specific status codes. */

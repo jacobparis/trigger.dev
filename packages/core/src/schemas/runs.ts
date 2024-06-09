@@ -23,7 +23,7 @@ export const RunStatusSchema = z.union([
   z.literal("WAITING_TO_EXECUTE"),
 ]);
 
-export const RunTaskSchema = z.object({
+const RunTaskSchema = z.object({
   /** The Task id */
   id: z.string(),
   /** The key that you defined when creating the Task, the first param in any task. */
@@ -42,7 +42,7 @@ export const RunTaskSchema = z.object({
   completedAt: z.coerce.date().nullable(),
 });
 
-export type RunTaskWithSubtasks = z.infer<typeof RunTaskSchema> & {
+type RunTaskWithSubtasks = z.infer<typeof RunTaskSchema> & {
   /** The subtasks of the task */
   subtasks?: RunTaskWithSubtasks[];
 };
@@ -60,14 +60,14 @@ const GetRunOptionsSchema = z.object({
   take: z.number().optional(),
 });
 
-export type GetRunOptions = z.infer<typeof GetRunOptionsSchema>;
+type GetRunOptions = z.infer<typeof GetRunOptionsSchema>;
 
 const GetRunOptionsWithTaskDetailsSchema = GetRunOptionsSchema.extend({
   /** If `true`, it returns the `params` and `output` of all tasks. @default false */
   taskdetails: z.boolean().optional(),
 });
 
-export type GetRunOptionsWithTaskDetails = z.infer<typeof GetRunOptionsWithTaskDetailsSchema>;
+type GetRunOptionsWithTaskDetails = z.infer<typeof GetRunOptionsWithTaskDetailsSchema>;
 
 const RunSchema = z.object({
   /** The Run id */
@@ -82,7 +82,7 @@ const RunSchema = z.object({
   completedAt: z.coerce.date().nullable(),
 });
 
-export const GetRunSchema = RunSchema.extend({
+const GetRunSchema = RunSchema.extend({
   /** The output of the run */
   output: z.any().optional(),
   /** The tasks from the run */
@@ -93,7 +93,7 @@ export const GetRunSchema = RunSchema.extend({
   nextCursor: z.string().optional(),
 });
 
-export type GetRun = Prettify<z.infer<typeof GetRunSchema>>;
+type GetRun = Prettify<z.infer<typeof GetRunSchema>>;
 
 const GetRunsOptionsSchema = z.object({
   /** You can use this to get more tasks, if there are more than are returned in a single batch @default undefined */
@@ -102,31 +102,31 @@ const GetRunsOptionsSchema = z.object({
   take: z.number().optional(),
 });
 
-export type GetRunsOptions = z.infer<typeof GetRunsOptionsSchema>;
+type GetRunsOptions = z.infer<typeof GetRunsOptionsSchema>;
 
-export const GetRunsSchema = z.object({
+const GetRunsSchema = z.object({
   /** The runs from the query */
   runs: RunSchema.array(),
   /** If there are more runs, you can use this to get them */
   nextCursor: z.string().optional(),
 });
 
-export type RunNotificationJobMetadata = { id: string; version: string };
-export type RunNotificationEnvMetadata = {
+type RunNotificationJobMetadata = { id: string; version: string };
+type RunNotificationEnvMetadata = {
   slug: string;
   id: string;
   type: RuntimeEnvironmentType;
 };
-export type RunNotificationOrgMetadata = { slug: string; id: string; title: string };
-export type RunNotificationProjectMetadata = { slug: string; id: string; name: string };
-export type RunNotificationAccountMetadata = { id: string; metadata?: any };
-export type RunNotificationInvocationMetadata<T = any> = {
+type RunNotificationOrgMetadata = { slug: string; id: string; title: string };
+type RunNotificationProjectMetadata = { slug: string; id: string; name: string };
+type RunNotificationAccountMetadata = { id: string; metadata?: any };
+type RunNotificationInvocationMetadata<T = any> = {
   id: string;
   context: any;
   timestamp: Date;
   payload: T;
 };
-export type RunNotificationRunMetadata = {
+type RunNotificationRunMetadata = {
   /** The Run id */
   id: string;
   /** The Run status */
@@ -175,7 +175,7 @@ type RunNotificationCommon<TPayload = any> = {
   invocation: RunNotificationInvocationMetadata<TPayload>;
 };
 
-export type SuccessfulRunNotification<TOutput, TPayload = any> = RunNotificationCommon<TPayload> & {
+type SuccessfulRunNotification<TOutput, TPayload = any> = RunNotificationCommon<TPayload> & {
   ok: true;
   /** The Run status */
   status: "SUCCESS";
@@ -183,7 +183,7 @@ export type SuccessfulRunNotification<TOutput, TPayload = any> = RunNotification
   output: TOutput;
 };
 
-export type FailedRunNotification<TPayload = any> = RunNotificationCommon<TPayload> & {
+type FailedRunNotification<TPayload = any> = RunNotificationCommon<TPayload> & {
   ok: false;
   /** The Run status */
   status: "FAILURE" | "TIMED_OUT" | "ABORTED" | "CANCELED" | "UNRESOLVED_AUTH" | "INVALID_PAYLOAD";
@@ -202,6 +202,6 @@ export type FailedRunNotification<TPayload = any> = RunNotificationCommon<TPaylo
   };
 };
 
-export type RunNotification<TOutput, TPayload = any> =
+type RunNotification<TOutput, TPayload = any> =
   | SuccessfulRunNotification<TOutput, TPayload>
   | FailedRunNotification<TPayload>;

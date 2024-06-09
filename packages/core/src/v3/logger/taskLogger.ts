@@ -11,7 +11,7 @@ export type LogLevel = "none" | "error" | "warn" | "info" | "debug" | "log";
 
 export const logLevels: Array<LogLevel> = ["none", "error", "warn", "info", "debug"];
 
-export type TaskLoggerConfig = {
+type TaskLoggerConfig = {
   logger: Logger;
   tracer: TriggerTracer;
   level: LogLevel;

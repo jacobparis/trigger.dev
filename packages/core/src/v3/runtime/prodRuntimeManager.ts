@@ -12,7 +12,7 @@ import { checkpointSafeTimeout, unboundedTimeout } from "../utils/timers";
 import { ZodIpcConnection } from "../zodIpc";
 import { RuntimeManager } from "./manager";
 
-export type ProdRuntimeManagerOptions = {
+type ProdRuntimeManagerOptions = {
   waitThresholdInMs?: number;
 };
 

@@ -3,14 +3,14 @@ import { EventFilterSchema, EventRuleSchema } from "./eventFilter";
 import { DisplayPropertySchema } from "./properties";
 import { ScheduleMetadataSchema } from "./schedules";
 
-export const EventExampleSchema = z.object({
+const EventExampleSchema = z.object({
   id: z.string(),
   icon: z.string().optional(),
   name: z.string(),
   payload: z.any(),
 });
 
-export type EventExample = z.infer<typeof EventExampleSchema>;
+type EventExample = z.infer<typeof EventExampleSchema>;
 
 export const EventSpecificationSchema = z.object({
   name: z.string().or(z.array(z.string())),
@@ -23,12 +23,12 @@ export const EventSpecificationSchema = z.object({
   examples: z.array(EventExampleSchema).optional(),
 });
 
-export const DynamicTriggerMetadataSchema = z.object({
+const DynamicTriggerMetadataSchema = z.object({
   type: z.literal("dynamic"),
   id: z.string(),
 });
 
-export const TriggerHelpSchema = z.object({
+const TriggerHelpSchema = z.object({
   noRuns: z
     .object({
       text: z.string(),
@@ -37,7 +37,7 @@ export const TriggerHelpSchema = z.object({
     .optional(),
 });
 
-export const StaticTriggerMetadataSchema = z.object({
+const StaticTriggerMetadataSchema = z.object({
   type: z.literal("static"),
   title: z.union([z.string(), z.array(z.string())]),
   properties: z.array(DisplayPropertySchema).optional(),
@@ -46,11 +46,11 @@ export const StaticTriggerMetadataSchema = z.object({
   help: TriggerHelpSchema.optional(),
 });
 
-export const InvokeTriggerMetadataSchema = z.object({
+const InvokeTriggerMetadataSchema = z.object({
   type: z.literal("invoke"),
 });
 
-export const ScheduledTriggerMetadataSchema = z.object({
+const ScheduledTriggerMetadataSchema = z.object({
   type: z.literal("scheduled"),
   schedule: ScheduleMetadataSchema,
 });
@@ -62,4 +62,4 @@ export const TriggerMetadataSchema = z.discriminatedUnion("type", [
   InvokeTriggerMetadataSchema,
 ]);
 
-export type TriggerMetadata = z.infer<typeof TriggerMetadataSchema>;
+type TriggerMetadata = z.infer<typeof TriggerMetadataSchema>;

@@ -3,7 +3,7 @@ export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
 
-export interface AsyncMap {
+interface AsyncMap {
   delete: (key: string) => Promise<boolean>;
   get: (key: string) => Promise<any>;
   has: (key: string) => Promise<boolean>;

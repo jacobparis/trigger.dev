@@ -3,15 +3,15 @@ import { BackgroundWorkerMetadata, ImageDetailsMetadata } from "./resources";
 import { QueueOptions } from "./schemas";
 import { SerializedError } from "../errors";
 
-export const WhoAmIResponseSchema = z.object({
+const WhoAmIResponseSchema = z.object({
   userId: z.string(),
   email: z.string().email(),
   dashboardUrl: z.string(),
 });
 
-export type WhoAmIResponse = z.infer<typeof WhoAmIResponseSchema>;
+type WhoAmIResponse = z.infer<typeof WhoAmIResponseSchema>;
 
-export const GetProjectResponseBody = z.object({
+const GetProjectResponseBody = z.object({
   id: z.string(),
   externalRef: z.string(),
   name: z.string(),
@@ -25,35 +25,35 @@ export const GetProjectResponseBody = z.object({
   }),
 });
 
-export type GetProjectResponseBody = z.infer<typeof GetProjectResponseBody>;
+type GetProjectResponseBody = z.infer<typeof GetProjectResponseBody>;
 
-export const GetProjectsResponseBody = z.array(GetProjectResponseBody);
+const GetProjectsResponseBody = z.array(GetProjectResponseBody);
 
-export type GetProjectsResponseBody = z.infer<typeof GetProjectsResponseBody>;
+type GetProjectsResponseBody = z.infer<typeof GetProjectsResponseBody>;
 
-export const GetProjectEnvResponse = z.object({
+const GetProjectEnvResponse = z.object({
   apiKey: z.string(),
   name: z.string(),
   apiUrl: z.string(),
 });
 
-export type GetProjectEnvResponse = z.infer<typeof GetProjectEnvResponse>;
+type GetProjectEnvResponse = z.infer<typeof GetProjectEnvResponse>;
 
-export const CreateBackgroundWorkerRequestBody = z.object({
+const CreateBackgroundWorkerRequestBody = z.object({
   localOnly: z.boolean(),
   metadata: BackgroundWorkerMetadata,
   supportsLazyAttempts: z.boolean().optional(),
 });
 
-export type CreateBackgroundWorkerRequestBody = z.infer<typeof CreateBackgroundWorkerRequestBody>;
+type CreateBackgroundWorkerRequestBody = z.infer<typeof CreateBackgroundWorkerRequestBody>;
 
-export const CreateBackgroundWorkerResponse = z.object({
+const CreateBackgroundWorkerResponse = z.object({
   id: z.string(),
   version: z.string(),
   contentHash: z.string(),
 });
 
-export type CreateBackgroundWorkerResponse = z.infer<typeof CreateBackgroundWorkerResponse>;
+type CreateBackgroundWorkerResponse = z.infer<typeof CreateBackgroundWorkerResponse>;
 
 export const TriggerTaskRequestBody = z.object({
   payload: z.any(),
@@ -94,7 +94,7 @@ export const BatchTriggerTaskResponse = z.object({
 
 export type BatchTriggerTaskResponse = z.infer<typeof BatchTriggerTaskResponse>;
 
-export const GetBatchResponseBody = z.object({
+const GetBatchResponseBody = z.object({
   id: z.string(),
   items: z.array(
     z.object({
@@ -105,41 +105,41 @@ export const GetBatchResponseBody = z.object({
   ),
 });
 
-export type GetBatchResponseBody = z.infer<typeof GetBatchResponseBody>;
+type GetBatchResponseBody = z.infer<typeof GetBatchResponseBody>;
 
-export const GetEnvironmentVariablesResponseBody = z.object({
+const GetEnvironmentVariablesResponseBody = z.object({
   variables: z.record(z.string()),
 });
 
-export type GetEnvironmentVariablesResponseBody = z.infer<
+type GetEnvironmentVariablesResponseBody = z.infer<
   typeof GetEnvironmentVariablesResponseBody
 >;
 
-export const StartDeploymentIndexingRequestBody = z.object({
+const StartDeploymentIndexingRequestBody = z.object({
   imageReference: z.string(),
   selfHosted: z.boolean().optional(),
 });
 
-export type StartDeploymentIndexingRequestBody = z.infer<typeof StartDeploymentIndexingRequestBody>;
+type StartDeploymentIndexingRequestBody = z.infer<typeof StartDeploymentIndexingRequestBody>;
 
-export const StartDeploymentIndexingResponseBody = z.object({
+const StartDeploymentIndexingResponseBody = z.object({
   id: z.string(),
   contentHash: z.string(),
 });
 
-export type StartDeploymentIndexingResponseBody = z.infer<
+type StartDeploymentIndexingResponseBody = z.infer<
   typeof StartDeploymentIndexingResponseBody
 >;
 
-export const ExternalBuildData = z.object({
+const ExternalBuildData = z.object({
   buildId: z.string(),
   buildToken: z.string(),
   projectId: z.string(),
 });
 
-export type ExternalBuildData = z.infer<typeof ExternalBuildData>;
+type ExternalBuildData = z.infer<typeof ExternalBuildData>;
 
-export const InitializeDeploymentResponseBody = z.object({
+const InitializeDeploymentResponseBody = z.object({
   id: z.string(),
   contentHash: z.string(),
   shortCode: z.string(),
@@ -149,22 +149,22 @@ export const InitializeDeploymentResponseBody = z.object({
   registryHost: z.string().optional(),
 });
 
-export type InitializeDeploymentResponseBody = z.infer<typeof InitializeDeploymentResponseBody>;
+type InitializeDeploymentResponseBody = z.infer<typeof InitializeDeploymentResponseBody>;
 
-export const InitializeDeploymentRequestBody = z.object({
+const InitializeDeploymentRequestBody = z.object({
   contentHash: z.string(),
   userId: z.string().optional(),
 });
 
-export type InitializeDeploymentRequestBody = z.infer<typeof InitializeDeploymentRequestBody>;
+type InitializeDeploymentRequestBody = z.infer<typeof InitializeDeploymentRequestBody>;
 
-export const DeploymentErrorData = z.object({
+const DeploymentErrorData = z.object({
   name: z.string(),
   message: z.string(),
   stack: z.string().optional(),
 });
 
-export const GetDeploymentResponseBody = z.object({
+const GetDeploymentResponseBody = z.object({
   id: z.string(),
   status: z.enum([
     "PENDING",
@@ -196,7 +196,7 @@ export const GetDeploymentResponseBody = z.object({
     .optional(),
 });
 
-export type GetDeploymentResponseBody = z.infer<typeof GetDeploymentResponseBody>;
+type GetDeploymentResponseBody = z.infer<typeof GetDeploymentResponseBody>;
 
 export const CreateUploadPayloadUrlResponseBody = z.object({
   presignedUrl: z.string(),
@@ -216,7 +216,7 @@ export const CanceledRunResponse = z.object({
 
 export type CanceledRunResponse = z.infer<typeof CanceledRunResponse>;
 
-export const ScheduledTaskPayload = z.object({
+const ScheduledTaskPayload = z.object({
   /** The schedule id associated with this run (you can have many schedules for the same task).
     You can use this to remove the schedule, update it, etc */
   scheduleId: z.string(),
@@ -234,7 +234,7 @@ export const ScheduledTaskPayload = z.object({
   upcoming: z.array(z.date()),
 });
 
-export type ScheduledTaskPayload = z.infer<typeof ScheduledTaskPayload>;
+type ScheduledTaskPayload = z.infer<typeof ScheduledTaskPayload>;
 
 export const CreateScheduleOptions = z.object({
   /** The id of the task you want to attach to. */
@@ -273,13 +273,13 @@ export const UpdateScheduleOptions = CreateScheduleOptions;
 
 export type UpdateScheduleOptions = z.infer<typeof UpdateScheduleOptions>;
 
-export const ScheduleGenerator = z.object({
+const ScheduleGenerator = z.object({
   type: z.literal("CRON"),
   expression: z.string(),
   description: z.string(),
 });
 
-export type ScheduleGenerator = z.infer<typeof ScheduleGenerator>;
+type ScheduleGenerator = z.infer<typeof ScheduleGenerator>;
 
 export const ScheduleObject = z.object({
   id: z.string(),
@@ -351,7 +351,7 @@ export const RunStatus = z.enum([
 
 export type RunStatus = z.infer<typeof RunStatus>;
 
-export const AttemptStatus = z.enum([
+const AttemptStatus = z.enum([
   "PENDING",
   "EXECUTING",
   "PAUSED",
@@ -360,24 +360,24 @@ export const AttemptStatus = z.enum([
   "CANCELED",
 ]);
 
-export type AttemptStatus = z.infer<typeof AttemptStatus>;
+type AttemptStatus = z.infer<typeof AttemptStatus>;
 
-export const RunEnvironmentDetails = z.object({
+const RunEnvironmentDetails = z.object({
   id: z.string(),
   name: z.string(),
   user: z.string().optional(),
 });
 
-export type RunEnvironmentDetails = z.infer<typeof RunEnvironmentDetails>;
+type RunEnvironmentDetails = z.infer<typeof RunEnvironmentDetails>;
 
-export const RunScheduleDetails = z.object({
+const RunScheduleDetails = z.object({
   id: z.string(),
   externalId: z.string().optional(),
   deduplicationKey: z.string().optional(),
   generator: ScheduleGenerator,
 });
 
-export type RunScheduleDetails = z.infer<typeof RunScheduleDetails>;
+type RunScheduleDetails = z.infer<typeof RunScheduleDetails>;
 
 const CommonRunFields = {
   id: z.string(),
@@ -427,7 +427,7 @@ export const ListRunResponseItem = z.object({
 
 export type ListRunResponseItem = z.infer<typeof ListRunResponseItem>;
 
-export const ListRunResponse = z.object({
+const ListRunResponse = z.object({
   data: z.array(ListRunResponseItem),
   pagination: z.object({
     next: z.string().optional(),
@@ -435,7 +435,7 @@ export const ListRunResponse = z.object({
   }),
 });
 
-export type ListRunResponse = z.infer<typeof ListRunResponse>;
+type ListRunResponse = z.infer<typeof ListRunResponse>;
 
 export const CreateEnvironmentVariableRequestBody = z.object({
   name: z.string(),
@@ -454,12 +454,12 @@ export type UpdateEnvironmentVariableRequestBody = z.infer<
   typeof UpdateEnvironmentVariableRequestBody
 >;
 
-export const ImportEnvironmentVariablesRequestBody = z.object({
+const ImportEnvironmentVariablesRequestBody = z.object({
   variables: z.record(z.string()),
   override: z.boolean().optional(),
 });
 
-export type ImportEnvironmentVariablesRequestBody = z.infer<
+type ImportEnvironmentVariablesRequestBody = z.infer<
   typeof ImportEnvironmentVariablesRequestBody
 >;
 
@@ -475,7 +475,7 @@ export const EnvironmentVariableValue = z.object({
 
 export type EnvironmentVariableValue = z.infer<typeof EnvironmentVariableValue>;
 
-export const EnvironmentVariable = z.object({
+const EnvironmentVariable = z.object({
   name: z.string(),
   value: z.string(),
 });

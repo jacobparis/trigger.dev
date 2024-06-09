@@ -8,9 +8,9 @@ export const OTEL_SPAN_EVENT_COUNT_LIMIT = 10;
 export const OTEL_LINK_COUNT_LIMIT = 2;
 export const OTEL_ATTRIBUTE_PER_LINK_COUNT_LIMIT = 10;
 export const OTEL_ATTRIBUTE_PER_EVENT_COUNT_LIMIT = 10;
-export const OFFLOAD_IO_PACKET_LENGTH_LIMIT = 128 * 1024;
+const OFFLOAD_IO_PACKET_LENGTH_LIMIT = 128 * 1024;
 
-export function imposeAttributeLimits(attributes: Attributes): Attributes {
+function imposeAttributeLimits(attributes: Attributes): Attributes {
   const newAttributes: Attributes = {};
 
   for (const [key, value] of Object.entries(attributes)) {

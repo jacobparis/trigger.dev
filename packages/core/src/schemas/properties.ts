@@ -12,9 +12,9 @@ export const DisplayPropertySchema = z.object({
   imageUrl: z.array(z.string()).optional(),
 });
 
-export const DisplayPropertiesSchema = z.array(DisplayPropertySchema);
+const DisplayPropertiesSchema = z.array(DisplayPropertySchema);
 
-export type DisplayProperty = z.infer<typeof DisplayPropertySchema>;
+type DisplayProperty = z.infer<typeof DisplayPropertySchema>;
 
 export const StyleSchema = z.object({
   /** The style, `normal` or `minimal` */
@@ -23,5 +23,5 @@ export const StyleSchema = z.object({
   variant: z.string().optional(),
 });
 
-export type Style = z.infer<typeof StyleSchema>;
-export type StyleName = Style["style"];
+type Style = z.infer<typeof StyleSchema>;
+type StyleName = Style["style"];

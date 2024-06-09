@@ -9,17 +9,17 @@ import { TaskRunExecution } from "./common";
 export const EnvironmentType = z.enum(["PRODUCTION", "STAGING", "DEVELOPMENT", "PREVIEW"]);
 export type EnvironmentType = z.infer<typeof EnvironmentType>;
 
-export const MachineCpu = z
+const MachineCpu = z
   .union([z.literal(0.25), z.literal(0.5), z.literal(1), z.literal(2), z.literal(4)])
   .default(0.5);
 
-export type MachineCpu = z.infer<typeof MachineCpu>;
+type MachineCpu = z.infer<typeof MachineCpu>;
 
-export const MachineMemory = z
+const MachineMemory = z
   .union([z.literal(0.25), z.literal(0.5), z.literal(1), z.literal(2), z.literal(4), z.literal(8)])
   .default(1);
 
-export type MachineMemory = z.infer<typeof MachineMemory>;
+type MachineMemory = z.infer<typeof MachineMemory>;
 
 export const Machine = z.object({
   version: z.literal("v1").default("v1"),
@@ -55,7 +55,7 @@ export const ProdTaskRunExecutionPayload = z.object({
 
 export type ProdTaskRunExecutionPayload = z.infer<typeof ProdTaskRunExecutionPayload>;
 
-export const FixedWindowRateLimit = z.object({
+const FixedWindowRateLimit = z.object({
   type: z.literal("fixed-window"),
   limit: z.number(),
   window: z.union([
@@ -71,7 +71,7 @@ export const FixedWindowRateLimit = z.object({
   ]),
 });
 
-export const SlidingWindowRateLimit = z.object({
+const SlidingWindowRateLimit = z.object({
   type: z.literal("sliding-window"),
   limit: z.number(),
   window: z.union([
@@ -87,12 +87,12 @@ export const SlidingWindowRateLimit = z.object({
   ]),
 });
 
-export const RateLimitOptions = z.discriminatedUnion("type", [
+const RateLimitOptions = z.discriminatedUnion("type", [
   FixedWindowRateLimit,
   SlidingWindowRateLimit,
 ]);
 
-export type RateLimitOptions = z.infer<typeof RateLimitOptions>;
+type RateLimitOptions = z.infer<typeof RateLimitOptions>;
 
 export const RetryOptions = z.object({
   /** The number of attempts before giving up */
@@ -189,11 +189,11 @@ export const TaskMetadataWithFilePath = z.object({
 
 export type TaskMetadataWithFilePath = z.infer<typeof TaskMetadataWithFilePath>;
 
-export const PostStartCauses = z.enum(["index", "create", "restore"]);
-export type PostStartCauses = z.infer<typeof PostStartCauses>;
+const PostStartCauses = z.enum(["index", "create", "restore"]);
+type PostStartCauses = z.infer<typeof PostStartCauses>;
 
-export const PreStopCauses = z.enum(["terminate"]);
-export type PreStopCauses = z.infer<typeof PreStopCauses>;
+const PreStopCauses = z.enum(["terminate"]);
+type PreStopCauses = z.infer<typeof PreStopCauses>;
 
 const RegexSchema = z.custom<RegExp>((val) => {
   try {
@@ -225,7 +225,7 @@ export const Config = z.object({
 });
 
 export type Config = z.infer<typeof Config>;
-export type ResolvedConfig = RequireKeys<
+type ResolvedConfig = RequireKeys<
   Config,
   "triggerDirectories" | "triggerUrl" | "projectDir" | "tsconfigPath"
 >;

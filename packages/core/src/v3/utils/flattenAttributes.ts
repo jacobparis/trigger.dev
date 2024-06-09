@@ -1,6 +1,6 @@
 import { Attributes } from "@opentelemetry/api";
 
-export const NULL_SENTINEL = "$@null((";
+const NULL_SENTINEL = "$@null((";
 
 export function flattenAttributes(
   obj: Record<string, unknown> | Array<unknown> | string | boolean | number | null | undefined,
@@ -130,7 +130,7 @@ export function unflattenAttributes(
   return result;
 }
 
-export function primitiveValueOrflattenedAttributes(
+function primitiveValueOrflattenedAttributes(
   obj: Record<string, unknown> | Array<unknown> | string | boolean | number | undefined,
   prefix: string | undefined
 ): Attributes | string | number | boolean | undefined {

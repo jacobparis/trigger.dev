@@ -13,4 +13,4 @@ export const SchemaErrorSchema = z.object({
   message: z.string(),
 });
 
-export type SchemaError = z.infer<typeof SchemaErrorSchema>;
+type SchemaError = z.infer<typeof SchemaErrorSchema>;

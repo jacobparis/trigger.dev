@@ -1,23 +1,23 @@
 import { z } from "zod";
 
-export const SCHEDULED_EVENT = "dev.trigger.scheduled";
+const SCHEDULED_EVENT = "dev.trigger.scheduled";
 
-export const ScheduledPayloadSchema = z.object({
+const ScheduledPayloadSchema = z.object({
   ts: z.coerce.date(),
   lastTimestamp: z.coerce.date().optional(),
 });
 
-export type ScheduledPayload = z.infer<typeof ScheduledPayloadSchema>;
+type ScheduledPayload = z.infer<typeof ScheduledPayloadSchema>;
 
-export const IntervalOptionsSchema = z.object({
+const IntervalOptionsSchema = z.object({
   /** The number of seconds for the interval. Min = 20, Max = 2_592_000 (30 days) */
   seconds: z.number().int().positive().min(20).max(2_592_000),
 });
 
 /** Interval options */
-export type IntervalOptions = z.infer<typeof IntervalOptionsSchema>;
+type IntervalOptions = z.infer<typeof IntervalOptionsSchema>;
 
-export const CronOptionsSchema = z.object({
+const CronOptionsSchema = z.object({
   /** A CRON expression that defines the schedule. A useful tool when writing CRON
     expressions is [crontab guru](https://crontab.guru). Note that the timezone
     used is UTC. */
@@ -25,7 +25,7 @@ export const CronOptionsSchema = z.object({
 });
 
 /** The options for a `cronTrigger()` */
-export type CronOptions = z.infer<typeof CronOptionsSchema>;
+type CronOptions = z.infer<typeof CronOptionsSchema>;
 
 export const CronMetadataSchema = z.object({
   type: z.literal("cron"),
@@ -35,7 +35,7 @@ export const CronMetadataSchema = z.object({
   metadata: z.any(),
 });
 
-export type CronMetadata = z.infer<typeof CronMetadataSchema>;
+type CronMetadata = z.infer<typeof CronMetadataSchema>;
 
 export const IntervalMetadataSchema = z.object({
   /** An interval reoccurs at the specified number of seconds  */
@@ -48,14 +48,14 @@ export const IntervalMetadataSchema = z.object({
   metadata: z.any(),
 });
 
-export type IntervalMetadata = z.infer<typeof IntervalMetadataSchema>;
+type IntervalMetadata = z.infer<typeof IntervalMetadataSchema>;
 
 export const ScheduleMetadataSchema = z.discriminatedUnion("type", [
   IntervalMetadataSchema,
   CronMetadataSchema,
 ]);
 
-export type ScheduleMetadata = z.infer<typeof ScheduleMetadataSchema>;
+type ScheduleMetadata = z.infer<typeof ScheduleMetadataSchema>;
 
 export const RegisterDynamicSchedulePayloadSchema = z.object({
   id: z.string(),
@@ -67,4 +67,4 @@ export const RegisterDynamicSchedulePayloadSchema = z.object({
   ),
 });
 
-export type RegisterDynamicSchedulePayload = z.infer<typeof RegisterDynamicSchedulePayloadSchema>;
+type RegisterDynamicSchedulePayload = z.infer<typeof RegisterDynamicSchedulePayloadSchema>;

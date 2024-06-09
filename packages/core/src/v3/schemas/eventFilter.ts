@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const stringPatternMatchers = [
+const stringPatternMatchers = [
   z.object({
     $endsWith: z.string(),
   }),

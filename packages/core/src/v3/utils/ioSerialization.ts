@@ -3,7 +3,7 @@ import { SemanticInternalAttributes } from "../semanticInternalAttributes";
 import { TriggerTracer } from "../tracer";
 import { apiClientManager } from "../apiClientManager-api";
 
-export type IOPacket = {
+type IOPacket = {
   data?: string | undefined;
   dataType: string;
 };

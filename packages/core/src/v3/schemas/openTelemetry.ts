@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-export const ExceptionEventProperties = z.object({
+const ExceptionEventProperties = z.object({
   type: z.string().optional(),
   message: z.string().optional(),
   stacktrace: z.string().optional(),
 });
 
-export type ExceptionEventProperties = z.infer<typeof ExceptionEventProperties>;
+type ExceptionEventProperties = z.infer<typeof ExceptionEventProperties>;
 
-export const ExceptionSpanEvent = z.object({
+const ExceptionSpanEvent = z.object({
   name: z.literal("exception"),
   time: z.coerce.date(),
   properties: z.object({
@@ -16,9 +16,9 @@ export const ExceptionSpanEvent = z.object({
   }),
 });
 
-export type ExceptionSpanEvent = z.infer<typeof ExceptionSpanEvent>;
+type ExceptionSpanEvent = z.infer<typeof ExceptionSpanEvent>;
 
-export const CancellationSpanEvent = z.object({
+const CancellationSpanEvent = z.object({
   name: z.literal("cancellation"),
   time: z.coerce.date(),
   properties: z.object({
@@ -26,33 +26,33 @@ export const CancellationSpanEvent = z.object({
   }),
 });
 
-export type CancellationSpanEvent = z.infer<typeof CancellationSpanEvent>;
+type CancellationSpanEvent = z.infer<typeof CancellationSpanEvent>;
 
-export const OtherSpanEvent = z.object({
+const OtherSpanEvent = z.object({
   name: z.string(),
   time: z.coerce.date(),
   properties: z.record(z.unknown()),
 });
 
-export type OtherSpanEvent = z.infer<typeof OtherSpanEvent>;
+type OtherSpanEvent = z.infer<typeof OtherSpanEvent>;
 
-export const SpanEvent = z.union([ExceptionSpanEvent, CancellationSpanEvent, OtherSpanEvent]);
+const SpanEvent = z.union([ExceptionSpanEvent, CancellationSpanEvent, OtherSpanEvent]);
 
-export type SpanEvent = z.infer<typeof SpanEvent>;
+type SpanEvent = z.infer<typeof SpanEvent>;
 
-export const SpanEvents = z.array(SpanEvent);
+const SpanEvents = z.array(SpanEvent);
 
-export type SpanEvents = z.infer<typeof SpanEvents>;
+type SpanEvents = z.infer<typeof SpanEvents>;
 
-export function isExceptionSpanEvent(event: SpanEvent): event is ExceptionSpanEvent {
+function isExceptionSpanEvent(event: SpanEvent): event is ExceptionSpanEvent {
   return event.name === "exception";
 }
 
-export function isCancellationSpanEvent(event: SpanEvent): event is CancellationSpanEvent {
+function isCancellationSpanEvent(event: SpanEvent): event is CancellationSpanEvent {
   return event.name === "cancellation";
 }
 
-export const SpanMessagingEvent = z.object({
+const SpanMessagingEvent = z.object({
   system: z.string().optional(),
   client_id: z.string().optional(),
   operation: z.enum(["publish", "create", "receive", "deliver"]),
@@ -60,4 +60,4 @@ export const SpanMessagingEvent = z.object({
   destination: z.string().optional(),
 });
 
-export type SpanMessagingEvent = z.infer<typeof SpanMessagingEvent>;
+type SpanMessagingEvent = z.infer<typeof SpanMessagingEvent>;

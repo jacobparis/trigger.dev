@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-export const MISSING_CONNECTION_NOTIFICATION = "dev.trigger.notifications.missingConnection";
+const MISSING_CONNECTION_NOTIFICATION = "dev.trigger.notifications.missingConnection";
 
-export const MISSING_CONNECTION_RESOLVED_NOTIFICATION =
+const MISSING_CONNECTION_RESOLVED_NOTIFICATION =
   "dev.trigger.notifications.missingConnectionResolved";
 
-export const CommonMissingConnectionNotificationPayloadSchema = z.object({
+const CommonMissingConnectionNotificationPayloadSchema = z.object({
   id: z.string(),
   client: z.object({
     id: z.string(),
@@ -17,12 +17,12 @@ export const CommonMissingConnectionNotificationPayloadSchema = z.object({
   authorizationUrl: z.string(),
 });
 
-export const MissingDeveloperConnectionNotificationPayloadSchema =
+const MissingDeveloperConnectionNotificationPayloadSchema =
   CommonMissingConnectionNotificationPayloadSchema.extend({
     type: z.literal("DEVELOPER"),
   });
 
-export const MissingExternalConnectionNotificationPayloadSchema =
+const MissingExternalConnectionNotificationPayloadSchema =
   CommonMissingConnectionNotificationPayloadSchema.extend({
     type: z.literal("EXTERNAL"),
     account: z.object({
@@ -31,16 +31,16 @@ export const MissingExternalConnectionNotificationPayloadSchema =
     }),
   });
 
-export const MissingConnectionNotificationPayloadSchema = z.discriminatedUnion("type", [
+const MissingConnectionNotificationPayloadSchema = z.discriminatedUnion("type", [
   MissingDeveloperConnectionNotificationPayloadSchema,
   MissingExternalConnectionNotificationPayloadSchema,
 ]);
 
-export type MissingConnectionNotificationPayload = z.infer<
+type MissingConnectionNotificationPayload = z.infer<
   typeof MissingConnectionNotificationPayloadSchema
 >;
 
-export const CommonMissingConnectionNotificationResolvedPayloadSchema = z.object({
+const CommonMissingConnectionNotificationResolvedPayloadSchema = z.object({
   id: z.string(),
   client: z.object({
     id: z.string(),
@@ -54,12 +54,12 @@ export const CommonMissingConnectionNotificationResolvedPayloadSchema = z.object
   expiresAt: z.coerce.date(),
 });
 
-export const MissingDeveloperConnectionResolvedNotificationPayloadSchema =
+const MissingDeveloperConnectionResolvedNotificationPayloadSchema =
   CommonMissingConnectionNotificationResolvedPayloadSchema.extend({
     type: z.literal("DEVELOPER"),
   });
 
-export const MissingExternalConnectionResolvedNotificationPayloadSchema =
+const MissingExternalConnectionResolvedNotificationPayloadSchema =
   CommonMissingConnectionNotificationResolvedPayloadSchema.extend({
     type: z.literal("EXTERNAL"),
     account: z.object({
@@ -68,11 +68,11 @@ export const MissingExternalConnectionResolvedNotificationPayloadSchema =
     }),
   });
 
-export const MissingConnectionResolvedNotificationPayloadSchema = z.discriminatedUnion("type", [
+const MissingConnectionResolvedNotificationPayloadSchema = z.discriminatedUnion("type", [
   MissingDeveloperConnectionResolvedNotificationPayloadSchema,
   MissingExternalConnectionResolvedNotificationPayloadSchema,
 ]);
 
-export type MissingConnectionResolvedNotificationPayload = z.infer<
+type MissingConnectionResolvedNotificationPayload = z.infer<
   typeof MissingConnectionResolvedNotificationPayloadSchema
 >;
