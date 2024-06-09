@@ -13,7 +13,7 @@ type ScheduleListOptions = {
 
 const DEFAULT_PAGE_SIZE = 20;
 
-export type ScheduleListItem = {
+type ScheduleListItem = {
   id: string;
   friendlyId: string;
   taskIdentifier: string;

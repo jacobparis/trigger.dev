@@ -13,7 +13,7 @@ import { User } from "~/models/user.server";
 import { safeJsonParse } from "~/utils/json";
 import { getUsername } from "~/utils/username";
 
-export type ErrorData = {
+type ErrorData = {
   name: string;
   message: string;
   stack?: string;

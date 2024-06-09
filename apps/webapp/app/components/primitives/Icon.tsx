@@ -44,7 +44,7 @@ export function Icon(props: IconProps) {
   return null;
 }
 
-export function IconInBox({ boxClassName, ...props }: IconProps & { boxClassName?: string }) {
+function IconInBox({ boxClassName, ...props }: IconProps & { boxClassName?: string }) {
   return (
     <div
       className={cn(

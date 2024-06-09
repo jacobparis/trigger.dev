@@ -43,7 +43,7 @@ type AuthenticatedClientOptions<TService extends IntegrationService> = TService 
 type AuthenticatedClientForIntegration<TService extends IntegrationService> =
   TService extends "SLACK" ? InstanceType<typeof WebClient> : never;
 
-export type AuthenticatableIntegration = OrganizationIntegration & {
+type AuthenticatableIntegration = OrganizationIntegration & {
   tokenReference: SecretReference;
 };
 

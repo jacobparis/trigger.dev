@@ -16,7 +16,7 @@ type Environment = {
   userName?: string;
 };
 
-export class EditSchedulePresenter {
+class EditSchedulePresenter {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {

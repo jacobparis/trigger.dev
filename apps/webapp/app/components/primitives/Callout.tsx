@@ -16,7 +16,7 @@ import { cn } from "~/utils/cn";
 import { Paragraph } from "./Paragraph";
 import { Spinner } from "./Spinner";
 
-export const variantClasses = {
+const variantClasses = {
   info: {
     className: "border-charcoal-700 bg-charcoal-800",
     icon: <InformationCircleIcon className="h-5 w-5 shrink-0 text-text-dimmed" />,

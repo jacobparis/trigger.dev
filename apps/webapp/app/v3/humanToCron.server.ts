@@ -12,7 +12,7 @@ const HumanToCronResult = z.object({
 
 type HumanToCronResult = z.infer<typeof HumanToCronResult>;
 
-export const humanToCronSupported = typeof env.OPENAI_API_KEY === "string";
+const humanToCronSupported = typeof env.OPENAI_API_KEY === "string";
 
 export async function humanToCron(message: string, userId: string): Promise<HumanToCronResult> {
   if (!humanToCronSupported) {

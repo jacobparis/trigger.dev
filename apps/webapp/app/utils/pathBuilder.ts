@@ -86,11 +86,11 @@ export const v3SpanParamsSchema = v3RunParamsSchema.extend({
   spanParam: z.string(),
 });
 
-export const v3DeploymentParams = ProjectParamSchema.extend({
+const v3DeploymentParams = ProjectParamSchema.extend({
   deploymentParam: z.string(),
 });
 
-export const v3ScheduleParams = ProjectParamSchema.extend({
+const v3ScheduleParams = ProjectParamSchema.extend({
   scheduleParam: z.string(),
 });
 
@@ -321,7 +321,7 @@ export function v3EnvironmentVariablesPath(organization: OrgForPath, project: Pr
   return `${v3ProjectPath(organization, project)}/environment-variables`;
 }
 
-export function v3NewEnvironmentVariablesPath(organization: OrgForPath, project: ProjectForPath) {
+function v3NewEnvironmentVariablesPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3EnvironmentVariablesPath(organization, project)}/new`;
 }
 
@@ -329,7 +329,7 @@ export function v3ProjectAlertsPath(organization: OrgForPath, project: ProjectFo
   return `${v3ProjectPath(organization, project)}/alerts`;
 }
 
-export function v3NewProjectAlertPath(organization: OrgForPath, project: ProjectForPath) {
+function v3NewProjectAlertPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectAlertsPath(organization, project)}/new`;
 }
 
@@ -405,7 +405,7 @@ export function v3SchedulesPath(organization: OrgForPath, project: ProjectForPat
   return `${v3ProjectPath(organization, project)}/schedules`;
 }
 
-export function v3SchedulePath(
+function v3SchedulePath(
   organization: OrgForPath,
   project: ProjectForPath,
   schedule: { friendlyId: string }
@@ -413,7 +413,7 @@ export function v3SchedulePath(
   return `${v3ProjectPath(organization, project)}/schedules/${schedule.friendlyId}`;
 }
 
-export function v3EditSchedulePath(
+function v3EditSchedulePath(
   organization: OrgForPath,
   project: ProjectForPath,
   schedule: { friendlyId: string }
@@ -421,7 +421,7 @@ export function v3EditSchedulePath(
   return `${v3ProjectPath(organization, project)}/schedules/edit/${schedule.friendlyId}`;
 }
 
-export function v3NewSchedulePath(organization: OrgForPath, project: ProjectForPath) {
+function v3NewSchedulePath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/schedules/new`;
 }
 
@@ -433,7 +433,7 @@ export function v3DeploymentsPath(organization: OrgForPath, project: ProjectForP
   return `${v3ProjectPath(organization, project)}/deployments`;
 }
 
-export function v3DeploymentPath(
+function v3DeploymentPath(
   organization: OrgForPath,
   project: ProjectForPath,
   deployment: DeploymentForPath

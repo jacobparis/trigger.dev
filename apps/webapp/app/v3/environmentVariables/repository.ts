@@ -1,7 +1,7 @@
 import { RuntimeEnvironmentType } from "@trigger.dev/database";
 import { z } from "zod";
 
-export const EnvironmentVariableKey = z
+const EnvironmentVariableKey = z
   .string()
   .nonempty("Key is required")
   .regex(/^\w+$/, "Keys can only use alphanumeric characters and underscores");
@@ -23,7 +23,7 @@ export type CreateResult =
       variableErrors?: { key: string; error: string }[];
     };
 
-export const EditEnvironmentVariable = z.object({
+const EditEnvironmentVariable = z.object({
   id: z.string(),
   values: z.array(
     z.object({
@@ -33,7 +33,7 @@ export const EditEnvironmentVariable = z.object({
   ),
   keepEmptyValues: z.boolean().optional(),
 });
-export type EditEnvironmentVariable = z.infer<typeof EditEnvironmentVariable>;
+type EditEnvironmentVariable = z.infer<typeof EditEnvironmentVariable>;
 
 export const DeleteEnvironmentVariable = z.object({
   id: z.string(),

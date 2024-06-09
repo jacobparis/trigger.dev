@@ -9,7 +9,7 @@ const variants = {
   large: "h-6 text-xs px-1.5 rounded",
 };
 
-export function EnvironmentTypeLabel({
+function EnvironmentTypeLabel({
   environment,
   size = "small",
   className,

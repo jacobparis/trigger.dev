@@ -10,7 +10,7 @@ import { encryptSecret } from "~/services/secrets/secretStore.server";
 import { generateFriendlyId } from "~/v3/friendlyIdentifiers";
 import { BaseService, ServiceValidationError } from "../baseService.server";
 
-export type CreateAlertChannelOptions = {
+type CreateAlertChannelOptions = {
   name: string;
   alertTypes: ProjectAlertType[];
   environmentTypes: RuntimeEnvironmentType[];
