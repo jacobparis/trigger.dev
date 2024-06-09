@@ -8,15 +8,11 @@ import { parseAcceptLanguage } from "intl-parse-accept-language";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
-import * as Worker from "~/services/worker.server";
 import { LocaleContextProvider } from "./components/primitives/LocaleProvider";
 import {
   OperatingSystemContextProvider,
   OperatingSystemPlatform,
 } from "./components/primitives/OperatingSystemProvider";
-
-import { initializeWebSocketServer } from "./v3/handleWebsockets.server";
-initializeWebSocketServer();
 
 const ABORT_DELAY = 30000;
 
@@ -167,10 +163,6 @@ function handleBrowserRequest(
 export function handleError(error: unknown, { request, params, context }: DataFunctionArgs) {
   logError(error, request);
 }
-
-Worker.init().catch((error) => {
-  logError(error);
-});
 
 function logError(error: unknown, request?: Request) {
   console.error(error);

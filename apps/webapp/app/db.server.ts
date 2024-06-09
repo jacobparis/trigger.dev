@@ -6,7 +6,7 @@ import { env } from "./env.server";
 import { singleton } from "./utils/singleton";
 import { isValidDatabaseUrl } from "./utils/db";
 
-export type PrismaTransactionClient = Omit<
+type PrismaTransactionClient = Omit<
   PrismaClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
 >;
@@ -23,7 +23,7 @@ function isPrismaKnownError(error: unknown): error is Prisma.PrismaClientKnownRe
   );
 }
 
-export type PrismaTransactionOptions = {
+type PrismaTransactionOptions = {
   /** The maximum amount of time (in ms) Prisma Client will wait to acquire a transaction from the database. The default value is 2000ms. */
   maxWait?: number;
 
@@ -36,7 +36,7 @@ export type PrismaTransactionOptions = {
   swallowPrismaErrors?: boolean;
 };
 
-export async function $transaction<R>(
+async function $transaction<R>(
   prisma: PrismaClientOrTransaction,
   fn: (prisma: PrismaTransactionClient) => Promise<R>,
   options?: PrismaTransactionOptions
@@ -66,13 +66,12 @@ export async function $transaction<R>(
   }
 }
 
-export { Prisma };
 
 export const prisma = singleton("prisma", getClient);
 
-export type PrismaReplicaClient = Omit<PrismaClient, "$transaction">;
+type PrismaReplicaClient = Omit<PrismaClient, "$transaction">;
 
-export const $replica: PrismaReplicaClient = singleton(
+const $replica: PrismaReplicaClient = singleton(
   "replica",
   () => getReplicaClient() ?? prisma
 );
@@ -198,7 +197,7 @@ function redactUrlSecrets(hrefOrUrl: string | URL) {
 
 export type { PrismaClient } from "@trigger.dev/database";
 
-export const PrismaErrorSchema = z.object({
+const PrismaErrorSchema = z.object({
   code: z.string(),
 });
 

@@ -19,7 +19,7 @@ export default defineConfig({
   ssr: {
     noExternal: [
       // Fixes Error when evaluating SSR module
-      "react-use"
+      "react-use",
     ],
   },
 
@@ -27,7 +27,7 @@ export default defineConfig({
     entries: ["./app/entry.client.tsx", "./app/root.tsx", "./app/routes/**/*"],
     include: [
       // Has cookie and set-cookie-parser deps that need to be optimized
-      "@remix-run/server-runtime"
+      "@remix-run/server-runtime",
     ],
     // Exclude if dep is ESM or runs server-side (just speeds up Vite on navigations)
     exclude: [
@@ -124,12 +124,6 @@ export default defineConfig({
   plugins: [
     expressDevServer({
       exportName: "express",
-      async configureServer(server) {
-        if (!server) return;
-
-        const { registerSocketIo } = await import("./app/socket.server");
-        registerSocketIo(server);
-      },
     }),
     remix({
       ignoredRouteFiles: ["**/.*"],

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { SecretStoreOptionsSchema } from "./services/secrets/secretStoreOptionsSchema.server";
 import { isValidRegex } from "./utils/regex";
 import { isValidDatabaseUrl } from "./utils/db";
 
@@ -32,7 +31,6 @@ const EnvironmentSchema = z.object({
   APP_ORIGIN: z.string().default("http://localhost:3030"),
   APP_ENV: z.string().default(process.env.NODE_ENV),
   SERVICE_NAME: z.string().default("trigger.dev webapp"),
-  SECRET_STORE: SecretStoreOptionsSchema.default("DATABASE"),
   POSTHOG_PROJECT_KEY: z.string().optional(),
   TELEMETRY_TRIGGER_API_KEY: z.string().optional(),
   TELEMETRY_TRIGGER_API_URL: z.string().optional(),
