@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["postcss.config.js", "vite.config.ts"],
+  "ignoreDependencies": [
+    "@trigger.dev/core",
+    "@trigger.dev/core-backend",
+    "@trigger.dev/database",
+    "@trigger.dev/yalt",
+    "@trigger.dev/otlp-importer",
+    "@trigger.dev/sdk",
+    "emails",
+    "@types/*"
+  ]
+}
