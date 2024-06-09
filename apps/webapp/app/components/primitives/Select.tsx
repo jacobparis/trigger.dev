@@ -466,7 +466,7 @@ interface SelectLinkItemProps extends Ariakit.SelectItemProps {
   to: string;
 }
 
-export function SelectLinkItem({
+function SelectLinkItem({
   checkIcon = <Ariakit.SelectItemCheck className="size-8 flex-none text-white" />,
   to,
   ...props
@@ -539,13 +539,13 @@ function SelectSeparator(props: SelectSeparatorProps) {
 
 interface SelectGroupProps extends Ariakit.SelectGroupProps {}
 
-export function SelectGroup(props: SelectGroupProps) {
+function SelectGroup(props: SelectGroupProps) {
   return <Ariakit.SelectGroup {...props} />;
 }
 
 interface SelectGroupLabelProps extends Ariakit.SelectGroupLabelProps {}
 
-export function SelectGroupLabel(props: SelectGroupLabelProps) {
+function SelectGroupLabel(props: SelectGroupLabelProps) {
   return (
     <Ariakit.SelectGroupLabel
       {...props}

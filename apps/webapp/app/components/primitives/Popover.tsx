@@ -162,6 +162,5 @@ export {
   PopoverCustomTrigger,
   PopoverMenuItem,
   PopoverSectionHeader,
-  PopoverTrigger,
   PopoverVerticalEllipseTrigger,
 };

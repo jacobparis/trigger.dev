@@ -203,7 +203,7 @@ const icons = {
 
 export type IconNames = keyof typeof icons;
 export type IconNamesOrString = IconNames | (string & {});
-export const iconNames = Object.keys(icons) as IconNames[];
+const iconNames = Object.keys(icons) as IconNames[];
 
 export function NamedIcon({
   name,

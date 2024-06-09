@@ -26,7 +26,7 @@ export function Toast() {
   return <Toaster />;
 }
 
-export function ToastUI({
+function ToastUI({
   variant,
   message,
   t,

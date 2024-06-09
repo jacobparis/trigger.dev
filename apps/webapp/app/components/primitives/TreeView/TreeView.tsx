@@ -519,7 +519,7 @@ export function useTree<TData, TFilterValue>({
 }
 
 /** An actual tree structure with custom data */
-export type Tree<TData> = {
+type Tree<TData> = {
   id: string;
   children?: Tree<TData>[];
   data: TData;

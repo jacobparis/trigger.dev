@@ -59,7 +59,7 @@ type TabsProps = {
   layoutId: string;
 };
 
-export function ClientTabsWithUnderline({ className, tabs, currentValue, layoutId }: TabsProps) {
+function ClientTabsWithUnderline({ className, tabs, currentValue, layoutId }: TabsProps) {
   return (
     <TabsPrimitive.List
       className={cn(`flex flex-row gap-x-6 border-b border-charcoal-700`, className)}
