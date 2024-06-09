@@ -5,6 +5,6 @@ export {
   formatDurationNanoseconds,
   millisecondsToNanoseconds,
   nanosecondsToMilliseconds,
-} from "./utils/durations";
+} from "./durations";
 
-export { conditionallyImportPacket } from "./utils/ioSerialization";
+export { conditionallyImportPacket } from "./ioSerialization";

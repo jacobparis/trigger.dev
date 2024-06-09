@@ -1,6 +1,6 @@
 import { Span } from "@opentelemetry/api";
-import { TriggerTracer } from "../tracer";
-import { apiClientManager } from "../apiClientManager-api";
+import { TriggerTracer } from "./tracer";
+import { apiClientManager } from "./apiClientManager-api";
 
 type IOPacket = {
   data?: string | undefined;

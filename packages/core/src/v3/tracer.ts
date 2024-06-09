@@ -9,9 +9,12 @@ import {
   type Tracer,
 } from "@opentelemetry/api";
 import { Logger, logs } from "@opentelemetry/api-logs";
-import { SemanticInternalAttributes } from "./semanticInternalAttributes";
 import { clock } from "./clock-api";
 
+const SemanticInternalAttributes = {
+  SPAN_PARTIAL: "$span.partial",
+  SPAN_ID: "$span.span_id",
+};
 type TriggerTracerConfig =
   | {
       name: string;

@@ -1,29 +1,6 @@
 import { context, propagation } from "@opentelemetry/api";
 import { version } from "../../../package.json";
-import {
-  BatchTaskRunExecutionResult,
-  BatchTriggerTaskRequestBody,
-  BatchTriggerTaskResponse,
-  CanceledRunResponse,
-  CreateEnvironmentVariableRequestBody,
-  CreateScheduleOptions,
-  CreateUploadPayloadUrlResponseBody,
-  DeletedScheduleObject,
-  EnvironmentVariableResponseBody,
-  EnvironmentVariableValue,
-  EnvironmentVariables,
-  ListRunResponseItem,
-  ListScheduleOptions,
-  ListSchedulesResult,
-  ReplayRunResponse,
-  RetrieveRunResponse,
-  ScheduleObject,
-  TaskRunExecutionResult,
-  TriggerTaskRequestBody,
-  TriggerTaskResponse,
-  UpdateEnvironmentVariableRequestBody,
-  UpdateScheduleOptions,
-} from "../schemas";
+
 import { taskContext } from "../task-context-api";
 import {
   CursorPagePromise,
@@ -42,6 +19,52 @@ import {
   ListRunsQueryParams,
   UpdateEnvironmentVariableParams,
 } from "./types";
+import { z } from "zod";
+
+const BatchTaskRunExecutionResult = z.any();
+type BatchTaskRunExecutionResult = z.infer<typeof BatchTaskRunExecutionResult>;
+const BatchTriggerTaskRequestBody = z.any();
+type BatchTriggerTaskRequestBody = z.infer<typeof BatchTriggerTaskRequestBody>;
+const BatchTriggerTaskResponse = z.any();
+type BatchTriggerTaskResponse = z.infer<typeof BatchTriggerTaskResponse>;
+const CanceledRunResponse = z.any();
+type CanceledRunResponse = z.infer<typeof CanceledRunResponse>;
+const CreateEnvironmentVariableRequestBody = z.any();
+type CreateEnvironmentVariableRequestBody = z.infer<typeof CreateEnvironmentVariableRequestBody>;
+const CreateScheduleOptions = z.any();
+type CreateScheduleOptions = z.infer<typeof CreateScheduleOptions>;
+const CreateUploadPayloadUrlResponseBody = z.any();
+type CreateUploadPayloadUrlResponseBody = z.infer<typeof CreateUploadPayloadUrlResponseBody>;
+const DeletedScheduleObject = z.any();
+type DeletedScheduleObject = z.infer<typeof DeletedScheduleObject>;
+const EnvironmentVariableResponseBody = z.any();
+type EnvironmentVariableResponseBody = z.infer<typeof EnvironmentVariableResponseBody>;
+const EnvironmentVariableValue = z.any();
+type EnvironmentVariableValue = z.infer<typeof EnvironmentVariableValue>;
+const EnvironmentVariables = z.any();
+type EnvironmentVariables = z.infer<typeof EnvironmentVariables>;
+const ListRunResponseItem = z.any();
+type ListRunResponseItem = z.infer<typeof ListRunResponseItem>;
+const ListScheduleOptions = z.any();
+type ListScheduleOptions = z.infer<typeof ListScheduleOptions>;
+const ListSchedulesResult = z.any();
+type ListSchedulesResult = z.infer<typeof ListSchedulesResult>;
+const ReplayRunResponse = z.any();
+type ReplayRunResponse = z.infer<typeof ReplayRunResponse>;
+const RetrieveRunResponse = z.any();
+type RetrieveRunResponse = z.infer<typeof RetrieveRunResponse>;
+const ScheduleObject = z.any();
+type ScheduleObject = z.infer<typeof ScheduleObject>;
+const TaskRunExecutionResult = z.any();
+type TaskRunExecutionResult = z.infer<typeof TaskRunExecutionResult>;
+const TriggerTaskRequestBody = z.any();
+type TriggerTaskRequestBody = z.infer<typeof TriggerTaskRequestBody>;
+const TriggerTaskResponse = z.any();
+type TriggerTaskResponse = z.infer<typeof TriggerTaskResponse>;
+const UpdateEnvironmentVariableRequestBody = z.any();
+type UpdateEnvironmentVariableRequestBody = z.infer<typeof UpdateEnvironmentVariableRequestBody>;
+const UpdateScheduleOptions = z.any();
+type UpdateScheduleOptions = z.infer<typeof UpdateScheduleOptions>;
 
 type TriggerOptions = {
   spanParentAsLink?: boolean;

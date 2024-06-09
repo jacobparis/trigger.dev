@@ -1,53 +1,14 @@
 import { ulid } from "ulidx";
 import { z } from "zod";
-import { Prettify } from "../types";
 import { addMissingVersionField } from "./addMissingVersionField";
 import { ErrorWithStackSchema, SchemaErrorSchema } from "./errors";
-import { EventFilterSchema, EventRuleSchema } from "./eventFilter";
-import { ConnectionAuthSchema, IntegrationConfigSchema } from "./integrations";
-import { DeserializedJsonSchema, SerializableJsonSchema } from "./json";
+import { IntegrationConfigSchema } from "./integrations";
+import { DeserializedJsonSchema } from "./json";
 import { DisplayPropertySchema, StyleSchema } from "./properties";
-import {
-  CronMetadataSchema,
-  IntervalMetadataSchema,
-  RegisterDynamicSchedulePayloadSchema,
-  ScheduleMetadataSchema,
-} from "./schedules";
-import { CachedTaskSchema, ServerTaskSchema, TaskSchema } from "./tasks";
+import { CronMetadataSchema, IntervalMetadataSchema } from "./schedules";
+import { TaskSchema } from "./tasks";
 import { EventSpecificationSchema, TriggerMetadataSchema } from "./triggers";
-import { RunStatusSchema } from "./runs";
-import { JobRunStatusRecordSchema } from "./statuses";
 import { RequestFilterSchema } from "./requestFilter";
-
-const UpdateTriggerSourceBodyV1Schema = z.object({
-  registeredEvents: z.array(z.string()),
-  secret: z.string().optional(),
-  data: SerializableJsonSchema.optional(),
-});
-type UpdateTriggerSourceBodyV1 = z.infer<typeof UpdateTriggerSourceBodyV1Schema>;
-
-const UpdateTriggerSourceBodyV2Schema = z.object({
-  secret: z.string().optional(),
-  data: SerializableJsonSchema.optional(),
-  options: z
-    .object({
-      event: z.array(z.string()),
-    })
-    .and(z.record(z.string(), z.array(z.string())).optional()),
-});
-type UpdateTriggerSourceBodyV2 = z.infer<typeof UpdateTriggerSourceBodyV2Schema>;
-
-const UpdateWebhookBodySchema = z.discriminatedUnion("active", [
-  z.object({
-    active: z.literal(false),
-  }),
-  z.object({
-    active: z.literal(true),
-    config: z.record(z.string().array()),
-  }),
-]);
-
-type UpdateWebhookBody = z.infer<typeof UpdateWebhookBodySchema>;
 
 const RegisterHTTPTriggerSourceBodySchema = z.object({
   type: z.literal("HTTP"),
@@ -68,39 +29,6 @@ const RegisterSourceChannelBodySchema = z.discriminatedUnion("type", [
   RegisterSQSTriggerSourceBodySchema,
 ]);
 
-const REGISTER_WEBHOOK = "dev.trigger.webhook.register";
-const DELIVER_WEBHOOK_REQUEST = "dev.trigger.webhook.deliver";
-
-const RegisterWebhookSourceSchema = z.object({
-  key: z.string(),
-  params: z.any(),
-  config: z.any(),
-  active: z.boolean(),
-  secret: z.string(),
-  url: z.string(),
-  data: DeserializedJsonSchema.optional(),
-  clientId: z.string().optional(),
-});
-
-type RegisterWebhookSource = z.infer<typeof RegisterWebhookSourceSchema>;
-
-const RegisterWebhookPayloadSchema = z.object({
-  active: z.boolean(),
-  params: z.any().optional(),
-  config: z.object({
-    current: z.record(z.string().array()),
-    desired: z.record(z.string().array()),
-  }),
-  // from HTTP Endpoint
-  url: z.string(),
-  secret: z.string(),
-});
-
-type RegisterWebhookPayload = z.infer<typeof RegisterWebhookPayloadSchema>;
-
-const REGISTER_SOURCE_EVENT_V1 = "dev.trigger.source.register";
-const REGISTER_SOURCE_EVENT_V2 = "dev.trigger.source.register.v2";
-
 const RegisterTriggerSourceSchema = z.object({
   key: z.string(),
   params: z.any(),
@@ -111,34 +39,11 @@ const RegisterTriggerSourceSchema = z.object({
   clientId: z.string().optional(),
 });
 
-type RegisterTriggerSource = z.infer<typeof RegisterTriggerSourceSchema>;
-
-const SourceEventOptionSchema = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-type SourceEventOption = z.infer<typeof SourceEventOptionSchema>;
-
-const RegisterSourceEventSchemaV1 = z.object({
-  /** The id of the source */
-  id: z.string(),
-  source: RegisterTriggerSourceSchema,
-  events: z.array(z.string()),
-  missingEvents: z.array(z.string()),
-  orphanedEvents: z.array(z.string()),
-  dynamicTriggerId: z.string().optional(),
-});
-
-type RegisterSourceEventV1 = z.infer<typeof RegisterSourceEventSchemaV1>;
-
 const RegisteredOptionsDiffSchema = z.object({
   desired: z.array(z.string()),
   missing: z.array(z.string()),
   orphaned: z.array(z.string()),
 });
-
-type RegisteredOptionsDiff = Prettify<z.infer<typeof RegisteredOptionsDiffSchema>>;
 
 const RegisterSourceEventOptionsSchema = z
   .object({
@@ -146,86 +51,7 @@ const RegisterSourceEventOptionsSchema = z
   })
   .and(z.record(z.string(), RegisteredOptionsDiffSchema));
 
-type RegisterSourceEventOptions = z.infer<typeof RegisterSourceEventOptionsSchema>;
-
-const RegisterSourceEventSchemaV2 = z.object({
-  /** The id of the source */
-  id: z.string(),
-  source: RegisterTriggerSourceSchema,
-  options: RegisterSourceEventOptionsSchema,
-  dynamicTriggerId: z.string().optional(),
-});
-
-type RegisterSourceEventV2 = z.infer<typeof RegisterSourceEventSchemaV2>;
-
-const TriggerSourceSchema = z.object({
-  id: z.string(),
-  key: z.string(),
-});
-
 const HttpSourceResponseMetadataSchema = DeserializedJsonSchema;
-type HttpSourceResponseMetadata = z.infer<typeof HttpSourceResponseMetadataSchema>;
-
-const HandleTriggerSourceSchema = z.object({
-  key: z.string(),
-  secret: z.string(),
-  data: z.any(),
-  params: z.any(),
-  auth: ConnectionAuthSchema.optional(),
-  metadata: HttpSourceResponseMetadataSchema.optional(),
-});
-
-type HandleTriggerSource = z.infer<typeof HandleTriggerSourceSchema>;
-
-type TriggerSource = z.infer<typeof TriggerSourceSchema>;
-
-const HttpSourceRequestHeadersSchema = z.object({
-  "x-ts-key": z.string(),
-  "x-ts-dynamic-id": z.string().optional(),
-  "x-ts-secret": z.string(),
-  "x-ts-data": z.string().transform((s) => JSON.parse(s)),
-  "x-ts-params": z.string().transform((s) => JSON.parse(s)),
-  "x-ts-http-url": z.string(),
-  "x-ts-http-method": z.string(),
-  "x-ts-http-headers": z.string().transform((s) => z.record(z.string()).parse(JSON.parse(s))),
-  "x-ts-auth": z
-    .string()
-    .optional()
-    .transform((s) => {
-      if (s === undefined) return;
-      const json = JSON.parse(s);
-      return ConnectionAuthSchema.parse(json);
-    }),
-  "x-ts-metadata": z
-    .string()
-    .optional()
-    .transform((s) => {
-      if (s === undefined) return;
-      const json = JSON.parse(s);
-      return DeserializedJsonSchema.parse(json);
-    }),
-});
-
-type HttpSourceRequestHeaders = z.output<typeof HttpSourceRequestHeadersSchema>;
-
-const HttpEndpointRequestHeadersSchema = z.object({
-  "x-ts-key": z.string(),
-  "x-ts-http-url": z.string(),
-  "x-ts-http-method": z.string(),
-  "x-ts-http-headers": z.string().transform((s) => z.record(z.string()).parse(JSON.parse(s))),
-});
-
-const WebhookSourceRequestHeadersSchema = z.object({
-  "x-ts-key": z.string(),
-  "x-ts-dynamic-id": z.string().optional(),
-  "x-ts-secret": z.string(),
-  "x-ts-params": z.string().transform((s) => JSON.parse(s)),
-  "x-ts-http-url": z.string(),
-  "x-ts-http-method": z.string(),
-  "x-ts-http-headers": z.string().transform((s) => z.record(z.string()).parse(JSON.parse(s))),
-});
-
-type WebhookSourceRequestHeaders = z.output<typeof WebhookSourceRequestHeadersSchema>;
 
 const PongSuccessResponseSchema = z.object({
   ok: z.literal(true),
@@ -240,13 +66,6 @@ const PongErrorResponseSchema = z.object({
   triggerSdkVersion: z.string().optional(),
 });
 
-const PongResponseSchema = z.discriminatedUnion("ok", [
-  PongSuccessResponseSchema,
-  PongErrorResponseSchema,
-]);
-
-type PongResponse = z.infer<typeof PongResponseSchema>;
-
 const ValidateSuccessResponseSchema = z.object({
   ok: z.literal(true),
   endpointId: z.string(),
@@ -258,20 +77,6 @@ const ValidateErrorResponseSchema = z.object({
   error: z.string(),
   triggerVersion: z.string().optional(),
 });
-
-const ValidateResponseSchema = z.discriminatedUnion("ok", [
-  ValidateSuccessResponseSchema,
-  ValidateErrorResponseSchema,
-]);
-
-type ValidateResponse = z.infer<typeof ValidateResponseSchema>;
-
-const QueueOptionsSchema = z.object({
-  name: z.string(),
-  maxConcurrent: z.number().optional(),
-});
-
-type QueueOptions = z.infer<typeof QueueOptionsSchema>;
 
 const ConcurrencyLimitOptionsSchema = z.object({
   id: z.string(),
@@ -292,8 +97,6 @@ const JobMetadataSchema = z.object({
   concurrencyLimit: ConcurrencyLimitOptionsSchema.or(z.number().int().positive()).optional(),
 });
 
-type JobMetadata = z.infer<typeof JobMetadataSchema>;
-
 const SourceMetadataV1Schema = z.object({
   version: z.literal("1"),
   channel: z.enum(["HTTP", "SQS", "SMTP"]),
@@ -308,8 +111,6 @@ const SourceMetadataV1Schema = z.object({
     })
     .optional(),
 });
-
-type SourceMetadataV1 = z.infer<typeof SourceMetadataV1Schema>;
 
 const SourceMetadataV2Schema = z.object({
   version: z.literal("2"),
@@ -326,14 +127,10 @@ const SourceMetadataV2Schema = z.object({
     .optional(),
 });
 
-type SourceMetadataV2 = z.infer<typeof SourceMetadataV2Schema>;
-
 const SourceMetadataSchema = z.preprocess(
   addMissingVersionField,
   z.discriminatedUnion("version", [SourceMetadataV1Schema, SourceMetadataV2Schema])
 );
-
-type SourceMetadata = Prettify<z.infer<typeof SourceMetadataSchema>>;
 
 const WebhookMetadataSchema = z.object({
   key: z.string(),
@@ -345,16 +142,6 @@ const WebhookMetadataSchema = z.object({
   }),
 });
 
-type WebhookMetadata = z.infer<typeof WebhookMetadataSchema>;
-
-const WebhookContextMetadataSchema = z.object({
-  params: z.any(),
-  config: z.record(z.string().array()),
-  secret: z.string(),
-});
-
-type WebhookContextMetadata = z.infer<typeof WebhookContextMetadataSchema>;
-
 const DynamicTriggerEndpointMetadataSchema = z.object({
   id: z.string(),
   jobs: z.array(JobMetadataSchema.pick({ id: true, version: true })),
@@ -365,8 +152,6 @@ const DynamicTriggerEndpointMetadataSchema = z.object({
     })
     .optional(),
 });
-
-type DynamicTriggerEndpointMetadata = z.infer<typeof DynamicTriggerEndpointMetadataSchema>;
 
 const HttpEndpointMetadataSchema = z.object({
   id: z.string(),
@@ -381,25 +166,10 @@ const HttpEndpointMetadataSchema = z.object({
   source: z.string(),
 });
 
-type HttpEndpointMetadata = z.infer<typeof HttpEndpointMetadataSchema>;
-
-const IndexEndpointResponseSchema = z.object({
-  jobs: z.array(JobMetadataSchema),
-  sources: z.array(SourceMetadataSchema),
-  webhooks: z.array(WebhookMetadataSchema).optional(),
-  dynamicTriggers: z.array(DynamicTriggerEndpointMetadataSchema),
-  dynamicSchedules: z.array(RegisterDynamicSchedulePayloadSchema),
-  httpEndpoints: z.array(HttpEndpointMetadataSchema).optional(),
-});
-
-type IndexEndpointResponse = z.infer<typeof IndexEndpointResponseSchema>;
-
 const EndpointIndexErrorSchema = z.object({
   message: z.string(),
   raw: z.any().optional(),
 });
-
-type EndpointIndexError = z.infer<typeof EndpointIndexErrorSchema>;
 
 const IndexEndpointStatsSchema = z.object({
   jobs: z.number(),
@@ -409,54 +179,6 @@ const IndexEndpointStatsSchema = z.object({
   dynamicSchedules: z.number(),
   disabledJobs: z.number().default(0),
   httpEndpoints: z.number().default(0),
-});
-
-type IndexEndpointStats = z.infer<typeof IndexEndpointStatsSchema>;
-
-function parseEndpointIndexStats(stats: unknown): IndexEndpointStats | undefined {
-  if (stats === null || stats === undefined) {
-    return;
-  }
-  return IndexEndpointStatsSchema.parse(stats);
-}
-
-const GetEndpointIndexResponseSchema = z.discriminatedUnion("status", [
-  z.object({
-    status: z.literal("PENDING"),
-    updatedAt: z.coerce.date(),
-  }),
-  z.object({
-    status: z.literal("STARTED"),
-    updatedAt: z.coerce.date(),
-  }),
-  z.object({
-    status: z.literal("SUCCESS"),
-    stats: IndexEndpointStatsSchema,
-    updatedAt: z.coerce.date(),
-  }),
-  z.object({
-    status: z.literal("FAILURE"),
-    error: EndpointIndexErrorSchema,
-    updatedAt: z.coerce.date(),
-  }),
-]);
-
-type GetEndpointIndexResponse = z.infer<typeof GetEndpointIndexResponseSchema>;
-
-const EndpointHeadersSchema = z.object({
-  "trigger-version": z.string().optional(),
-  "trigger-sdk-version": z.string().optional(),
-});
-
-const ExecuteJobRunMetadataSchema = z.object({
-  successSubscription: z.boolean().optional(),
-  failedSubscription: z.boolean().optional(),
-});
-
-const ExecuteJobHeadersSchema = EndpointHeadersSchema.extend({
-  "x-trigger-run-metadata": z
-    .preprocess((val) => typeof val === "string" && JSON.parse(val), ExecuteJobRunMetadataSchema)
-    .optional(),
 });
 
 const RawEventSchema = z.object({
@@ -488,11 +210,6 @@ const RawEventSchema = z.object({
   payloadType: z.union([z.literal("JSON"), z.literal("REQUEST")]).optional(),
 });
 
-type RawEvent = z.infer<typeof RawEventSchema>;
-
-/** The event you wish to send to Trigger a Job */
-type SendEvent = z.input<typeof RawEventSchema>;
-
 /** The event that was sent */
 const ApiEventLogSchema = z.object({
   /** The `id` of the event that was sent.
@@ -519,8 +236,6 @@ const ApiEventLogSchema = z.object({
   cancelledAt: z.coerce.date().optional().nullable(),
 });
 
-type ApiEventLog = z.infer<typeof ApiEventLogSchema>;
-
 /** Options to control the delivery of the event */
 const SendEventOptionsSchema = z.object({
   /** An optional Date when you want the event to trigger Jobs. The event will
@@ -536,31 +251,7 @@ const SendEventOptionsSchema = z.object({
   accountId: z.string().optional(),
 });
 
-const SendEventBodySchema = z.object({
-  event: RawEventSchema,
-  options: SendEventOptionsSchema.optional(),
-});
-
-const SendBulkEventsBodySchema = z.object({
-  events: RawEventSchema.array(),
-  options: SendEventOptionsSchema.optional(),
-});
-
-type SendEventBody = z.infer<typeof SendEventBodySchema>;
-type SendEventOptions = z.infer<typeof SendEventOptionsSchema>;
-
-const DeliverEventResponseSchema = z.object({
-  deliveredAt: z.string().datetime(),
-});
-
-type DeliverEventResponse = z.infer<typeof DeliverEventResponseSchema>;
-
-const RuntimeEnvironmentTypeSchema = z.enum([
-  "PRODUCTION",
-  "STAGING",
-  "DEVELOPMENT",
-  "PREVIEW",
-]);
+const RuntimeEnvironmentTypeSchema = z.enum(["PRODUCTION", "STAGING", "DEVELOPMENT", "PREVIEW"]);
 
 export type RuntimeEnvironmentType = z.infer<typeof RuntimeEnvironmentTypeSchema>;
 
@@ -569,8 +260,6 @@ const RunSourceContextSchema = z.object({
   metadata: z.any(),
 });
 
-type RunSourceContext = z.infer<typeof RunSourceContextSchema>;
-
 const AutoYieldConfigSchema = z.object({
   startTaskThreshold: z.number(),
   beforeExecuteTaskThreshold: z.number(),
@@ -578,69 +267,16 @@ const AutoYieldConfigSchema = z.object({
   afterCompleteTaskThreshold: z.number(),
 });
 
-type AutoYieldConfig = z.infer<typeof AutoYieldConfigSchema>;
-
-const RunJobBodySchema = z.object({
-  event: ApiEventLogSchema,
-  job: z.object({
-    id: z.string(),
-    version: z.string(),
-  }),
-  run: z.object({
-    id: z.string(),
-    isTest: z.boolean(),
-    isRetry: z.boolean().default(false),
-    startedAt: z.coerce.date(),
-  }),
-  environment: z.object({
-    id: z.string(),
-    slug: z.string(),
-    type: RuntimeEnvironmentTypeSchema,
-  }),
-  organization: z.object({
-    id: z.string(),
-    title: z.string(),
-    slug: z.string(),
-  }),
-  project: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      slug: z.string(),
-    })
-    .optional(),
-  account: z
-    .object({
-      id: z.string(),
-      metadata: z.any(),
-    })
-    .optional(),
-  source: RunSourceContextSchema.optional(),
-  tasks: z.array(CachedTaskSchema).optional(),
-  cachedTaskCursor: z.string().optional(),
-  noopTasksSet: z.string().optional(),
-  connections: z.record(ConnectionAuthSchema).optional(),
-  yieldedExecutions: z.string().array().optional(),
-  runChunkExecutionLimit: z.number().optional(),
-  autoYieldConfig: AutoYieldConfigSchema.optional(),
-});
-
-type RunJobBody = z.infer<typeof RunJobBodySchema>;
-
 const RunJobErrorSchema = z.object({
   status: z.literal("ERROR"),
   error: ErrorWithStackSchema,
   task: TaskSchema.optional(),
 });
 
-type RunJobError = z.infer<typeof RunJobErrorSchema>;
-
 const RunJobYieldExecutionErrorSchema = z.object({
   status: z.literal("YIELD_EXECUTION"),
   key: z.string(),
 });
-
-type RunJobYieldExecutionError = z.infer<typeof RunJobYieldExecutionErrorSchema>;
 
 const AutoYieldMetadataSchema = z.object({
   location: z.string(),
@@ -649,15 +285,9 @@ const AutoYieldMetadataSchema = z.object({
   limit: z.number().optional(),
 });
 
-type AutoYieldMetadata = z.infer<typeof AutoYieldMetadataSchema>;
-
 const RunJobAutoYieldExecutionErrorSchema = AutoYieldMetadataSchema.extend({
   status: z.literal("AUTO_YIELD_EXECUTION"),
 });
-
-type RunJobAutoYieldExecutionError = Prettify<
-  z.infer<typeof RunJobAutoYieldExecutionErrorSchema>
->;
 
 const RunJobAutoYieldWithCompletedTaskExecutionErrorSchema = z.object({
   status: z.literal("AUTO_YIELD_EXECUTION_WITH_COMPLETED_TASK"),
@@ -667,37 +297,25 @@ const RunJobAutoYieldWithCompletedTaskExecutionErrorSchema = z.object({
   data: AutoYieldMetadataSchema,
 });
 
-type RunJobAutoYieldWithCompletedTaskExecutionError = z.infer<
-  typeof RunJobAutoYieldWithCompletedTaskExecutionErrorSchema
->;
-
 const RunJobAutoYieldRateLimitErrorSchema = z.object({
   status: z.literal("AUTO_YIELD_RATE_LIMIT"),
   reset: z.coerce.number(),
 });
-
-type RunJobAutoYieldRateLimitError = z.infer<typeof RunJobAutoYieldRateLimitErrorSchema>;
 
 const RunJobInvalidPayloadErrorSchema = z.object({
   status: z.literal("INVALID_PAYLOAD"),
   errors: z.array(SchemaErrorSchema),
 });
 
-type RunJobInvalidPayloadError = z.infer<typeof RunJobInvalidPayloadErrorSchema>;
-
 const RunJobUnresolvedAuthErrorSchema = z.object({
   status: z.literal("UNRESOLVED_AUTH_ERROR"),
   issues: z.record(z.object({ id: z.string(), error: z.string() })),
 });
 
-type RunJobUnresolvedAuthError = z.infer<typeof RunJobUnresolvedAuthErrorSchema>;
-
 const RunJobResumeWithTaskSchema = z.object({
   status: z.literal("RESUME_WITH_TASK"),
   task: TaskSchema,
 });
-
-type RunJobResumeWithTask = z.infer<typeof RunJobResumeWithTaskSchema>;
 
 const RunJobRetryWithTaskSchema = z.object({
   status: z.literal("RETRY_WITH_TASK"),
@@ -706,21 +324,15 @@ const RunJobRetryWithTaskSchema = z.object({
   retryAt: z.coerce.date(),
 });
 
-type RunJobRetryWithTask = z.infer<typeof RunJobRetryWithTaskSchema>;
-
 const RunJobCanceledWithTaskSchema = z.object({
   status: z.literal("CANCELED"),
   task: TaskSchema,
 });
 
-type RunJobCanceledWithTask = z.infer<typeof RunJobCanceledWithTaskSchema>;
-
 const RunJobSuccessSchema = z.object({
   status: z.literal("SUCCESS"),
   output: DeserializedJsonSchema.optional(),
 });
-
-type RunJobSuccess = z.infer<typeof RunJobSuccessSchema>;
 
 const RunJobErrorResponseSchema = z.union([
   RunJobAutoYieldExecutionErrorSchema,
@@ -735,69 +347,11 @@ const RunJobErrorResponseSchema = z.union([
   RunJobCanceledWithTaskSchema,
 ]);
 
-type RunJobErrorResponse = z.infer<typeof RunJobErrorResponseSchema>;
-
 const RunJobResumeWithParallelTaskSchema = z.object({
   status: z.literal("RESUME_WITH_PARALLEL_TASK"),
   task: TaskSchema,
   childErrors: z.array(RunJobErrorResponseSchema),
 });
-
-type RunJobResumeWithParallelTask = z.infer<typeof RunJobResumeWithParallelTaskSchema>;
-
-const RunJobResponseSchema = z.discriminatedUnion("status", [
-  RunJobAutoYieldExecutionErrorSchema,
-  RunJobAutoYieldWithCompletedTaskExecutionErrorSchema,
-  RunJobYieldExecutionErrorSchema,
-  RunJobAutoYieldRateLimitErrorSchema,
-  RunJobErrorSchema,
-  RunJobUnresolvedAuthErrorSchema,
-  RunJobInvalidPayloadErrorSchema,
-  RunJobResumeWithTaskSchema,
-  RunJobResumeWithParallelTaskSchema,
-  RunJobRetryWithTaskSchema,
-  RunJobCanceledWithTaskSchema,
-  RunJobSuccessSchema,
-]);
-
-type RunJobResponse = z.infer<typeof RunJobResponseSchema>;
-
-const PreprocessRunBodySchema = z.object({
-  event: ApiEventLogSchema,
-  job: z.object({
-    id: z.string(),
-    version: z.string(),
-  }),
-  run: z.object({
-    id: z.string(),
-    isTest: z.boolean(),
-  }),
-  environment: z.object({
-    id: z.string(),
-    slug: z.string(),
-    type: RuntimeEnvironmentTypeSchema,
-  }),
-  organization: z.object({
-    id: z.string(),
-    title: z.string(),
-    slug: z.string(),
-  }),
-  account: z
-    .object({
-      id: z.string(),
-      metadata: z.any(),
-    })
-    .optional(),
-});
-
-type PreprocessRunBody = z.infer<typeof PreprocessRunBodySchema>;
-
-const PreprocessRunResponseSchema = z.object({
-  abort: z.boolean(),
-  properties: z.array(DisplayPropertySchema).optional(),
-});
-
-type PreprocessRunResponse = z.infer<typeof PreprocessRunResponseSchema>;
 
 const CreateRunResponseOkSchema = z.object({
   ok: z.literal(true),
@@ -811,31 +365,11 @@ const CreateRunResponseErrorSchema = z.object({
   error: z.string(),
 });
 
-const CreateRunResponseBodySchema = z.discriminatedUnion("ok", [
-  CreateRunResponseOkSchema,
-  CreateRunResponseErrorSchema,
-]);
-
-type CreateRunResponseBody = z.infer<typeof CreateRunResponseBodySchema>;
-
 export const RedactStringSchema = z.object({
   __redactedString: z.literal(true),
   strings: z.array(z.string()),
   interpolations: z.array(z.string()),
 });
-
-type RedactString = z.infer<typeof RedactStringSchema>;
-
-const LogMessageSchema = z.object({
-  level: z.enum(["DEBUG", "INFO", "WARN", "ERROR"]),
-  message: z.string(),
-  data: SerializableJsonSchema.optional(),
-});
-
-type LogMessage = z.infer<typeof LogMessageSchema>;
-
-type ClientTask = z.infer<typeof TaskSchema>;
-type CachedTask = z.infer<typeof CachedTaskSchema>;
 
 const RedactSchema = z.object({
   paths: z.array(z.string()),
@@ -897,131 +431,16 @@ const RunTaskOptionsSchema = z.object({
   parallel: z.boolean().optional(),
 });
 
-type RunTaskOptions = z.input<typeof RunTaskOptionsSchema>;
-
-type OverridableRunTaskOptions = Pick<
-  RunTaskOptions,
-  "retry" | "delayUntil" | "description"
->;
-
 const RunTaskBodyInputSchema = RunTaskOptionsSchema.extend({
   idempotencyKey: z.string(),
   parentId: z.string().optional(),
 });
-
-type RunTaskBodyInput = z.infer<typeof RunTaskBodyInputSchema>;
-
-const RunTaskBodyOutputSchema = RunTaskBodyInputSchema.extend({
-  properties: z.array(DisplayPropertySchema.partial()).optional(),
-  params: DeserializedJsonSchema.optional().nullable(),
-  callback: z
-    .object({
-      enabled: z.boolean(),
-      timeoutInSeconds: z.number().default(3600),
-    })
-    .optional(),
-});
-
-type RunTaskBodyOutput = z.infer<typeof RunTaskBodyOutputSchema>;
-
-const RunTaskResponseWithCachedTasksBodySchema = z.object({
-  task: ServerTaskSchema,
-  cachedTasks: z
-    .object({
-      tasks: z.array(CachedTaskSchema),
-      cursor: z.string().optional(),
-    })
-    .optional(),
-});
-
-type RunTaskResponseWithCachedTasksBody = z.infer<
-  typeof RunTaskResponseWithCachedTasksBodySchema
->;
-
-const CompleteTaskBodyInputSchema = RunTaskBodyInputSchema.pick({
-  properties: true,
-  description: true,
-  params: true,
-}).extend({
-  output: SerializableJsonSchema.optional().transform((v) =>
-    v ? DeserializedJsonSchema.parse(JSON.parse(JSON.stringify(v))) : {}
-  ),
-});
-
-type CompleteTaskBodyInput = Prettify<z.input<typeof CompleteTaskBodyInputSchema>>;
-type CompleteTaskBodyOutput = z.infer<typeof CompleteTaskBodyInputSchema>;
-
-const CompleteTaskBodyV2InputSchema = RunTaskBodyInputSchema.pick({
-  properties: true,
-  description: true,
-  params: true,
-}).extend({
-  output: z.string().optional(),
-});
-
-type CompleteTaskBodyV2Input = Prettify<z.input<typeof CompleteTaskBodyV2InputSchema>>;
-
-const FailTaskBodyInputSchema = z.object({
-  error: ErrorWithStackSchema,
-});
-
-type FailTaskBodyInput = z.infer<typeof FailTaskBodyInputSchema>;
-
-const NormalizedRequestSchema = z.object({
-  headers: z.record(z.string()),
-  method: z.string(),
-  query: z.record(z.string()),
-  url: z.string(),
-  body: z.any(),
-});
-
-type NormalizedRequest = z.infer<typeof NormalizedRequestSchema>;
 
 const NormalizedResponseSchema = z.object({
   status: z.number(),
   body: z.any(),
   headers: z.record(z.string()).optional(),
 });
-
-type NormalizedResponse = z.infer<typeof NormalizedResponseSchema>;
-
-const HttpSourceResponseSchema = z.object({
-  response: NormalizedResponseSchema,
-  events: z.array(RawEventSchema),
-  metadata: HttpSourceResponseMetadataSchema.optional(),
-});
-
-const WebhookDeliveryResponseSchema = z.object({
-  response: NormalizedResponseSchema,
-  verified: z.boolean(),
-  error: z.string().optional(),
-});
-
-type WebhookDeliveryResponse = z.infer<typeof WebhookDeliveryResponseSchema>;
-
-const RegisterTriggerBodySchemaV1 = z.object({
-  rule: EventRuleSchema,
-  source: SourceMetadataV1Schema,
-});
-
-type RegisterTriggerBodyV1 = z.infer<typeof RegisterTriggerBodySchemaV1>;
-
-const RegisterTriggerBodySchemaV2 = z.object({
-  rule: EventRuleSchema,
-  source: SourceMetadataV2Schema,
-  accountId: z.string().optional(),
-});
-
-type RegisterTriggerBodyV2 = z.infer<typeof RegisterTriggerBodySchemaV2>;
-
-const InitializeTriggerBodySchema = z.object({
-  id: z.string(),
-  params: z.any(),
-  accountId: z.string().optional(),
-  metadata: z.any().optional(),
-});
-
-type InitializeTriggerBody = z.infer<typeof InitializeTriggerBodySchema>;
 
 const RegisterCommonScheduleBodySchema = z.object({
   /** A unique id for the schedule. This is used to identify and unregister the schedule later. */
@@ -1035,119 +454,4 @@ const RegisterCommonScheduleBodySchema = z.object({
 const RegisterIntervalScheduleBodySchema =
   RegisterCommonScheduleBodySchema.merge(IntervalMetadataSchema);
 
-type RegisterIntervalScheduleBody = z.infer<typeof RegisterIntervalScheduleBodySchema>;
-
-const InitializeCronScheduleBodySchema =
-  RegisterCommonScheduleBodySchema.merge(CronMetadataSchema);
-
-type RegisterCronScheduleBody = z.infer<typeof InitializeCronScheduleBodySchema>;
-
-const RegisterScheduleBodySchema = z.discriminatedUnion("type", [
-  RegisterIntervalScheduleBodySchema,
-  InitializeCronScheduleBodySchema,
-]);
-
-type RegisterScheduleBody = z.infer<typeof RegisterScheduleBodySchema>;
-
-const RegisterScheduleResponseBodySchema = z.object({
-  id: z.string(),
-  schedule: ScheduleMetadataSchema,
-  metadata: z.any(),
-  active: z.boolean(),
-});
-
-type RegisterScheduleResponseBody = z.infer<typeof RegisterScheduleResponseBodySchema>;
-
-const CreateExternalConnectionBodySchema = z.object({
-  accessToken: z.string(),
-  type: z.enum(["oauth2"]),
-  scopes: z.array(z.string()).optional(),
-  metadata: z.any(),
-});
-
-type CreateExternalConnectionBody = z.infer<typeof CreateExternalConnectionBodySchema>;
-
-const GetRunStatusesSchema = z.object({
-  run: z.object({ id: z.string(), status: RunStatusSchema, output: z.any().optional() }),
-  statuses: z.array(JobRunStatusRecordSchema),
-});
-type GetRunStatuses = z.infer<typeof GetRunStatusesSchema>;
-
-const InvokeJobResponseSchema = z.object({
-  id: z.string(),
-});
-
-const InvokeJobRequestBodySchema = z.object({
-  payload: z.any(),
-  context: z.any().optional(),
-  options: z
-    .object({
-      accountId: z.string().optional(),
-      callbackUrl: z.string().optional(),
-    })
-    .optional(),
-});
-
-type InvokeJobRequestBody = z.infer<typeof InvokeJobRequestBodySchema>;
-
-const InvokeOptionsSchema = z.object({
-  accountId: z.string().optional(),
-  idempotencyKey: z.string().optional(),
-  context: z.any().optional(),
-  callbackUrl: z.string().optional(),
-});
-
-type InvokeOptions = z.infer<typeof InvokeOptionsSchema>;
-
-const EphemeralEventDispatcherRequestBodySchema = z.object({
-  url: z.string(),
-  name: z.string().or(z.array(z.string())),
-  source: z.string().optional(),
-  filter: EventFilterSchema.optional(),
-  contextFilter: EventFilterSchema.optional(),
-  accountId: z.string().optional(),
-  timeoutInSeconds: z
-    .number()
-    .int()
-    .positive()
-    .min(10)
-    .max(60 * 60 * 24 * 365)
-    .default(3600),
-});
-
-type EphemeralEventDispatcherRequestBody = z.infer<
-  typeof EphemeralEventDispatcherRequestBodySchema
->;
-
-const EphemeralEventDispatcherResponseBodySchema = z.object({
-  id: z.string(),
-});
-
-type EphemeralEventDispatcherResponseBody = z.infer<
-  typeof EphemeralEventDispatcherResponseBodySchema
->;
-
-const KeyValueStoreResponseBodySchema = z.discriminatedUnion("action", [
-  z.object({
-    action: z.literal("DELETE"),
-    key: z.string(),
-    deleted: z.boolean(),
-  }),
-  z.object({
-    action: z.literal("GET"),
-    key: z.string(),
-    value: z.string().optional(),
-  }),
-  z.object({
-    action: z.literal("HAS"),
-    key: z.string(),
-    has: z.boolean(),
-  }),
-  z.object({
-    action: z.literal("SET"),
-    key: z.string(),
-    value: z.string().optional(),
-  }),
-]);
-
-type KeyValueStoreResponseBody = z.infer<typeof KeyValueStoreResponseBodySchema>;
+const InitializeCronScheduleBodySchema = RegisterCommonScheduleBodySchema.merge(CronMetadataSchema);
