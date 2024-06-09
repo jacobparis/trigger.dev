@@ -33,7 +33,7 @@ function EnvironmentTypeLabel({
   );
 }
 
-export function EnvironmentLabel({
+function EnvironmentLabel({
   environment,
   size = "small",
   userName,

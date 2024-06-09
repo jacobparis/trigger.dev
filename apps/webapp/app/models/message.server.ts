@@ -3,7 +3,7 @@ import { createCookieSessionStorage } from "@remix-run/node";
 import { redirect } from "remix-typedjson";
 import { env } from "~/env.server";
 
-export type ToastMessage = {
+type ToastMessage = {
   message: string;
   type: "success" | "error";
   options: Required<ToastMessageOptions>;
@@ -16,7 +16,7 @@ type ToastMessageOptions = {
 
 const ONE_YEAR = 1000 * 60 * 60 * 24 * 365;
 
-export const { commitSession, getSession } = createCookieSessionStorage({
+const { getSession, commitSession } = createCookieSessionStorage({
   cookie: {
     name: "__message",
     path: "/",
@@ -27,11 +27,7 @@ export const { commitSession, getSession } = createCookieSessionStorage({
   },
 });
 
-function setSuccessMessage(
-  session: Session,
-  message: string,
-  options?: ToastMessageOptions
-) {
+function setSuccessMessage(session: Session, message: string, options?: ToastMessageOptions) {
   session.flash("toastMessage", {
     message,
     type: "success",

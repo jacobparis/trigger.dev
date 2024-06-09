@@ -6,7 +6,7 @@ import { useChanged } from "./useChanged";
 import { useTypedMatchesData } from "./useTypedMatchData";
 
 export type MatchedOrganization = UseDataFunctionReturn<typeof orgLoader>["organizations"][number];
-export const organizationMatchId = "routes/_app.orgs.$organizationSlug";
+const organizationMatchId = "routes/_app.orgs.$organizationSlug";
 
 function useOptionalOrganizations(matches?: UIMatch[]) {
   const data = useTypedMatchesData<typeof orgLoader>({
@@ -22,7 +22,7 @@ function useOrganizations(matches?: UIMatch[]) {
   return orgs;
 }
 
-export function useOptionalOrganization(matches?: UIMatch[]) {
+function useOptionalOrganization(matches?: UIMatch[]) {
   const orgs = useOptionalOrganizations(matches);
   const org = useTypedMatchesData<typeof orgLoader>({
     id: "routes/_app.orgs.$organizationSlug",
@@ -50,7 +50,7 @@ function useIsNewOrganizationPage(matches?: UIMatch[]): boolean {
   return !!data;
 }
 
-export const useOrganizationChanged = (action: (org: MatchedOrganization | undefined) => void) => {
+const useOrganizationChanged = (action: (org: MatchedOrganization | undefined) => void) => {
   useChanged(useOptionalOrganization, action);
 };
 

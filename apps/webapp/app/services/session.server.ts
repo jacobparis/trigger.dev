@@ -12,7 +12,7 @@ async function getUserId(request: Request): Promise<string | undefined> {
   return authUser?.userId;
 }
 
-export async function getUser(request: Request) {
+async function getUser(request: Request) {
   const userId = await getUserId(request);
   if (userId === undefined) return null;
 

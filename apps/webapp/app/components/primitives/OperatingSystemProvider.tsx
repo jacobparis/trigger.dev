@@ -26,7 +26,7 @@ const throwIfNoProvider = () => {
   throw new Error("Please wrap your application in an OperatingSystemContextProvider.");
 };
 
-export const useOperatingSystem = () => {
+const useOperatingSystem = () => {
   const { platform } = useContext(Context) ?? throwIfNoProvider();
   return { platform };
 };

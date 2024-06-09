@@ -23,7 +23,7 @@ const throwIfNoProvider = () => {
   throw new Error("Please wrap your application in a LocaleContextProvider.");
 };
 
-export const useLocales = () => {
+const useLocales = () => {
   const { locales } = useContext(Context) ?? throwIfNoProvider();
   return locales;
 };
