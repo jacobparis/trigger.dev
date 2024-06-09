@@ -1,17 +1,13 @@
 import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import { ApiConnectionError, ApiError } from "./errors";
-import { RetryOptions } from "../schemas";
 import { calculateNextRetryDelay } from "../utils/retries";
-import { FormDataEncoder } from "form-data-encoder";
 import { Readable } from "node:stream";
 import {
   CursorPage,
   CursorPageParams,
   CursorPageResponse,
-  OffsetLimitPage,
   OffsetLimitPageParams,
-  OffsetLimitPageResponse,
 } from "./pagination";
 
 const defaultRetryOptions = {
@@ -20,17 +16,13 @@ const defaultRetryOptions = {
   minTimeoutInMs: 1000,
   maxTimeoutInMs: 60000,
   randomize: false,
-} satisfies RetryOptions;
+};
 
 type ZodFetchOptions = {
-  retry?: RetryOptions;
+  retry?: any;
 };
 
 interface FetchCursorPageParams extends CursorPageParams {
-  query?: URLSearchParams;
-}
-
-interface FetchOffsetLimitPageParams extends OffsetLimitPageParams {
   query?: URLSearchParams;
 }
 
@@ -79,93 +71,6 @@ function zodfetchCursorPage<TItemSchema extends z.ZodTypeAny>(
 
   return new CursorPagePromise(fetchResult, schema, url, params, requestInit, options);
 }
-
-function zodfetchOffsetLimitPage<TItemSchema extends z.ZodTypeAny>(
-  schema: TItemSchema,
-  url: string,
-  params: FetchOffsetLimitPageParams,
-  requestInit?: RequestInit,
-  options?: ZodFetchOptions
-) {
-  const query = new URLSearchParams(params.query);
-
-  if (params.limit) {
-    query.set("perPage", String(params.limit));
-  }
-
-  if (params.page) {
-    query.set("page", String(params.page));
-  }
-
-  const offsetLimitPageSchema = z.object({
-    data: z.array(schema),
-    pagination: z.object({
-      currentPage: z.coerce.number(),
-      totalPages: z.coerce.number(),
-      count: z.coerce.number(),
-    }),
-  });
-
-  const $url = new URL(url);
-  $url.search = query.toString();
-
-  const fetchResult = _doZodFetch(offsetLimitPageSchema, $url.href, requestInit, options);
-
-  return new OffsetLimitPagePromise(fetchResult, schema, url, params, requestInit, options);
-}
-
-function zodupload<
-  TResponseBodySchema extends z.ZodTypeAny,
-  TBody = Record<string, unknown>,
->(
-  schema: TResponseBodySchema,
-  url: string,
-  body: TBody,
-  requestInit?: RequestInit,
-  options?: ZodFetchOptions
-): ApiPromise<z.output<TResponseBodySchema>> {
-  const finalRequestInit = createMultipartFormRequestInit(body, requestInit);
-
-  return new ApiPromise(_doZodFetch(schema, url, finalRequestInit, options));
-}
-
-async function createMultipartFormRequestInit<TBody = Record<string, unknown>>(
-  body: TBody,
-  requestInit?: RequestInit
-): Promise<RequestInit> {
-  const form = await createForm(body);
-  const encoder = new FormDataEncoder(form);
-
-  const finalHeaders: Record<string, string> = {};
-
-  for (const [key, value] of Object.entries(requestInit?.headers || {})) {
-    finalHeaders[key] = value as string;
-  }
-
-  for (const [key, value] of Object.entries(encoder.headers)) {
-    finalHeaders[key] = value;
-  }
-
-  finalHeaders["Content-Length"] = String(encoder.contentLength);
-
-  const finalRequestInit: RequestInit = {
-    ...requestInit,
-    headers: finalHeaders,
-    body: Readable.from(encoder) as any,
-    // @ts-expect-error
-    duplex: "half",
-  };
-
-  return finalRequestInit;
-}
-
-const createForm = async <T = Record<string, unknown>>(body: T | undefined): Promise<FormData> => {
-  const form = new FormData();
-  await Promise.all(
-    Object.entries(body || {}).map(([key, value]) => addFormValue(form, key, value))
-  );
-  return form;
-};
 
 type ZodFetchResult<T> = {
   data: T;
@@ -233,7 +138,7 @@ async function _doZodFetch<TResponseBodySchema extends z.ZodTypeAny>(
   }
 }
 
-function castToError(err: any): Error {
+export function castToError(err: any): Error {
   if (err instanceof Error) return err;
   return new Error(err);
 }
@@ -247,11 +152,7 @@ type ShouldRetryResult =
       delay: number;
     };
 
-function shouldRetry(
-  response: Response,
-  attempt: number,
-  retryOptions?: RetryOptions
-): ShouldRetryResult {
+function shouldRetry(response: Response, attempt: number, retryOptions?: any): ShouldRetryResult {
   function shouldRetryForOptions(): ShouldRetryResult {
     const retry = { ...defaultRetryOptions, ...retryOptions };
 
@@ -315,8 +216,6 @@ function requestInitWithCache(requestInit?: RequestInit): RequestInit {
       ...requestInit,
       cache: "no-cache",
     };
-
-    const _ = new Request("http://localhost", withCache);
 
     return withCache;
   } catch (error) {
@@ -500,9 +399,7 @@ const isFileLike = (value: any): value is FileLike =>
  * The BlobLike type omits arrayBuffer() because @types/node-fetch@^2.6.4 lacks it; but this check
  * adds the arrayBuffer() method type because it is available and used at runtime
  */
-const isBlobLike = (
-  value: any
-): value is BlobLike & { arrayBuffer(): Promise<ArrayBuffer> } =>
+const isBlobLike = (value: any): value is BlobLike & { arrayBuffer(): Promise<ArrayBuffer> } =>
   value != null &&
   typeof value === "object" &&
   typeof value.size === "number" &&
@@ -517,20 +414,7 @@ const isUploadable = (value: any): value is Uploadable => {
   return isFileLike(value) || isResponseLike(value) || isFsReadStream(value);
 };
 
-type BlobLikePart =
-  | string
-  | ArrayBuffer
-  | ArrayBufferView
-  | BlobLike
-  | Uint8Array
-  | DataView;
-
-const isRecordLike = (value: any): value is Record<string, string> =>
-  value != null &&
-  typeof value === "object" &&
-  !Array.isArray(value) &&
-  Object.keys(value).length > 0 &&
-  Object.keys(value).every((key) => typeof key === "string" && typeof value[key] === "string");
+type BlobLikePart = string | ArrayBuffer | ArrayBufferView | BlobLike | Uint8Array | DataView;
 
 /**
  * A subclass of `Promise` providing additional helper methods
@@ -612,57 +496,6 @@ class CursorPagePromise<TItemSchema extends z.ZodTypeAny>
 
   #fetchPage(params: Omit<CursorPageParams, "limit">): Promise<CursorPage<z.output<TItemSchema>>> {
     return zodfetchCursorPage(
-      this.schema,
-      this.url,
-      { ...this.params, ...params },
-      this.requestInit,
-      this.options
-    );
-  }
-
-  /**
-   * Allow auto-paginating iteration on an unawaited list call, eg:
-   *
-   *    for await (const item of client.items.list()) {
-   *      console.log(item)
-   *    }
-   */
-  async *[Symbol.asyncIterator]() {
-    const page = await this;
-    for await (const item of page) {
-      yield item;
-    }
-  }
-}
-
-class OffsetLimitPagePromise<TItemSchema extends z.ZodTypeAny>
-  extends ApiPromise<OffsetLimitPage<z.output<TItemSchema>>>
-  implements AsyncIterable<z.output<TItemSchema>>
-{
-  constructor(
-    result: Promise<ZodFetchResult<OffsetLimitPageResponse<z.output<TItemSchema>>>>,
-    private schema: TItemSchema,
-    private url: string,
-    private params: FetchOffsetLimitPageParams,
-    private requestInit?: RequestInit,
-    private options?: ZodFetchOptions
-  ) {
-    super(
-      result.then((result) => ({
-        data: new OffsetLimitPage(
-          result.data.data,
-          result.data.pagination,
-          this.#fetchPage.bind(this)
-        ),
-        response: result.response,
-      }))
-    );
-  }
-
-  #fetchPage(
-    params: Omit<FetchOffsetLimitPageParams, "limit">
-  ): Promise<OffsetLimitPage<z.output<TItemSchema>>> {
-    return zodfetchOffsetLimitPage(
       this.schema,
       this.url,
       { ...this.params, ...params },

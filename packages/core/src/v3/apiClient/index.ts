@@ -1,19 +1,12 @@
-import { zodfetch } from "./core";
-import { z } from "zod";
+import { castToError } from "./core";
 
 /**
  * Trigger.dev v3 API client
  */
 export class ApiClient {
-  private readonly baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl.replace(/\/$/, "");
-  }
+  constructor(baseUrl: string) {}
 
   async getRunResult(runId: string) {
-    return zodfetch(z.any(), `${this.baseUrl}/api/v1/runs/${runId}/result`, {
-      method: "GET",
-    });
+    return castToError(new Error());
   }
 }

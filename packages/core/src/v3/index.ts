@@ -7,6 +7,6 @@ export {
   nanosecondsToMilliseconds,
 } from "./durations";
 
-import { apiClientManager } from "./apiClientManager-api";
+import { castToError } from "./apiClient/core";
 
-console.log(apiClientManager);
+console.log(castToError);
