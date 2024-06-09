@@ -66,7 +66,7 @@ const paragraphVariants = {
   },
 };
 
-export type ParagraphVariant = keyof typeof paragraphVariants;
+type ParagraphVariant = keyof typeof paragraphVariants;
 
 type ParagraphProps = {
   variant?: ParagraphVariant;

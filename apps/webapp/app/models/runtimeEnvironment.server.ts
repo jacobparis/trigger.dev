@@ -139,7 +139,7 @@ type DisplayableInputEnvironment = Prisma.RuntimeEnvironmentGetPayload<{
   };
 }>;
 
-export function displayableEnvironment(
+function displayableEnvironment(
   environment: DisplayableInputEnvironment,
   userId: string | undefined
 ) {

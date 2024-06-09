@@ -84,7 +84,7 @@ function SimpleTooltip({
   );
 }
 
-export function InfoIconTooltip({
+function InfoIconTooltip({
   content,
   buttonClassName,
 }: {

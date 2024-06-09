@@ -41,7 +41,7 @@ type FilterableEnvironment =
       orgMember?: Record<string, any>;
     };
 
-export function filterOrphanedEnvironments<T extends FilterableEnvironment>(
+function filterOrphanedEnvironments<T extends FilterableEnvironment>(
   environments: T[]
 ): T[] {
   return environments.filter((environment) => {

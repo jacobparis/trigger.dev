@@ -27,7 +27,7 @@ export function useUserChanged(callback: (user: User | undefined) => void) {
   useChanged(useOptionalUser, callback);
 }
 
-export function useHasAdminAccess(matches?: UIMatch[]): boolean {
+function useHasAdminAccess(matches?: UIMatch[]): boolean {
   const user = useOptionalUser(matches);
 
   return Boolean(user?.admin);

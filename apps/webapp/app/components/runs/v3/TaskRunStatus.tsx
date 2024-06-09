@@ -59,9 +59,9 @@ const taskRunStatusDescriptions: Record<TaskRunStatus, string> = {
   CRASHED: "Task has crashed and won't be retried",
 };
 
-export const QUEUED_STATUSES: TaskRunStatus[] = ["PENDING", "WAITING_FOR_DEPLOY"];
+const QUEUED_STATUSES: TaskRunStatus[] = ["PENDING", "WAITING_FOR_DEPLOY"];
 
-export const RUNNING_STATUSES: TaskRunStatus[] = [
+const RUNNING_STATUSES: TaskRunStatus[] = [
   "EXECUTING",
   "RETRYING_AFTER_FAILURE",
   "WAITING_TO_RESUME",

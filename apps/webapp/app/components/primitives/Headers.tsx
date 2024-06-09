@@ -49,7 +49,7 @@ export function Header1({
   );
 }
 
-export function Header2({
+function Header2({
   className,
   children,
   spacing = false,

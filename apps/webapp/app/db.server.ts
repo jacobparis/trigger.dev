@@ -220,4 +220,4 @@ function getDatabaseSchema() {
 
 const DATABASE_SCHEMA = singleton("DATABASE_SCHEMA", getDatabaseSchema);
 
-export const sqlDatabaseSchema = Prisma.sql([`${DATABASE_SCHEMA}`]);
+const sqlDatabaseSchema = Prisma.sql([`${DATABASE_SCHEMA}`]);

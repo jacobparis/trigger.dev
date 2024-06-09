@@ -36,7 +36,7 @@ export function useOptionalOrganization(matches?: UIMatch[]) {
   return orgs.find((o) => o.id === org.organization.id);
 }
 
-export function useOrganization(matches?: UIMatch[]) {
+function useOrganization(matches?: UIMatch[]) {
   const org = useOptionalOrganization(matches);
   invariant(org, "No organization found in loader.");
   return org;
@@ -54,7 +54,7 @@ export const useOrganizationChanged = (action: (org: MatchedOrganization | undef
   useChanged(useOptionalOrganization, action);
 };
 
-export function useIsImpersonating(matches?: UIMatch[]) {
+function useIsImpersonating(matches?: UIMatch[]) {
   const data = useTypedMatchesData<typeof orgLoader>({
     id: "routes/_app.orgs.$organizationSlug",
     matches,

@@ -27,7 +27,7 @@ const TaskRunAttemptStatus = {
   COMPLETED: "COMPLETED",
 } as const satisfies Record<TaskRunAttemptStatusType, TaskRunAttemptStatusType>;
 
-export const TaskRunStatus = {
+const TaskRunStatus = {
   PENDING: "PENDING",
   WAITING_FOR_DEPLOY: "WAITING_FOR_DEPLOY",
   EXECUTING: "EXECUTING",

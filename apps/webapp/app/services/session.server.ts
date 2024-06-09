@@ -22,7 +22,7 @@ export async function getUser(request: Request) {
   throw await logout(request);
 }
 
-export async function requireUserId(request: Request, redirectTo?: string) {
+async function requireUserId(request: Request, redirectTo?: string) {
   const userId = await getUserId(request);
   if (!userId) {
     const url = new URL(request.url);

@@ -12,7 +12,7 @@ function MainBody({ children }: { children: React.ReactNode }) {
 }
 
 /** This container should be placed around the content on a page */
-export function PageContainer({ children }: { children: React.ReactNode }) {
+function PageContainer({ children }: { children: React.ReactNode }) {
   const organization = useOptionalOrganization();
   const showUpgradePrompt = useShowUpgradePrompt(organization);
 
@@ -28,7 +28,7 @@ export function PageContainer({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function PageBody({
+function PageBody({
   children,
   scrollable = true,
   className,

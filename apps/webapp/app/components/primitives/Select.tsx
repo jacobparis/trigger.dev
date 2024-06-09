@@ -98,7 +98,7 @@ interface SelectProps<TValue extends string | string[], TItem>
   dropdownIcon?: boolean | React.ReactNode;
 }
 
-export function Select<TValue extends string | string[], TItem>({
+function Select<TValue extends string | string[], TItem>({
   children,
   icon,
   text,

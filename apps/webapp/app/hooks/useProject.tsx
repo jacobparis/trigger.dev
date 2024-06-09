@@ -8,7 +8,7 @@ import { organizationMatchId } from "./useOrganizations";
 
 type MatchedProject = UseDataFunctionReturn<typeof orgLoader>["project"];
 
-export function useOptionalProject(matches?: UIMatch[]) {
+function useOptionalProject(matches?: UIMatch[]) {
   const routeMatch = useTypedMatchesData<typeof orgLoader>({
     id: organizationMatchId,
     matches,
@@ -17,7 +17,7 @@ export function useOptionalProject(matches?: UIMatch[]) {
   return routeMatch?.project;
 }
 
-export function useProject(matches?: UIMatch[]) {
+function useProject(matches?: UIMatch[]) {
   const project = useOptionalProject(matches);
   invariant(project, "Project must be defined");
   return project;

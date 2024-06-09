@@ -24,7 +24,7 @@ export function TaskTriggerSourceIcon({
   }
 }
 
-export function taskTriggerSourceDescription(source: TaskTriggerSource) {
+function taskTriggerSourceDescription(source: TaskTriggerSource) {
   switch (source) {
     case "STANDARD": {
       return "Standard task";

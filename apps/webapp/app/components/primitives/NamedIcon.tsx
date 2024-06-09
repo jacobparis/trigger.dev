@@ -201,7 +201,7 @@ const icons = {
   runs: (className: string) => <RunsIcon className={cn("text-lime-500", className)} />,
 };
 
-export type IconNames = keyof typeof icons;
+type IconNames = keyof typeof icons;
 export type IconNamesOrString = IconNames | (string & {});
 const iconNames = Object.keys(icons) as IconNames[];
 

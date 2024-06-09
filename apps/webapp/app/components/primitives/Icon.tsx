@@ -2,7 +2,7 @@ import React, { FunctionComponent, createElement } from "react";
 import { cn } from "~/utils/cn";
 import { IconNamesOrString, NamedIcon } from "./NamedIcon";
 
-export type RenderIcon =
+type RenderIcon =
   | IconNamesOrString
   | FunctionComponent<{ className?: string }>
   | React.ReactNode;

@@ -13,7 +13,7 @@ type UpgradePromptProps = {
   planPath: string;
 };
 
-export function UpgradePrompt({ runsEnabled, runCountCap, planPath }: UpgradePromptProps) {
+function UpgradePrompt({ runsEnabled, runCountCap, planPath }: UpgradePromptProps) {
   return (
     <div
       className="flex h-10 items-center justify-between border border-error bg-repeat py-0 pl-3 pr-2"

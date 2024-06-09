@@ -33,7 +33,7 @@ const OrganizationParamsSchema = z.object({
   organizationSlug: z.string(),
 });
 
-export const ProjectParamSchema = OrganizationParamsSchema.extend({
+const ProjectParamSchema = OrganizationParamsSchema.extend({
   projectParam: z.string(),
 });
 
@@ -181,7 +181,7 @@ function stripePortalPath(organization: OrgForPath) {
   return `/resources/${organization.slug}/subscription/portal`;
 }
 
-export function plansPath(organization: OrgForPath) {
+function plansPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/billing/plans`;
 }
 
@@ -194,7 +194,7 @@ function organizationParam(organization: OrgForPath) {
 }
 
 // Project
-export function projectPath(organization: OrgForPath, project: ProjectForPath) {
+function projectPath(organization: OrgForPath, project: ProjectForPath) {
   return `/orgs/${organizationParam(organization)}/projects/${projectParam(project)}`;
 }
 
@@ -305,11 +305,11 @@ function projectParam(project: ProjectForPath) {
 }
 
 //v3 project
-export function v3ProjectPath(organization: OrgForPath, project: ProjectForPath) {
+function v3ProjectPath(organization: OrgForPath, project: ProjectForPath) {
   return `/orgs/${organizationParam(organization)}/projects/v3/${projectParam(project)}`;
 }
 
-export function v3TasksStreamingPath(organization: OrgForPath, project: ProjectForPath) {
+function v3TasksStreamingPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/tasks/stream`;
 }
 
@@ -361,7 +361,7 @@ function v3TestTaskPath(
   }?environment=${environmentSlug}`;
 }
 
-export function v3RunsPath(
+function v3RunsPath(
   organization: OrgForPath,
   project: ProjectForPath,
   filters?: TaskRunListSearchFilters
@@ -665,7 +665,7 @@ function docsRoot() {
   return "https://trigger.dev/docs";
 }
 
-export function docsPath(path: string) {
+function docsPath(path: string) {
   return `${docsRoot()}/${path}`;
 }
 

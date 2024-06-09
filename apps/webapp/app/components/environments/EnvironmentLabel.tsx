@@ -61,7 +61,7 @@ export function EnvironmentLabel({
 
 type EnvironmentWithUsername = Environment & { userName?: string };
 
-export function EnvironmentLabels({
+function EnvironmentLabels({
   environments,
   size = "small",
   className,
