@@ -1,7 +1,7 @@
 import { env } from "./env.server";
 import { requestUrl } from "./utils/requestUrl.server";
 
-export type TriggerFeatures = {
+type TriggerFeatures = {
   isManagedCloud: boolean;
   v3Enabled: boolean;
   alertsEnabled: boolean;

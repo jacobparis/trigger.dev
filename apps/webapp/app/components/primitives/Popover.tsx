@@ -155,12 +155,4 @@ function PopoverVerticalEllipseTrigger({
   );
 }
 
-export {
-  Popover,
-  PopoverArrowTrigger,
-  PopoverContent,
-  PopoverCustomTrigger,
-  PopoverMenuItem,
-  PopoverSectionHeader,
-  PopoverVerticalEllipseTrigger,
-};
+export { Popover, PopoverContent, PopoverVerticalEllipseTrigger };

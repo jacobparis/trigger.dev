@@ -128,7 +128,7 @@ type PreparedEvent = Omit<QueriedEvent, "events" | "style" | "duration"> & {
   style: TaskEventStyle;
 };
 
-export type SpanLink =
+type SpanLink =
   | {
       type: "run";
       icon?: string;

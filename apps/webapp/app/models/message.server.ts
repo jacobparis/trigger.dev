@@ -140,7 +140,7 @@ export async function redirectWithSuccessMessage(
   });
 }
 
-export async function redirectWithErrorMessage(
+async function redirectWithErrorMessage(
   path: string,
   request: Request,
   message: string,
@@ -159,7 +159,7 @@ export async function redirectWithErrorMessage(
   });
 }
 
-export async function redirectBackWithErrorMessage(
+async function redirectBackWithErrorMessage(
   request: Request,
   message: string,
   options?: ToastMessageOptions

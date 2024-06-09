@@ -166,7 +166,7 @@ function environmentColorClassName(environment: Environment) {
   }
 }
 
-export function environmentBorderClassName(environment: Environment) {
+function environmentBorderClassName(environment: Environment) {
   switch (environment.type) {
     case "PRODUCTION":
       return "border-green-500/50";
@@ -179,7 +179,7 @@ export function environmentBorderClassName(environment: Environment) {
   }
 }
 
-export function environmentTextClassName(environment: Environment) {
+function environmentTextClassName(environment: Environment) {
   switch (environment.type) {
     case "PRODUCTION":
       return "text-green-500";

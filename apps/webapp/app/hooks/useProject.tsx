@@ -6,7 +6,7 @@ import { useChanged } from "./useChanged";
 import { useTypedMatchesData } from "./useTypedMatchData";
 import { organizationMatchId } from "./useOrganizations";
 
-export type MatchedProject = UseDataFunctionReturn<typeof orgLoader>["project"];
+type MatchedProject = UseDataFunctionReturn<typeof orgLoader>["project"];
 
 export function useOptionalProject(matches?: UIMatch[]) {
   const routeMatch = useTypedMatchesData<typeof orgLoader>({

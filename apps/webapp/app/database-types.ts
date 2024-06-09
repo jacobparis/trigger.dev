@@ -18,7 +18,7 @@ const BatchTaskRunItemStatus = {
   COMPLETED: "COMPLETED",
 } as const satisfies Record<BatchTaskRunItemStatusType, BatchTaskRunItemStatusType>;
 
-export const TaskRunAttemptStatus = {
+const TaskRunAttemptStatus = {
   PENDING: "PENDING",
   EXECUTING: "EXECUTING",
   PAUSED: "PAUSED",

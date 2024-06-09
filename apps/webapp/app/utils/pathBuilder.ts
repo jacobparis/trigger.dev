@@ -82,7 +82,7 @@ const v3RunParamsSchema = ProjectParamSchema.extend({
   runParam: z.string(),
 });
 
-export const v3SpanParamsSchema = v3RunParamsSchema.extend({
+const v3SpanParamsSchema = v3RunParamsSchema.extend({
   spanParam: z.string(),
 });
 
@@ -104,19 +104,19 @@ function parentPath(path: string) {
   return trimmedTrailingSlash.substring(0, lastSlashIndex);
 }
 
-export function rootPath() {
+function rootPath() {
   return `/`;
 }
 
-export function accountPath() {
+function accountPath() {
   return `/account`;
 }
 
-export function personalAccessTokensPath() {
+function personalAccessTokensPath() {
   return `/account/tokens`;
 }
 
-export function invitesPath() {
+function invitesPath() {
   return `/invites`;
 }
 
@@ -132,7 +132,7 @@ function resendInvitePath() {
   return `/invite-resend`;
 }
 
-export function logoutPath() {
+function logoutPath() {
   return `/logout`;
 }
 
@@ -141,11 +141,11 @@ function revokeInvitePath() {
 }
 
 // Org
-export function organizationPath(organization: OrgForPath) {
+function organizationPath(organization: OrgForPath) {
   return `/orgs/${organizationParam(organization)}`;
 }
 
-export function newOrganizationPath() {
+function newOrganizationPath() {
   return `/orgs/new`;
 }
 
@@ -153,23 +153,23 @@ function selectPlanPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/select-plan`;
 }
 
-export function organizationTeamPath(organization: OrgForPath) {
+function organizationTeamPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/team`;
 }
 
-export function inviteTeamMemberPath(organization: OrgForPath) {
+function inviteTeamMemberPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/invite`;
 }
 
-export function organizationBillingPath(organization: OrgForPath) {
+function organizationBillingPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/billing`;
 }
 
-export function organizationSettingsPath(organization: OrgForPath) {
+function organizationSettingsPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/settings`;
 }
 
-export function organizationIntegrationsPath(organization: OrgForPath) {
+function organizationIntegrationsPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/integrations`;
 }
 
@@ -198,11 +198,11 @@ export function projectPath(organization: OrgForPath, project: ProjectForPath) {
   return `/orgs/${organizationParam(organization)}/projects/${projectParam(project)}`;
 }
 
-export function projectRunsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectRunsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/runs`;
 }
 
-export function projectSetupPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup`;
 }
 
@@ -246,15 +246,15 @@ function projectJobsPath(organization: OrgForPath, project: ProjectForPath) {
   return projectPath(organization, project);
 }
 
-export function projectTriggersPath(organization: OrgForPath, project: ProjectForPath) {
+function projectTriggersPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/triggers`;
 }
 
-export function projectEventsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectEventsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/events`;
 }
 
-export function projectSettingsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSettingsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/settings`;
 }
 
@@ -266,7 +266,7 @@ function projectEventPath(
   return `${projectEventsPath(organization, project)}/${event.id}`;
 }
 
-export function projectHttpEndpointsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectHttpEndpointsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/http-endpoints`;
 }
 function projectHttpEndpointPath(
@@ -277,7 +277,7 @@ function projectHttpEndpointPath(
   return `${projectHttpEndpointsPath(organization, project)}/${httpEndpoint.key}`;
 }
 
-export function projectEnvironmentsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectEnvironmentsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/environments`;
 }
 
@@ -296,7 +296,7 @@ function endpointStreamingPath(environment: { id: string }) {
   return `/resources/environments/${environment.id}/endpoint/stream`;
 }
 
-export function newProjectPath(organization: OrgForPath) {
+function newProjectPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/projects/new`;
 }
 
@@ -313,11 +313,11 @@ export function v3TasksStreamingPath(organization: OrgForPath, project: ProjectF
   return `${v3ProjectPath(organization, project)}/tasks/stream`;
 }
 
-export function v3ApiKeysPath(organization: OrgForPath, project: ProjectForPath) {
+function v3ApiKeysPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/apikeys`;
 }
 
-export function v3EnvironmentVariablesPath(organization: OrgForPath, project: ProjectForPath) {
+function v3EnvironmentVariablesPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/environment-variables`;
 }
 
@@ -325,7 +325,7 @@ function v3NewEnvironmentVariablesPath(organization: OrgForPath, project: Projec
   return `${v3EnvironmentVariablesPath(organization, project)}/new`;
 }
 
-export function v3ProjectAlertsPath(organization: OrgForPath, project: ProjectForPath) {
+function v3ProjectAlertsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/alerts`;
 }
 
@@ -340,7 +340,7 @@ function v3NewProjectAlertPathConnectToSlackPath(
   return `${v3ProjectAlertsPath(organization, project)}/new/connect-to-slack`;
 }
 
-export function v3TestPath(
+function v3TestPath(
   organization: OrgForPath,
   project: ProjectForPath,
   environmentSlug?: string
@@ -350,7 +350,7 @@ export function v3TestPath(
   }`;
 }
 
-export function v3TestTaskPath(
+function v3TestTaskPath(
   organization: OrgForPath,
   project: ProjectForPath,
   task: TaskForPath,
@@ -371,11 +371,11 @@ export function v3RunsPath(
   return `${v3ProjectPath(organization, project)}/runs${query}`;
 }
 
-export function v3RunPath(organization: OrgForPath, project: ProjectForPath, run: v3RunForPath) {
+function v3RunPath(organization: OrgForPath, project: ProjectForPath, run: v3RunForPath) {
   return `${v3RunsPath(organization, project)}/${run.friendlyId}`;
 }
 
-export function v3RunSpanPath(
+function v3RunSpanPath(
   organization: OrgForPath,
   project: ProjectForPath,
   run: v3RunForPath,
@@ -384,7 +384,7 @@ export function v3RunSpanPath(
   return `${v3RunPath(organization, project, run)}?span=${span.spanId}`;
 }
 
-export function v3TraceSpanPath(
+function v3TraceSpanPath(
   organization: OrgForPath,
   project: ProjectForPath,
   traceId: string,
@@ -401,7 +401,7 @@ function v3RunStreamingPath(
   return `${v3RunPath(organization, project, run)}/stream`;
 }
 
-export function v3SchedulesPath(organization: OrgForPath, project: ProjectForPath) {
+function v3SchedulesPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/schedules`;
 }
 
@@ -425,11 +425,11 @@ function v3NewSchedulePath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/schedules/new`;
 }
 
-export function v3ProjectSettingsPath(organization: OrgForPath, project: ProjectForPath) {
+function v3ProjectSettingsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/settings`;
 }
 
-export function v3DeploymentsPath(organization: OrgForPath, project: ProjectForPath) {
+function v3DeploymentsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${v3ProjectPath(organization, project)}/deployments`;
 }
 
@@ -614,7 +614,7 @@ function jobRunsParentPath(
   return `${jobPath(organization, project, job)}/runs`;
 }
 
-export function runPath(
+function runPath(
   organization: OrgForPath,
   project: ProjectForPath,
   job: JobForPath,

@@ -53,7 +53,7 @@ type SearchParamsResult<TParams extends ParamType> =
 
 type ParamType = Record<string, any>;
 
-export function createSearchParams<TParams extends ParamType>(
+function createSearchParams<TParams extends ParamType>(
   url: string,
   schema: ZodType<TParams>
 ): SearchParamsResult<TParams> {

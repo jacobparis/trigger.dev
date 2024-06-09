@@ -2,7 +2,6 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
 import tileBgPath from "~/assets/images/error-banner-tile@2x.png";
 import { MatchedOrganization } from "~/hooks/useOrganizations";
-import { useCurrentPlan } from "~/routes/_app.orgs.$organizationSlug/route";
 import { formatNumberCompact } from "~/utils/numberFormatter";
 import { LinkButton } from "../primitives/Buttons";
 import { Icon } from "../primitives/Icon";
@@ -42,20 +41,5 @@ export function UpgradePrompt({ runsEnabled, runCountCap, planPath }: UpgradePro
 }
 
 export function useShowUpgradePrompt(organization?: MatchedOrganization) {
-  const currentPlan = useCurrentPlan();
-  const shouldShow =
-    organization !== undefined &&
-    currentPlan !== undefined &&
-    currentPlan.usage.exceededRunCount &&
-    currentPlan.usage.runCountCap !== undefined;
-
-  if (!shouldShow) {
-    return { shouldShow };
-  }
-
-  return {
-    shouldShow,
-    runCountCap: currentPlan.usage.runCountCap!,
-    runsEnabled: organization.runsEnabled,
-  };
+  return { shouldShow: false };
 }

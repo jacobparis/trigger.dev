@@ -60,7 +60,7 @@ function bulkActionTitle(type: BulkActionType): string {
   }
 }
 
-export function bulkActionVerb(type: BulkActionType): string {
+function bulkActionVerb(type: BulkActionType): string {
   switch (type) {
     case "REPLAY":
       return "Replaying";

@@ -14,7 +14,7 @@ type SpanTitleProps = {
   size: "small" | "large";
 };
 
-export function SpanTitle(event: SpanTitleProps) {
+function SpanTitle(event: SpanTitleProps) {
   return (
     <span className={cn("flex items-center gap-x-2 overflow-x-hidden", eventTextClassName(event))}>
       <span className="truncate">{event.message}</span>{" "}

@@ -63,7 +63,7 @@ export function formatDateTime(
   }).format(date);
 }
 
-export const DateTimeAccurate = ({ date, timeZone = "UTC" }: DateTimeProps) => {
+const DateTimeAccurate = ({ date, timeZone = "UTC" }: DateTimeProps) => {
   const locales = useLocales();
 
   const realDate = typeof date === "string" ? new Date(date) : date;

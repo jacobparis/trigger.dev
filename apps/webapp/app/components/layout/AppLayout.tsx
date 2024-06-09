@@ -7,7 +7,7 @@ export function AppContainer({ children }: { children: React.ReactNode }) {
   return <div className={cn("grid h-full w-full grid-rows-1 overflow-hidden")}>{children}</div>;
 }
 
-export function MainBody({ children }: { children: React.ReactNode }) {
+function MainBody({ children }: { children: React.ReactNode }) {
   return <div className={cn("grid grid-rows-1 overflow-hidden")}>{children}</div>;
 }
 

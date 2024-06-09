@@ -13,7 +13,7 @@ export function useOptionalUser(matches?: UIMatch[]): User | undefined {
   return routeMatch?.user ?? undefined;
 }
 
-export function useUser(matches?: UIMatch[]): User {
+function useUser(matches?: UIMatch[]): User {
   const maybeUser = useOptionalUser(matches);
   if (!maybeUser) {
     throw new Error(

@@ -28,7 +28,7 @@ type ApiAuthenticationResult = {
   environment: AuthenticatedEnvironment;
 };
 
-export async function authenticateApiRequest(
+async function authenticateApiRequest(
   request: Request,
   { allowPublicKey = false }: { allowPublicKey?: boolean } = {}
 ): Promise<ApiAuthenticationResult | undefined> {
