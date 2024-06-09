@@ -19,4 +19,4 @@ if (env.AUTH_GITHUB_CLIENT_ID && env.AUTH_GITHUB_CLIENT_SECRET) {
 
 addEmailLinkStrategy(authenticator);
 
-export { authenticator, isGithubAuthSupported };
+export { authenticator,  };

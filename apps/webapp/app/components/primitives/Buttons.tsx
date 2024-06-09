@@ -159,7 +159,7 @@ export type ButtonContentPropsType = {
   variant: keyof typeof variant;
 };
 
-export function ButtonContent(props: ButtonContentPropsType) {
+function ButtonContent(props: ButtonContentPropsType) {
   const {
     children: text,
     LeadingIcon,

@@ -7,7 +7,7 @@ export function UserProfilePhoto({ className }: { className?: string }) {
   return <UserAvatar avatarUrl={user?.avatarUrl} name={user?.name} className={className} />;
 }
 
-export function UserAvatar({
+function UserAvatar({
   avatarUrl,
   name,
   className,

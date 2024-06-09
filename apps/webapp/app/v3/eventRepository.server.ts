@@ -32,7 +32,7 @@ import { singleton } from "~/utils/singleton";
 import { Gauge } from "prom-client";
 import { metricsRegister } from "~/metrics.server";
 
-export type CreatableEvent = Omit<
+type CreatableEvent = Omit<
   Prisma.TaskEventCreateInput,
   "id" | "createdAt" | "properties" | "metadata" | "style" | "output" | "payload"
 > & {
@@ -43,9 +43,9 @@ export type CreatableEvent = Omit<
   payload: Attributes | string | boolean | number | undefined;
 };
 
-export type CreatableEventKind = TaskEventKind;
-export type CreatableEventStatus = TaskEventStatus;
-export type CreatableEventEnvironmentType = CreatableEvent["environmentType"];
+type CreatableEventKind = TaskEventKind;
+type CreatableEventStatus = TaskEventStatus;
+type CreatableEventEnvironmentType = CreatableEvent["environmentType"];
 
 type TraceAttributes = Partial<
   Pick<
@@ -171,7 +171,7 @@ type UpdateEventOptions = {
   events?: SpanEvents;
 };
 
-export class EventRepository {
+class EventRepository {
   private readonly _flushScheduler: DynamicFlushScheduler<CreatableEvent>;
   private _randomIdGenerator = new RandomIdGenerator();
   private _redisPublishClient: Redis;

@@ -101,7 +101,7 @@ function TaskRunStatusLabel({ status }: { status: TaskRunStatus }) {
   return <span className={runStatusClassNameColor(status)}>{runStatusTitle(status)}</span>;
 }
 
-export function TaskRunStatusIcon({
+function TaskRunStatusIcon({
   status,
   className,
 }: {
@@ -140,7 +140,7 @@ export function TaskRunStatusIcon({
   }
 }
 
-export function runStatusClassNameColor(status: TaskRunStatus): string {
+function runStatusClassNameColor(status: TaskRunStatus): string {
   switch (status) {
     case "PENDING":
       return "text-charcoal-500";

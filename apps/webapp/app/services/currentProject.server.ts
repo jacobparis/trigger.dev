@@ -32,7 +32,7 @@ export async function setCurrentProjectId(id: string, request: Request) {
   return session;
 }
 
-export async function clearCurrentProjectId(request: Request) {
+async function clearCurrentProjectId(request: Request) {
   const session = await getCurrentProjectSession(request);
   session.unset("currentProjectId");
   return session;

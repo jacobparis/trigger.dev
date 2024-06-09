@@ -157,7 +157,7 @@ async function getUserByEmail(email: User["email"]) {
   return prisma.user.findUnique({ where: { email } });
 }
 
-export function updateUser({
+function updateUser({
   id,
   name,
   email,

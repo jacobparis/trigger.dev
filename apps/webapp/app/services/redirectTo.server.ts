@@ -21,7 +21,7 @@ function getRedirectSession(request: Request) {
   return getSession(request.headers.get("Cookie"));
 }
 
-export async function setRedirectTo(request: Request, redirectTo: string) {
+async function setRedirectTo(request: Request, redirectTo: string) {
   const session = await getRedirectSession(request);
 
   if (session) {
@@ -41,7 +41,7 @@ export async function clearRedirectTo(request: Request) {
   return session;
 }
 
-export async function getRedirectTo(request: Request): Promise<string | undefined> {
+async function getRedirectTo(request: Request): Promise<string | undefined> {
   const session = await getRedirectSession(request);
 
   if (session) {

@@ -107,7 +107,7 @@ function eventTextClassName(event: Pick<SpanTitleProps, "isError" | "style" | "l
   }
 }
 
-export function eventBackgroundClassName(
+function eventBackgroundClassName(
   event: Pick<RunEvent["data"], "isError" | "style" | "level" | "isPartial" | "isCancelled">
 ) {
   if (event.isError) {

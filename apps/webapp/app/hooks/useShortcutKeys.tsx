@@ -3,7 +3,7 @@ import { useOperatingSystem } from "~/components/primitives/OperatingSystemProvi
 
 export type Modifier = "alt" | "ctrl" | "meta" | "shift" | "mod";
 
-export type Shortcut = {
+type Shortcut = {
   key: string;
   modifiers?: Modifier[];
   enabledOnInputElements?: boolean;

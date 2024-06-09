@@ -8,7 +8,7 @@ type Result = Awaited<ReturnType<RunPresenter["call"]>>;
 type Run = Result["run"];
 export type RunEvent = NonNullable<Result["trace"]>["events"][0];
 
-export class RunPresenter {
+class RunPresenter {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {

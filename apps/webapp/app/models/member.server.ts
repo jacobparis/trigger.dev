@@ -1,7 +1,7 @@
 import { prisma } from "~/db.server";
 import { createEnvironment } from "./organization.server";
 
-export async function getTeamMembersAndInvites({ userId, slug }: { userId: string; slug: string }) {
+async function getTeamMembersAndInvites({ userId, slug }: { userId: string; slug: string }) {
   const org = await prisma.organization.findFirst({
     where: { slug, members: { some: { userId } } },
     select: {
@@ -44,7 +44,7 @@ export async function getTeamMembersAndInvites({ userId, slug }: { userId: strin
   return { members: org.members, invites: org.invites };
 }
 
-export async function removeTeamMember({
+async function removeTeamMember({
   userId,
   slug,
   memberId,
@@ -114,7 +114,7 @@ async function inviteMembers({
   });
 }
 
-export async function getInviteFromToken({ token }: { token: string }) {
+async function getInviteFromToken({ token }: { token: string }) {
   return await prisma.orgMemberInvite.findFirst({
     where: {
       token,
@@ -141,7 +141,7 @@ export async function getUsersInvites({ email }: { email: string }) {
   });
 }
 
-export async function acceptInvite({ userId, inviteId }: { userId: string; inviteId: string }) {
+async function acceptInvite({ userId, inviteId }: { userId: string; inviteId: string }) {
   return await prisma.$transaction(async (tx) => {
     // 1. Delete the invite and get the invite details
     const invite = await tx.orgMemberInvite.delete({
@@ -182,7 +182,7 @@ export async function acceptInvite({ userId, inviteId }: { userId: string; invit
   });
 }
 
-export async function declineInvite({ userId, inviteId }: { userId: string; inviteId: string }) {
+async function declineInvite({ userId, inviteId }: { userId: string; inviteId: string }) {
   return await prisma.$transaction(async (tx) => {
     //1. delete invite
     const declinedInvite = await prisma.orgMemberInvite.delete({
@@ -211,7 +211,7 @@ export async function declineInvite({ userId, inviteId }: { userId: string; invi
   });
 }
 
-export async function resendInvite({ inviteId }: { inviteId: string }) {
+async function resendInvite({ inviteId }: { inviteId: string }) {
   return await prisma.orgMemberInvite.update({
     where: {
       id: inviteId,
@@ -226,7 +226,7 @@ export async function resendInvite({ inviteId }: { inviteId: string }) {
   });
 }
 
-export async function revokeInvite({
+async function revokeInvite({
   userId,
   slug,
   inviteId,

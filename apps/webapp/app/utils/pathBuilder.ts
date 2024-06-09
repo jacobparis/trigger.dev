@@ -74,11 +74,11 @@ const HttpEndpointParamSchema = ProjectParamSchema.extend({
 });
 
 //v3
-export const v3TaskParamsSchema = ProjectParamSchema.extend({
+const v3TaskParamsSchema = ProjectParamSchema.extend({
   taskParam: z.string(),
 });
 
-export const v3RunParamsSchema = ProjectParamSchema.extend({
+const v3RunParamsSchema = ProjectParamSchema.extend({
   runParam: z.string(),
 });
 
@@ -124,11 +124,11 @@ export function confirmBasicDetailsPath() {
   return `/confirm-basic-details`;
 }
 
-export function acceptInvitePath(token: string) {
+function acceptInvitePath(token: string) {
   return `/invite-accept?token=${token}`;
 }
 
-export function resendInvitePath() {
+function resendInvitePath() {
   return `/invite-resend`;
 }
 
@@ -136,7 +136,7 @@ export function logoutPath() {
   return `/logout`;
 }
 
-export function revokeInvitePath() {
+function revokeInvitePath() {
   return `/invite-revoke`;
 }
 
@@ -393,7 +393,7 @@ export function v3TraceSpanPath(
   return `${v3ProjectPath(organization, project)}/traces/${traceId}/spans/${spanId}`;
 }
 
-export function v3RunStreamingPath(
+function v3RunStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath,
   run: v3RunForPath

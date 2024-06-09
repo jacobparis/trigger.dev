@@ -70,7 +70,7 @@ async function scheduleWelcomeEmail(user: User) {
   );
 }
 
-export async function scheduleEmail(data: DeliverEmail, delay?: { seconds: number }) {
+async function scheduleEmail(data: DeliverEmail, delay?: { seconds: number }) {
   const runAt = delay ? new Date(Date.now() + delay.seconds * 1000) : undefined;
   await workerQueue.enqueue("scheduleEmail", data, { runAt });
 }

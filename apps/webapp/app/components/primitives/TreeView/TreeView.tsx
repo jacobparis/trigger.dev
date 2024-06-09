@@ -26,7 +26,7 @@ type TreeViewProps<TData> = {
 type GetTreePropsFn = UseTreeStateOutput["getTreeProps"];
 type GetNodePropsFn = UseTreeStateOutput["getNodeProps"];
 
-export function TreeView<TData>({
+function TreeView<TData>({
   tree,
   renderNode,
   nodes,
@@ -153,7 +153,7 @@ type HTMLAttributes = Omit<
   "onAnimationStart" | "onDragStart" | "onDragEnd" | "onDrag"
 >;
 
-export type UseTreeStateOutput = {
+type UseTreeStateOutput = {
   selected: string | undefined;
   nodes: NodesState;
   virtualizer: Virtualizer<HTMLElement, Element>;
@@ -180,7 +180,7 @@ export type UseTreeStateOutput = {
   scrollToNode: (id: string) => void;
 };
 
-export function useTree<TData, TFilterValue>({
+function useTree<TData, TFilterValue>({
   tree,
   selectedId,
   collapsedIds,
