@@ -7,4 +7,6 @@ export {
   nanosecondsToMilliseconds,
 } from "./durations";
 
-export { conditionallyImportPacket } from "./ioSerialization";
+import { apiClientManager } from "./apiClientManager-api";
+
+console.log(apiClientManager);

@@ -22,7 +22,7 @@ const defaultRetryOptions = {
   randomize: false,
 } satisfies RetryOptions;
 
-export type ZodFetchOptions = {
+type ZodFetchOptions = {
   retry?: RetryOptions;
 };
 
@@ -43,7 +43,7 @@ export function zodfetch<TResponseBodySchema extends z.ZodTypeAny>(
   return new ApiPromise(_doZodFetch(schema, url, requestInit, options));
 }
 
-export function zodfetchCursorPage<TItemSchema extends z.ZodTypeAny>(
+function zodfetchCursorPage<TItemSchema extends z.ZodTypeAny>(
   schema: TItemSchema,
   url: string,
   params: FetchCursorPageParams,
@@ -80,7 +80,7 @@ export function zodfetchCursorPage<TItemSchema extends z.ZodTypeAny>(
   return new CursorPagePromise(fetchResult, schema, url, params, requestInit, options);
 }
 
-export function zodfetchOffsetLimitPage<TItemSchema extends z.ZodTypeAny>(
+function zodfetchOffsetLimitPage<TItemSchema extends z.ZodTypeAny>(
   schema: TItemSchema,
   url: string,
   params: FetchOffsetLimitPageParams,
@@ -114,7 +114,7 @@ export function zodfetchOffsetLimitPage<TItemSchema extends z.ZodTypeAny>(
   return new OffsetLimitPagePromise(fetchResult, schema, url, params, requestInit, options);
 }
 
-export function zodupload<
+function zodupload<
   TResponseBodySchema extends z.ZodTypeAny,
   TBody = Record<string, unknown>,
 >(
@@ -481,7 +481,7 @@ interface ResponseLike {
   blob(): Promise<BlobLike>;
 }
 
-export type Uploadable = FileLike | ResponseLike | Readable;
+type Uploadable = FileLike | ResponseLike | Readable;
 
 const isResponseLike = (value: any): value is ResponseLike =>
   value != null &&
@@ -517,7 +517,7 @@ const isUploadable = (value: any): value is Uploadable => {
   return isFileLike(value) || isResponseLike(value) || isFsReadStream(value);
 };
 
-export type BlobLikePart =
+type BlobLikePart =
   | string
   | ArrayBuffer
   | ArrayBufferView
@@ -525,7 +525,7 @@ export type BlobLikePart =
   | Uint8Array
   | DataView;
 
-export const isRecordLike = (value: any): value is Record<string, string> =>
+const isRecordLike = (value: any): value is Record<string, string> =>
   value != null &&
   typeof value === "object" &&
   !Array.isArray(value) &&
@@ -590,7 +590,7 @@ class ApiPromise<T> extends Promise<T> {
   }
 }
 
-export class CursorPagePromise<TItemSchema extends z.ZodTypeAny>
+class CursorPagePromise<TItemSchema extends z.ZodTypeAny>
   extends ApiPromise<CursorPage<z.output<TItemSchema>>>
   implements AsyncIterable<z.output<TItemSchema>>
 {
