@@ -4,13 +4,13 @@ import { env } from "~/env.server";
 import { logger } from "~/services/logger.server";
 import { safeJsonParse } from "~/utils/json";
 
-export const HumanToCronResult = z.object({
+const HumanToCronResult = z.object({
   isValid: z.boolean(),
   cron: z.string().optional(),
   error: z.string().optional(),
 });
 
-export type HumanToCronResult = z.infer<typeof HumanToCronResult>;
+type HumanToCronResult = z.infer<typeof HumanToCronResult>;
 
 export const humanToCronSupported = typeof env.OPENAI_API_KEY === "string";
 

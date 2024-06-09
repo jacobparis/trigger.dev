@@ -16,7 +16,7 @@ type EventListOptions = {
 
 const DEFAULT_PAGE_SIZE = 20;
 
-export type EventList = Awaited<ReturnType<EventListPresenter["call"]>>;
+type EventList = Awaited<ReturnType<EventListPresenter["call"]>>;
 
 export class EventListPresenter {
   #prismaClient: PrismaClient;

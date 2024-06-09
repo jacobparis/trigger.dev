@@ -2,7 +2,7 @@ import type { Session } from "@remix-run/node";
 import { createCookieSessionStorage } from "@remix-run/node";
 import { env } from "~/env.server";
 
-export const impersonationSessionStorage = createCookieSessionStorage({
+const impersonationSessionStorage = createCookieSessionStorage({
   cookie: {
     name: "__impersonate", // use any name you want here
     sameSite: "lax", // this helps with CSRF
@@ -14,7 +14,7 @@ export const impersonationSessionStorage = createCookieSessionStorage({
   },
 });
 
-export function getImpersonationSession(request: Request) {
+function getImpersonationSession(request: Request) {
   return impersonationSessionStorage.getSession(request.headers.get("Cookie"));
 }
 

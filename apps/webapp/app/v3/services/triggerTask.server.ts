@@ -13,7 +13,7 @@ import { generateFriendlyId } from "../friendlyIdentifiers";
 import { uploadToObjectStore } from "../r2.server";
 import { BaseService } from "./baseService.server";
 
-export type TriggerTaskServiceOptions = {
+type TriggerTaskServiceOptions = {
   idempotencyKey?: string;
   triggerVersion?: string;
   traceContext?: Record<string, string | undefined>;

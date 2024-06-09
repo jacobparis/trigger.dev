@@ -102,4 +102,4 @@ export function InfoIconTooltip({
   );
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, TooltipArrow, SimpleTooltip };
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, SimpleTooltip };

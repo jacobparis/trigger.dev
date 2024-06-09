@@ -7,7 +7,7 @@ import {
   QueueWithScores,
 } from "./types";
 
-export type SimpleWeightedChoiceStrategyOptions = {
+type SimpleWeightedChoiceStrategyOptions = {
   queueSelectionCount: number;
   randomSeed?: string;
   excludeEnvCapacity?: boolean;

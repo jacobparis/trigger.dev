@@ -11,7 +11,7 @@ type TaskListOptions = {
   url: string;
 };
 
-export type TaskList = Awaited<ReturnType<TestPresenter["call"]>>;
+type TaskList = Awaited<ReturnType<TestPresenter["call"]>>;
 export type TaskListItem = NonNullable<TaskList["tasks"]>[0];
 export type SelectedEnvironment = NonNullable<TaskList["selectedEnvironment"]>;
 

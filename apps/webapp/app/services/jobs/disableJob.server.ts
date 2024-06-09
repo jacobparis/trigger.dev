@@ -5,7 +5,7 @@ import { ExtendedEndpoint, findEndpoint } from "~/models/endpoint.server";
 import type { AuthenticatedEnvironment } from "../apiAuth.server";
 import { DisableScheduleSourceService } from "../schedules/disableScheduleSource.server";
 
-export type DisableJobServiceOptions = {
+type DisableJobServiceOptions = {
   slug: string;
   version: string;
 };

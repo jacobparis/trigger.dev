@@ -20,7 +20,7 @@ export function TaskAttemptStatusLabel({ status }: { status: TaskAttemptStatus }
   );
 }
 
-export function TaskAttemptStatusIcon({ status, className }: TaskAttemptStatusProps) {
+function TaskAttemptStatusIcon({ status, className }: TaskAttemptStatusProps) {
   switch (status) {
     case "COMPLETED":
       return <CheckCircleIcon className={cn(taskAttemptStatusClassNameColor(status), className)} />;

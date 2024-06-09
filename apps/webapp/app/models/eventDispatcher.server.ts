@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-export const JobVersionDispatchableSchema = z.object({
+const JobVersionDispatchableSchema = z.object({
   type: z.literal("JOB_VERSION"),
   id: z.string(),
 });
 
-export const DynamicTriggerDispatchableSchema = z.object({
+const DynamicTriggerDispatchableSchema = z.object({
   type: z.literal("DYNAMIC_TRIGGER"),
   id: z.string(),
 });

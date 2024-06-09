@@ -4,9 +4,9 @@ import invariant from "tiny-invariant";
 import type { loader } from "~/routes/_app.orgs.$organizationSlug.integrations_.$clientParam/route";
 import { useTypedMatchesData } from "./useTypedMatchData";
 
-export type MatchedClient = UseDataFunctionReturn<typeof loader>["client"];
+type MatchedClient = UseDataFunctionReturn<typeof loader>["client"];
 
-export function useOptionalIntegrationClient(matches?: UIMatch[]) {
+function useOptionalIntegrationClient(matches?: UIMatch[]) {
   const routeMatch = useTypedMatchesData<typeof loader>({
     id: "routes/_app.orgs.$organizationSlug.integrations_.$clientParam",
     matches,

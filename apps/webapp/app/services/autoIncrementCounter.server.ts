@@ -9,11 +9,11 @@ import {
 import { env } from "~/env.server";
 import { singleton } from "~/utils/singleton";
 
-export type AutoIncrementCounterOptions = {
+type AutoIncrementCounterOptions = {
   redis: RedisOptions;
 };
 
-export class AutoIncrementCounter {
+class AutoIncrementCounter {
   private _redis: Redis;
 
   constructor(private options: AutoIncrementCounterOptions) {

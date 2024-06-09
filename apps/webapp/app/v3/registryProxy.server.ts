@@ -26,7 +26,7 @@ type RegistryProxyOptions = {
   redis?: RedisOptions;
 };
 
-export class RegistryProxy {
+class RegistryProxy {
   private redis?: Redis;
 
   constructor(private readonly options: RegistryProxyOptions) {

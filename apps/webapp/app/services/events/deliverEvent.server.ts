@@ -124,7 +124,7 @@ export class DeliverEventService {
   }
 }
 
-export class EventMatcher {
+class EventMatcher {
   event: EventRecord;
 
   constructor(event: EventRecord) {

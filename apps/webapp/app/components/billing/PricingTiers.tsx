@@ -86,7 +86,7 @@ export function PricingTiers({
   );
 }
 
-export function TierFree({
+function TierFree({
   plan,
   organizationSlug,
   showActionText,
@@ -219,7 +219,7 @@ export function TierFree({
   );
 }
 
-export function TierPro({
+function TierPro({
   plan,
   organizationSlug,
   showActionText,
@@ -370,7 +370,7 @@ export function TierPro({
   );
 }
 
-export function TierEnterprise() {
+function TierEnterprise() {
   return (
     <TierContainer>
       <Header title="Enterprise" />

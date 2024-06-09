@@ -1,5 +1,5 @@
 type InputType = { id: string; parentId: string | null };
-export type OutputType<T> = T & { subtasks?: T[] };
+type OutputType<T> = T & { subtasks?: T[] };
 
 export function taskListToTree<T extends InputType>(
   tasks: T[],

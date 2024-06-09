@@ -154,11 +154,11 @@ export function RunsFilters() {
   );
 }
 
-export function FilterStatusLabel({ status }: { status: FilterableStatus }) {
+function FilterStatusLabel({ status }: { status: FilterableStatus }) {
   return <span className={filterStatusClassNameColor(status)}>{filterStatusTitle(status)}</span>;
 }
 
-export function FilterStatusIcon({
+function FilterStatusIcon({
   status,
   className,
 }: {
@@ -188,7 +188,7 @@ export function FilterStatusIcon({
   }
 }
 
-export function filterStatusTitle(status: FilterableStatus): string {
+function filterStatusTitle(status: FilterableStatus): string {
   switch (status) {
     case "QUEUED":
       return "Queued";
@@ -210,7 +210,7 @@ export function filterStatusTitle(status: FilterableStatus): string {
   }
 }
 
-export function filterStatusClassNameColor(status: FilterableStatus): string {
+function filterStatusClassNameColor(status: FilterableStatus): string {
   switch (status) {
     case "QUEUED":
       return "text-charcoal-500";

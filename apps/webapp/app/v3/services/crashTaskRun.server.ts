@@ -11,7 +11,7 @@ import { logger } from "~/services/logger.server";
 import { AuthenticatedEnvironment } from "~/services/apiAuth.server";
 import { ResumeTaskRunDependenciesService } from "./resumeTaskRunDependencies.server";
 
-export const CRASHABLE_RUN_STATUSES: Array<TaskRunStatus> = [
+const CRASHABLE_RUN_STATUSES: Array<TaskRunStatus> = [
   "PENDING",
   "WAITING_FOR_DEPLOY",
   "EXECUTING",
@@ -23,7 +23,7 @@ export const CRASHABLE_RUN_STATUSES: Array<TaskRunStatus> = [
 
 const CRASHABLE_ATTEMPT_STATUSES: Array<TaskRunAttemptStatus> = ["EXECUTING", "PAUSED", "PENDING"];
 
-export type CrashTaskRunServiceOptions = {
+type CrashTaskRunServiceOptions = {
   reason?: string;
   exitCode?: number;
   logs?: string;

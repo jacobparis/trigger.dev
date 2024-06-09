@@ -70,7 +70,7 @@ export type SharedQueueMessageBody = z.infer<typeof SharedQueueMessageBody>;
 
 type BackgroundWorkerWithTasks = BackgroundWorker & { tasks: BackgroundWorkerTask[] };
 
-export type SharedQueueConsumerOptions = {
+type SharedQueueConsumerOptions = {
   maximumItemsPerTrace?: number;
   traceTimeoutSeconds?: number;
   nextTickInterval?: number;

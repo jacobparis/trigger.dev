@@ -3,7 +3,7 @@ import type { ConnectionAuth } from "@trigger.dev/core";
 import type { ConnectionWithSecretReference } from "~/services/externalApis/integrationAuthRepository.server";
 import { integrationAuthRepository } from "~/services/externalApis/integrationAuthRepository.server";
 
-export type ResolvableRunConnection = RunConnection & {
+type ResolvableRunConnection = RunConnection & {
   integration: Integration;
   connection: ConnectionWithSecretReference | null;
 };
@@ -33,7 +33,7 @@ export async function resolveRunConnections(
   return { auth: result, success: allResolved };
 }
 
-export async function resolveRunConnection(
+async function resolveRunConnection(
   connection: ResolvableRunConnection
 ): Promise<ConnectionAuth | undefined> {
   if (!connection.connection) {

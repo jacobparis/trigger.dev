@@ -34,7 +34,7 @@ export async function findOrCreateUser(input: FindOrCreateUser): Promise<LoggedI
   }
 }
 
-export async function findOrCreateMagicLinkUser(
+async function findOrCreateMagicLinkUser(
   input: FindOrCreateMagicLink
 ): Promise<LoggedInUser> {
   if (env.WHITELISTED_EMAILS && !new RegExp(env.WHITELISTED_EMAILS).test(input.email)) {
@@ -61,7 +61,7 @@ export async function findOrCreateMagicLinkUser(
   };
 }
 
-export async function findOrCreateGithubUser({
+async function findOrCreateGithubUser({
   email,
   authenticationProfile,
   authenticationExtraParams,
@@ -153,7 +153,7 @@ export async function getUserById(id: User["id"]) {
   return prisma.user.findUnique({ where: { id } });
 }
 
-export async function getUserByEmail(email: User["email"]) {
+async function getUserByEmail(email: User["email"]) {
   return prisma.user.findUnique({ where: { email } });
 }
 
@@ -173,7 +173,7 @@ export function updateUser({
   });
 }
 
-export async function grantUserCloudAccess({ id, inviteCode }: { id: string; inviteCode: string }) {
+async function grantUserCloudAccess({ id, inviteCode }: { id: string; inviteCode: string }) {
   return prisma.user.update({
     where: { id },
     data: {

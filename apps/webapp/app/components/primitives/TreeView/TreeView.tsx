@@ -5,7 +5,7 @@ import { cn } from "~/utils/cn";
 import { NodeState, NodesState, reducer } from "./reducer";
 import { concreteStateFromInput, selectedIdFromState } from "./utils";
 
-export type TreeViewProps<TData> = {
+type TreeViewProps<TData> = {
   tree: FlatTree<TData>;
   parentClassName?: string;
   renderNode: (params: {
@@ -23,8 +23,8 @@ export type TreeViewProps<TData> = {
   onScroll?: (scrollTop: number) => void;
 } & Pick<UseTreeStateOutput, "getTreeProps" | "getNodeProps">;
 
-export type GetTreePropsFn = UseTreeStateOutput["getTreeProps"];
-export type GetNodePropsFn = UseTreeStateOutput["getNodeProps"];
+type GetTreePropsFn = UseTreeStateOutput["getTreeProps"];
+type GetNodePropsFn = UseTreeStateOutput["getNodeProps"];
 
 export function TreeView<TData>({
   tree,

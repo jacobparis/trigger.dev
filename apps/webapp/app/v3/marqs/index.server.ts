@@ -45,7 +45,7 @@ const SemanticAttributes = {
   CONCURRENCY_KEY: "marqs.concurrencyKey",
 };
 
-export type MarQSOptions = {
+type MarQSOptions = {
   name: string;
   tracer: Tracer;
   redis: RedisOptions;

@@ -10,7 +10,7 @@ type RunListOptions = {
 
 const PAGE_SIZE = 20;
 
-export type WebhookDeliveryList = Awaited<ReturnType<WebhookDeliveryListPresenter["call"]>>;
+type WebhookDeliveryList = Awaited<ReturnType<WebhookDeliveryListPresenter["call"]>>;
 
 export class WebhookDeliveryListPresenter {
   #prismaClient: PrismaClient;

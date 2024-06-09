@@ -16,7 +16,7 @@ import {
 } from "@trigger.dev/core";
 import { sortEnvironments } from "~/utils/environmentSort";
 
-export type Client = {
+type Client = {
   slug: string;
   endpoints: {
     DEVELOPMENT: ClientEndpoint;

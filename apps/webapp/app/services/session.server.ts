@@ -43,6 +43,6 @@ export async function requireUser(request: Request) {
   throw await logout(request);
 }
 
-export async function logout(request: Request) {
+async function logout(request: Request) {
   return redirect("/logout");
 }

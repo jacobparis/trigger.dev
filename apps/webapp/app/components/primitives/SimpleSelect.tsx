@@ -12,7 +12,7 @@ const sizes = {
   minimal: "text-xs h-6 bg-transparent hover:bg-tertiary pl-1.5 pr-2",
 };
 
-export type SelectProps = {
+type SelectProps = {
   size?: keyof typeof sizes;
   width?: "content" | "full";
 };
@@ -136,8 +136,6 @@ export {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 };

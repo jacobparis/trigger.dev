@@ -1,6 +1,6 @@
 import { Reducer, useReducer } from "react";
 
-export type ListState<T> = {
+type ListState<T> = {
   items: T[];
 };
 

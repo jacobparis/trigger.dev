@@ -15,19 +15,19 @@ import type { Organization } from "~/models/organization.server";
 import type { Project } from "~/models/project.server";
 import { objectToSearchParams } from "./searchParams";
 
-export type OrgForPath = Pick<Organization, "slug">;
-export type ProjectForPath = Pick<Project, "slug">;
-export type JobForPath = Pick<Job, "slug">;
-export type RunForPath = Pick<Job, "id">;
-export type IntegrationForPath = Pick<Integration, "slug">;
-export type TriggerForPath = Pick<TriggerSource, "id">;
-export type EventForPath = Pick<EventRecord, "id">;
-export type WebhookForPath = Pick<Webhook, "id">;
-export type HttpEndpointForPath = Pick<TriggerHttpEndpoint, "key">;
-export type TaskForPath = Pick<BackgroundWorkerTask, "friendlyId">;
-export type v3RunForPath = Pick<TaskRun, "friendlyId">;
-export type v3SpanForPath = Pick<TaskRun, "spanId">;
-export type DeploymentForPath = Pick<WorkerDeployment, "shortCode">;
+type OrgForPath = Pick<Organization, "slug">;
+type ProjectForPath = Pick<Project, "slug">;
+type JobForPath = Pick<Job, "slug">;
+type RunForPath = Pick<Job, "id">;
+type IntegrationForPath = Pick<Integration, "slug">;
+type TriggerForPath = Pick<TriggerSource, "id">;
+type EventForPath = Pick<EventRecord, "id">;
+type WebhookForPath = Pick<Webhook, "id">;
+type HttpEndpointForPath = Pick<TriggerHttpEndpoint, "key">;
+type TaskForPath = Pick<BackgroundWorkerTask, "friendlyId">;
+type v3RunForPath = Pick<TaskRun, "friendlyId">;
+type v3SpanForPath = Pick<TaskRun, "spanId">;
+type DeploymentForPath = Pick<WorkerDeployment, "shortCode">;
 
 export const OrganizationParamsSchema = z.object({
   organizationSlug: z.string(),
@@ -94,11 +94,11 @@ export const v3ScheduleParams = ProjectParamSchema.extend({
   scheduleParam: z.string(),
 });
 
-export function trimTrailingSlash(path: string) {
+function trimTrailingSlash(path: string) {
   return path.replace(/\/$/, "");
 }
 
-export function parentPath(path: string) {
+function parentPath(path: string) {
   const trimmedTrailingSlash = trimTrailingSlash(path);
   const lastSlashIndex = trimmedTrailingSlash.lastIndexOf("/");
   return trimmedTrailingSlash.substring(0, lastSlashIndex);
@@ -149,7 +149,7 @@ export function newOrganizationPath() {
   return `/orgs/new`;
 }
 
-export function selectPlanPath(organization: OrgForPath) {
+function selectPlanPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/select-plan`;
 }
 
@@ -258,7 +258,7 @@ export function projectSettingsPath(organization: OrgForPath, project: ProjectFo
   return `${projectPath(organization, project)}/settings`;
 }
 
-export function projectEventPath(
+function projectEventPath(
   organization: OrgForPath,
   project: ProjectForPath,
   event: EventForPath
@@ -567,7 +567,7 @@ export function webhookTriggerDeliveryRunPath(
   return `${webhookTriggerDeliveryRunsParentPath(organization, project, webhook)}/${run.id}`;
 }
 
-export function webhookTriggerDeliveryRunStreamingPath(
+function webhookTriggerDeliveryRunStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath,
@@ -589,7 +589,7 @@ export function jobTestPath(organization: OrgForPath, project: ProjectForPath, j
   return `${jobPath(organization, project, job)}/test`;
 }
 
-export function jobTriggerPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
+function jobTriggerPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
   return `${jobPath(organization, project, job)}/trigger`;
 }
 
@@ -601,7 +601,7 @@ export function jobSettingsPath(
   return `${jobPath(organization, project, job)}/settings`;
 }
 
-export function jobParam(job: JobForPath) {
+function jobParam(job: JobForPath) {
   return job.slug;
 }
 
@@ -641,7 +641,7 @@ export function runStreamingPath(
   return `${runPath(organization, project, job, run)}/stream`;
 }
 
-export function runParam(run: RunForPath) {
+function runParam(run: RunForPath) {
   return run.id;
 }
 
@@ -661,7 +661,7 @@ export function runCompletedPath(runPath: string) {
 }
 
 // Docs
-export function docsRoot() {
+function docsRoot() {
   return "https://trigger.dev/docs";
 }
 
@@ -673,7 +673,7 @@ export function docsIntegrationPath(api: string) {
   return `${docsRoot()}/integrations/apis/${api}`;
 }
 
-export function docsCreateIntegration() {
+function docsCreateIntegration() {
   return `${docsRoot()}/integrations/create`;
 }
 

@@ -21,7 +21,7 @@ import { Paragraph } from "../primitives/Paragraph";
 import { Client } from "~/presenters/IntegrationsPresenter.server";
 import { schema } from "~/routes/resources.connection.$organizationId.oauth2.$integrationId";
 
-export type Status = "loading" | "idle";
+type Status = "loading" | "idle";
 
 export function UpdateOAuthForm({
   existingIntegration,

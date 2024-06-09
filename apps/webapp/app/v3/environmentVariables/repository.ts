@@ -6,12 +6,12 @@ export const EnvironmentVariableKey = z
   .nonempty("Key is required")
   .regex(/^\w+$/, "Keys can only use alphanumeric characters and underscores");
 
-export const CreateEnvironmentVariables = z.object({
+const CreateEnvironmentVariables = z.object({
   environmentIds: z.array(z.string()),
   variables: z.array(z.object({ key: EnvironmentVariableKey, value: z.string() })),
 });
 
-export type CreateEnvironmentVariables = z.infer<typeof CreateEnvironmentVariables>;
+type CreateEnvironmentVariables = z.infer<typeof CreateEnvironmentVariables>;
 
 export type CreateResult =
   | {

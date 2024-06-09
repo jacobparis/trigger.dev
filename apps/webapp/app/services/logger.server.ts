@@ -5,7 +5,7 @@ import { AsyncLocalStorage } from "async_hooks";
 
 const currentFieldsStore = new AsyncLocalStorage<Record<string, unknown>>();
 
-export function trace<T>(fields: Record<string, unknown>, fn: () => T): T {
+function trace<T>(fields: Record<string, unknown>, fn: () => T): T {
   return currentFieldsStore.run(fields, fn);
 }
 
@@ -31,7 +31,7 @@ export const workerLogger = new Logger(
   }
 );
 
-export const socketLogger = new Logger(
+const socketLogger = new Logger(
   "socket",
   (process.env.APP_LOG_LEVEL ?? "debug") as LogLevel,
   [],

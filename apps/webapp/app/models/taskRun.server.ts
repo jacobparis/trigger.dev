@@ -26,7 +26,7 @@ const FAILURE_STATUSES = [
   TaskRunStatus.CRASHED,
 ];
 
-export type TaskRunWithAttempts = TaskRun & {
+type TaskRunWithAttempts = TaskRun & {
   attempts: TaskRunAttempt[];
 };
 

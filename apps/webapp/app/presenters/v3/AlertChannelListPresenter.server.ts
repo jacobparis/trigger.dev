@@ -9,10 +9,10 @@ import {
   ProjectAlertWebhookProperties,
 } from "~/models/projectAlert.server";
 
-export type AlertChannelListPresenterData = Awaited<ReturnType<AlertChannelListPresenter["call"]>>;
+type AlertChannelListPresenterData = Awaited<ReturnType<AlertChannelListPresenter["call"]>>;
 export type AlertChannelListPresenterRecord =
   AlertChannelListPresenterData["alertChannels"][number];
-export type AlertChannelListPresenterAlertProperties = NonNullable<
+type AlertChannelListPresenterAlertProperties = NonNullable<
   AlertChannelListPresenterRecord["properties"]
 >;
 

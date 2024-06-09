@@ -20,11 +20,11 @@ export function BulkActionStatusCombo({
   );
 }
 
-export function BulkActionLabel({ type }: { type: BulkActionType }) {
+function BulkActionLabel({ type }: { type: BulkActionType }) {
   return <span className={bulkActionClassName(type)}>{bulkActionTitle(type)}</span>;
 }
 
-export function BulkActionIcon({ type, className }: { type: BulkActionType; className: string }) {
+function BulkActionIcon({ type, className }: { type: BulkActionType; className: string }) {
   switch (type) {
     case "REPLAY":
       return <ArrowPathIcon className={cn(bulkActionClassName(type), className)} />;
@@ -36,7 +36,7 @@ export function BulkActionIcon({ type, className }: { type: BulkActionType; clas
   }
 }
 
-export function bulkActionClassName(type: BulkActionType): string {
+function bulkActionClassName(type: BulkActionType): string {
   switch (type) {
     case "REPLAY":
       return "text-indigo-500";
@@ -48,7 +48,7 @@ export function bulkActionClassName(type: BulkActionType): string {
   }
 }
 
-export function bulkActionTitle(type: BulkActionType): string {
+function bulkActionTitle(type: BulkActionType): string {
   switch (type) {
     case "REPLAY":
       return "Replay";

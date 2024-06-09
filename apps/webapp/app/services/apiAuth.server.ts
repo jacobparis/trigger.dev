@@ -80,11 +80,11 @@ export async function authenticateApiKey(
   }
 }
 
-export function isPublicApiKey(key: string) {
+function isPublicApiKey(key: string) {
   return key.startsWith("pk_");
 }
 
-export function getApiKeyFromRequest(request: Request) {
+function getApiKeyFromRequest(request: Request) {
   const rawAuthorization = request.headers.get("Authorization");
 
   const authorization = AuthorizationHeaderSchema.safeParse(rawAuthorization);
@@ -96,12 +96,12 @@ export function getApiKeyFromRequest(request: Request) {
   return apiKey;
 }
 
-export function getApiKeyResult(apiKey: string) {
+function getApiKeyResult(apiKey: string) {
   const type = isPublicApiKey(apiKey) ? ("PUBLIC" as const) : ("PRIVATE" as const);
   return { apiKey, type };
 }
 
-export type DualAuthenticationResult =
+type DualAuthenticationResult =
   | {
       type: "personalAccessToken";
       result: PersonalAccessTokenAuthenticationResult;

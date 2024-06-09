@@ -12,25 +12,25 @@ import {
 } from "~/models/projectAlert.server";
 import { decryptSecret } from "~/services/secrets/secretStore.server";
 
-export const ApiAlertType = z.enum(["attempt_failure", "deployment_failure", "deployment_success"]);
+const ApiAlertType = z.enum(["attempt_failure", "deployment_failure", "deployment_success"]);
 
-export type ApiAlertType = z.infer<typeof ApiAlertType>;
+type ApiAlertType = z.infer<typeof ApiAlertType>;
 
-export const ApiAlertEnvironmentType = z.enum(["STAGING", "PRODUCTION"]);
+const ApiAlertEnvironmentType = z.enum(["STAGING", "PRODUCTION"]);
 
-export type ApiAlertEnvironmentType = z.infer<typeof ApiAlertEnvironmentType>;
+type ApiAlertEnvironmentType = z.infer<typeof ApiAlertEnvironmentType>;
 
-export const ApiAlertChannel = z.enum(["email", "webhook"]);
+const ApiAlertChannel = z.enum(["email", "webhook"]);
 
-export type ApiAlertChannel = z.infer<typeof ApiAlertChannel>;
+type ApiAlertChannel = z.infer<typeof ApiAlertChannel>;
 
-export const ApiAlertChannelData = z.object({
+const ApiAlertChannelData = z.object({
   email: z.string().optional(),
   url: z.string().optional(),
   secret: z.string().optional(),
 });
 
-export type ApiAlertChannelData = z.infer<typeof ApiAlertChannelData>;
+type ApiAlertChannelData = z.infer<typeof ApiAlertChannelData>;
 
 export const ApiCreateAlertChannel = z.object({
   alertTypes: ApiAlertType.array(),
@@ -43,7 +43,7 @@ export const ApiCreateAlertChannel = z.object({
 
 export type ApiCreateAlertChannel = z.infer<typeof ApiCreateAlertChannel>;
 
-export const ApiAlertChannelObject = z.object({
+const ApiAlertChannelObject = z.object({
   id: z.string(),
   name: z.string(),
   alertTypes: ApiAlertType.array(),
@@ -52,7 +52,7 @@ export const ApiAlertChannelObject = z.object({
   deduplicationKey: z.string().optional(),
 });
 
-export type ApiAlertChannelObject = z.infer<typeof ApiAlertChannelObject>;
+type ApiAlertChannelObject = z.infer<typeof ApiAlertChannelObject>;
 
 export class ApiAlertChannelPresenter {
   public static async alertChannelToApi(

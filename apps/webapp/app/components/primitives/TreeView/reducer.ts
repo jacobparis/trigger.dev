@@ -160,7 +160,7 @@ type UpdateFilterAction = {
   };
 };
 
-export type Action =
+type Action =
   | UpdateTreeAction
   | SelectNodeAction
   | DeselectNodeAction

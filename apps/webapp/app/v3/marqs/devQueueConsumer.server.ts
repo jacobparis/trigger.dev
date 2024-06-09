@@ -36,7 +36,7 @@ const MessageBody = z.discriminatedUnion("type", [
 
 type BackgroundWorkerWithTasks = BackgroundWorker & { tasks: BackgroundWorkerTask[] };
 
-export type DevQueueConsumerOptions = {
+type DevQueueConsumerOptions = {
   maximumItemsPerTrace?: number;
   traceTimeoutSeconds?: number;
   ipAddress?: string;

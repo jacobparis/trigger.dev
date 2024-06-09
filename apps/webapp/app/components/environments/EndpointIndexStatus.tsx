@@ -47,7 +47,7 @@ export function EndpointIndexStatusLabel({ status }: { status: EndpointIndexStat
   }
 }
 
-export function endpointIndexStatusTitle(status: EndpointIndexStatus): string {
+function endpointIndexStatusTitle(status: EndpointIndexStatus): string {
   switch (status) {
     case "PENDING":
       return "Pending";
@@ -60,7 +60,7 @@ export function endpointIndexStatusTitle(status: EndpointIndexStatus): string {
   }
 }
 
-export function endpointIndexStatusClassNameColor(status: EndpointIndexStatus): string {
+function endpointIndexStatusClassNameColor(status: EndpointIndexStatus): string {
   switch (status) {
     case "PENDING":
       return "text-text-dimmed";

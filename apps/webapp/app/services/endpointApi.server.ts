@@ -34,7 +34,7 @@ const HttpSourceRequestSchema = z.object({
 
 export type HttpSourceRequest = z.infer<typeof HttpSourceRequestSchema>;
 
-export class EndpointApiError extends Error {
+class EndpointApiError extends Error {
   constructor(message: string, stack?: string) {
     super(`EndpointApiError: ${message}`);
     this.stack = stack;

@@ -402,7 +402,7 @@ function RerunPopover({
   );
 }
 
-export function CancelRun({ runId }: { runId: string }) {
+function CancelRun({ runId }: { runId: string }) {
   const lastSubmission = useActionData();
   const location = useLocation();
   const navigation = useNavigation();

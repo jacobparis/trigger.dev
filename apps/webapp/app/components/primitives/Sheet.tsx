@@ -138,7 +138,7 @@ const sheetVariants = cva(
   }
 );
 
-export interface DialogContentProps
+interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
     VariantProps<typeof sheetVariants> {}
 
@@ -188,7 +188,7 @@ export const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDi
   />
 );
 
-export const SheetFooter = ({
+const SheetFooter = ({
   className,
   children,
   ...props

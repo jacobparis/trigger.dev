@@ -17,7 +17,7 @@ const variants = {
 
 type VariantName = keyof typeof variants;
 
-export type SliderProps = ComponentProps<typeof RadixSlider.Root> & {
+type SliderProps = ComponentProps<typeof RadixSlider.Root> & {
   LeadingIcon?: RenderIcon;
   TrailingIcon?: RenderIcon;
   variant: VariantName;

@@ -20,7 +20,7 @@ import { VisibilityTimeoutStrategy } from "./types";
 const KEY_PREFIX = "marqsv2:";
 const SHARED_QUEUE_NAME = "sharedQueue";
 
-export class V2VisibilityTimeout implements VisibilityTimeoutStrategy {
+class V2VisibilityTimeout implements VisibilityTimeoutStrategy {
   async heartbeat(messageId: string, timeoutInMs: number): Promise<void> {
     RequeueV2Message.enqueue(messageId, new Date(Date.now() + timeoutInMs));
   }
@@ -30,7 +30,7 @@ export class V2VisibilityTimeout implements VisibilityTimeoutStrategy {
   }
 }
 
-export class MarQSV2KeyProducer extends MarQSShortKeyProducer {
+class MarQSV2KeyProducer extends MarQSShortKeyProducer {
   constructor(prefix: string) {
     super(prefix);
   }
@@ -86,7 +86,7 @@ function getMarQSClient() {
   });
 }
 
-export type V2QueueConsumerOptions = {
+type V2QueueConsumerOptions = {
   pollInterval?: number;
   retryOptions?: RetryOptions;
 };
@@ -97,7 +97,7 @@ const MessageBody = z.object({
   attempt: z.number().default(1),
 });
 
-export class V2QueueConsumer {
+class V2QueueConsumer {
   private _enabled = false;
   private _pollInterval: number;
   private _retryOptions: RetryOptions = {
@@ -262,7 +262,7 @@ class V2QueueConsumerPool {
   }
 }
 
-export const v2QueueConsumerPool = singleton("v2QueueConsumerPool", initalizePool);
+const v2QueueConsumerPool = singleton("v2QueueConsumerPool", initalizePool);
 
 async function initalizePool() {
   if (env.V2_MARQS_ENABLED === "0") {

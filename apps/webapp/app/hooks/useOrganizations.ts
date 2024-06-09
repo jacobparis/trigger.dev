@@ -8,7 +8,7 @@ import { useTypedMatchesData } from "./useTypedMatchData";
 export type MatchedOrganization = UseDataFunctionReturn<typeof orgLoader>["organizations"][number];
 export const organizationMatchId = "routes/_app.orgs.$organizationSlug";
 
-export function useOptionalOrganizations(matches?: UIMatch[]) {
+function useOptionalOrganizations(matches?: UIMatch[]) {
   const data = useTypedMatchesData<typeof orgLoader>({
     id: "routes/_app.orgs.$organizationSlug",
     matches,
@@ -16,7 +16,7 @@ export function useOptionalOrganizations(matches?: UIMatch[]) {
   return data?.organizations;
 }
 
-export function useOrganizations(matches?: UIMatch[]) {
+function useOrganizations(matches?: UIMatch[]) {
   const orgs = useOptionalOrganizations(matches);
   invariant(orgs, "No organizations found in loader.");
   return orgs;
@@ -42,7 +42,7 @@ export function useOrganization(matches?: UIMatch[]) {
   return org;
 }
 
-export function useIsNewOrganizationPage(matches?: UIMatch[]): boolean {
+function useIsNewOrganizationPage(matches?: UIMatch[]): boolean {
   const data = useTypedMatchesData<any>({
     id: "routes/_app.orgs.new",
     matches,

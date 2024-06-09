@@ -1,7 +1,7 @@
 import type { JobRun, Task, TaskAttempt } from "@trigger.dev/database";
 import { CachedTask, ServerTask } from "@trigger.dev/core";
 
-export type TaskWithAttempts = Task & {
+type TaskWithAttempts = Task & {
   attempts: TaskAttempt[];
   run: { forceYieldImmediately: boolean };
 };
@@ -33,7 +33,7 @@ export function taskWithAttemptsToServerTask(task: TaskWithAttempts): ServerTask
   };
 }
 
-export type TaskForCaching = Pick<
+type TaskForCaching = Pick<
   Task,
   "id" | "status" | "idempotencyKey" | "noop" | "output" | "parentId" | "outputIsUndefined"
 >;

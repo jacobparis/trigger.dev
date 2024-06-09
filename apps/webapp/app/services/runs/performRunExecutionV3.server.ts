@@ -51,7 +51,7 @@ type FoundTask = FoundRun["tasks"][number];
 // We need to limit the cached tasks to not be too large >3.5MB when serialized
 const TOTAL_CACHED_TASK_BYTE_LIMIT = 3500000;
 
-export type PerformRunExecutionV3Input = {
+type PerformRunExecutionV3Input = {
   id: string;
   reason: "PREPROCESS" | "EXECUTE_JOB";
 

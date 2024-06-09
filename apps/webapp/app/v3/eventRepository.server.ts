@@ -47,7 +47,7 @@ export type CreatableEventKind = TaskEventKind;
 export type CreatableEventStatus = TaskEventStatus;
 export type CreatableEventEnvironmentType = CreatableEvent["environmentType"];
 
-export type TraceAttributes = Partial<
+type TraceAttributes = Partial<
   Pick<
     CreatableEvent,
     | "attemptId"
@@ -69,9 +69,9 @@ export type TraceAttributes = Partial<
   >
 >;
 
-export type SetAttribute<T extends TraceAttributes> = (key: keyof T, value: T[keyof T]) => void;
+type SetAttribute<T extends TraceAttributes> = (key: keyof T, value: T[keyof T]) => void;
 
-export type TraceEventOptions = {
+type TraceEventOptions = {
   kind?: CreatableEventKind;
   context?: Record<string, string | undefined>;
   spanParentAsLink?: boolean;
@@ -85,24 +85,24 @@ export type TraceEventOptions = {
   immediate?: boolean;
 };
 
-export type EventBuilder = {
+type EventBuilder = {
   traceId: string;
   spanId: string;
   setAttribute: SetAttribute<TraceAttributes>;
 };
 
-export type EventRepoConfig = {
+type EventRepoConfig = {
   batchSize: number;
   batchInterval: number;
   redis: RedisOptions;
   retentionInDays: number;
 };
 
-export type QueryOptions = Prisma.TaskEventWhereInput;
+type QueryOptions = Prisma.TaskEventWhereInput;
 
-export type TaskEventRecord = TaskEvent;
+type TaskEventRecord = TaskEvent;
 
-export type QueriedEvent = Prisma.TaskEventGetPayload<{
+type QueriedEvent = Prisma.TaskEventGetPayload<{
   select: {
     id: true;
     spanId: true;
@@ -122,7 +122,7 @@ export type QueriedEvent = Prisma.TaskEventGetPayload<{
   };
 }>;
 
-export type PreparedEvent = Omit<QueriedEvent, "events" | "style" | "duration"> & {
+type PreparedEvent = Omit<QueriedEvent, "events" | "style" | "duration"> & {
   duration: number;
   events: SpanEvents;
   style: TaskEventStyle;
@@ -143,7 +143,7 @@ export type SpanLink =
       spanId: string;
     };
 
-export type SpanSummary = {
+type SpanSummary = {
   recordId: string;
   id: string;
   parentId: string | undefined;
@@ -162,9 +162,9 @@ export type SpanSummary = {
   };
 };
 
-export type TraceSummary = { rootSpan: SpanSummary; spans: Array<SpanSummary> };
+type TraceSummary = { rootSpan: SpanSummary; spans: Array<SpanSummary> };
 
-export type UpdateEventOptions = {
+type UpdateEventOptions = {
   attributes: TraceAttributes;
   endTime?: Date;
   immediate?: boolean;
@@ -874,7 +874,7 @@ function initializeEventRepo() {
   return repo;
 }
 
-export function stripAttributePrefix(attributes: Attributes, prefix: string) {
+function stripAttributePrefix(attributes: Attributes, prefix: string) {
   const result: Attributes = {};
 
   for (const [key, value] of Object.entries(attributes)) {

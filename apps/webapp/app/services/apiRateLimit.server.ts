@@ -19,7 +19,7 @@ type Options = {
 };
 
 //returns an Express middleware that rate limits using the Bearer token in the Authorization header
-export function authorizationRateLimitMiddleware({
+function authorizationRateLimitMiddleware({
   redis,
   keyPrefix,
   limiter,
@@ -157,4 +157,4 @@ export const apiRateLimiter = authorizationRateLimitMiddleware({
   },
 });
 
-export type RateLimitMiddleware = ReturnType<typeof authorizationRateLimitMiddleware>;
+type RateLimitMiddleware = ReturnType<typeof authorizationRateLimitMiddleware>;

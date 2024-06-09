@@ -16,7 +16,7 @@ interface MousePosition {
   y: number;
 }
 const MousePositionContext = createContext<MousePosition | undefined>(undefined);
-export function MousePositionProvider({ children }: { children: ReactNode }) {
+function MousePositionProvider({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<MousePosition | undefined>(undefined);
 
@@ -53,7 +53,7 @@ export function MousePositionProvider({ children }: { children: ReactNode }) {
     </div>
   );
 }
-export const useMousePosition = () => {
+const useMousePosition = () => {
   return useContext(MousePositionContext);
 };
 
@@ -73,7 +73,7 @@ function useTimelineMousePosition() {
   return useContext(TimelineMousePositionContext);
 }
 
-export type RootProps = {
+type RootProps = {
   /** If the timeline doesn't start at zero. Doesn't impact layout but gives you the times back */
   startMs?: number;
   durationMs: number;
@@ -112,7 +112,7 @@ export function Root({
   );
 }
 
-export type RowProps = ComponentPropsWithoutRef<"div">;
+type RowProps = ComponentPropsWithoutRef<"div">;
 
 /** This simply acts as a container, with position relative.
  *  This allows you to nest "Rows" and put heights on them */
@@ -124,7 +124,7 @@ export function Row({ className, children, ...props }: RowProps) {
   );
 }
 
-export type PointProps = {
+type PointProps = {
   ms: number;
   className?: string;
   children?: (ms: number) => ReactNode;
@@ -174,7 +174,7 @@ export function Span({ startMs, durationMs, className, children }: SpanProps) {
   );
 }
 
-export type EquallyDistributeProps = {
+type EquallyDistributeProps = {
   count: number;
   children: (ms: number, index: number) => ReactNode;
 };
@@ -193,7 +193,7 @@ export function EquallyDistribute({ count, children }: EquallyDistributeProps) {
   );
 }
 
-export type FollowCursorProps = {
+type FollowCursorProps = {
   children: (ms: number) => ReactNode;
 };
 

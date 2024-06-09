@@ -5,12 +5,12 @@ import { useChanged } from "./useChanged";
 import { UIMatch } from "@remix-run/react";
 import { useTypedMatchesData } from "./useTypedMatchData";
 
-export type MatchedJob = UseDataFunctionReturn<typeof loader>["job"];
+type MatchedJob = UseDataFunctionReturn<typeof loader>["job"];
 
-export const jobMatchId =
+const jobMatchId =
   "routes/_app.orgs.$organizationSlug.projects.$projectParam.jobs.$jobParam";
 
-export function useOptionalJob(matches?: UIMatch[]) {
+function useOptionalJob(matches?: UIMatch[]) {
   const routeMatch = useTypedMatchesData<typeof loader>({
     id: jobMatchId,
     matches,

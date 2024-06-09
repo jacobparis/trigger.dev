@@ -1,7 +1,7 @@
 import { PrismaClientOrTransaction, prisma } from "~/db.server";
 import { logger } from "../logger.server";
 
-export type CreateExecutionEventInput = {
+type CreateExecutionEventInput = {
   organizationId: string;
   projectId: string;
   environmentId: string;
@@ -13,7 +13,7 @@ export type CreateExecutionEventInput = {
   concurrencyLimitGroupId?: string | null;
 };
 
-export class CreateExecutionEventService {
+class CreateExecutionEventService {
   constructor(private prismaClient: PrismaClientOrTransaction = prisma) {}
 
   public async call(input: CreateExecutionEventInput) {

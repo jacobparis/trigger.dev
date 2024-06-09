@@ -37,7 +37,7 @@ type ExtendedTaskRunAttempt = Prisma.TaskRunAttemptGetPayload<{
   };
 }>;
 
-export type CancelTaskRunServiceOptions = {
+type CancelTaskRunServiceOptions = {
   reason?: string;
   cancelAttempts?: boolean;
   cancelledAt?: Date;

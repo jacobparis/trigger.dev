@@ -97,7 +97,7 @@ export function TaskRunStatusCombo({
   );
 }
 
-export function TaskRunStatusLabel({ status }: { status: TaskRunStatus }) {
+function TaskRunStatusLabel({ status }: { status: TaskRunStatus }) {
   return <span className={runStatusClassNameColor(status)}>{runStatusTitle(status)}</span>;
 }
 

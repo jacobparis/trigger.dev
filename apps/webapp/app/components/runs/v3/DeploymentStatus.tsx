@@ -24,13 +24,13 @@ export function DeploymentStatus({
   );
 }
 
-export function DeploymentStatusLabel({ status }: { status: WorkerDeploymentStatus }) {
+function DeploymentStatusLabel({ status }: { status: WorkerDeploymentStatus }) {
   return (
     <span className={deploymentStatusClassNameColor(status)}>{deploymentStatusTitle(status)}</span>
   );
 }
 
-export function DeploymentStatusIcon({
+function DeploymentStatusIcon({
   status,
   className,
 }: {
@@ -60,7 +60,7 @@ export function DeploymentStatusIcon({
   }
 }
 
-export function deploymentStatusClassNameColor(status: WorkerDeploymentStatus): string {
+function deploymentStatusClassNameColor(status: WorkerDeploymentStatus): string {
   switch (status) {
     case "PENDING":
     case "BUILDING":
@@ -79,7 +79,7 @@ export function deploymentStatusClassNameColor(status: WorkerDeploymentStatus): 
   }
 }
 
-export function deploymentStatusTitle(status: WorkerDeploymentStatus): string {
+function deploymentStatusTitle(status: WorkerDeploymentStatus): string {
   switch (status) {
     case "PENDING":
       return "Pending…";

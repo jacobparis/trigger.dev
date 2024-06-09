@@ -16,7 +16,7 @@ export function PropertyTable({
   );
 }
 
-export type PropertyProps = {
+type PropertyProps = {
   label: ReactNode;
   labelClassName?: string;
   children: ReactNode;

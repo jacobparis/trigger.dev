@@ -43,7 +43,7 @@ export type ConnectionWithSecretReference = IntegrationConnection & {
 /** How many seconds before expiry we should refresh the token  */
 const tokenRefreshThreshold = 5 * 60;
 
-export class IntegrationAuthRepository {
+class IntegrationAuthRepository {
   #integrationCatalog: IntegrationCatalog;
   #prismaClient: PrismaClient;
 

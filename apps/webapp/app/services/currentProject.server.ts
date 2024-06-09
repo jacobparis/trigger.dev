@@ -1,7 +1,7 @@
 import { Session, createCookieSessionStorage } from "@remix-run/node";
 import { env } from "~/env.server";
 
-export const currentProjectSessionStorage = createCookieSessionStorage({
+const currentProjectSessionStorage = createCookieSessionStorage({
   cookie: {
     name: "__project", // use any name you want here
     sameSite: "lax", // this helps with CSRF

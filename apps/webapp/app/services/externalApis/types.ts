@@ -16,7 +16,7 @@ export type Integration = {
 };
 
 /** An authentication method that can be used */
-export type ApiAuthenticationMethod = ApiAuthenticationMethodOAuth2 | ApiAuthenticationMethodApiKey;
+type ApiAuthenticationMethod = ApiAuthenticationMethodOAuth2 | ApiAuthenticationMethodApiKey;
 
 const HelpSampleSchema = z.object({
   title: z.string(),
@@ -31,7 +31,7 @@ export const HelpSchema = z.object({
 export type Help = z.infer<typeof HelpSchema>;
 export type HelpSample = z.infer<typeof HelpSampleSchema>;
 
-export type ApiAuthenticationMethodApiKey = {
+type ApiAuthenticationMethodApiKey = {
   /** The type of authentication method */
   type: "apikey";
   help: Help;
@@ -122,7 +122,7 @@ export type ApiAuthenticationMethodOAuth2 = {
   help: Help;
 };
 
-export type AuthorizationLocation = "header" | "body";
+type AuthorizationLocation = "header" | "body";
 
 export type CreateUrlParams = {
   authorizationUrl: string;

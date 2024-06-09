@@ -17,7 +17,7 @@ type RunOptions = {
 
 export type ViewRun = NonNullable<Awaited<ReturnType<RunPresenter["call"]>>>;
 export type ViewTask = NonNullable<Awaited<ReturnType<RunPresenter["call"]>>>["tasks"][number];
-export type ViewEvent = NonNullable<Awaited<ReturnType<RunPresenter["call"]>>>["event"];
+type ViewEvent = NonNullable<Awaited<ReturnType<RunPresenter["call"]>>>["event"];
 
 type QueryEvent = NonNullable<Awaited<ReturnType<RunPresenter["query"]>>>["event"];
 type QueryTask = NonNullable<Awaited<ReturnType<RunPresenter["query"]>>>["tasks"][number];

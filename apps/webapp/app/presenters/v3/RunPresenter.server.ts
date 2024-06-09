@@ -5,7 +5,7 @@ import { getUsername } from "~/utils/username";
 import { eventRepository } from "~/v3/eventRepository.server";
 
 type Result = Awaited<ReturnType<RunPresenter["call"]>>;
-export type Run = Result["run"];
+type Run = Result["run"];
 export type RunEvent = NonNullable<Result["trace"]>["events"][0];
 
 export class RunPresenter {

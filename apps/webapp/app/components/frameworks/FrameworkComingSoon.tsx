@@ -7,7 +7,7 @@ import { LinkButton } from "../primitives/Buttons";
 import { Header1 } from "../primitives/Headers";
 import { NamedIcon } from "../primitives/NamedIcon";
 import { Paragraph } from "../primitives/Paragraph";
-export type FrameworkComingSoonProps = {
+type FrameworkComingSoonProps = {
   frameworkName: string;
   githubIssueUrl: string;
   githubIssueNumber: number;

@@ -1,10 +1,11 @@
 import { createCookieSessionStorage } from "@remix-run/node";
 import { z } from "zod";
 import { env } from "~/env.server";
+import { getSession } from "./sessionStorage.server";
 
 const ONE_DAY = 60 * 60 * 24;
 
-export const { commitSession, getSession } = createCookieSessionStorage({
+export const { commitSession,  } = createCookieSessionStorage({
   cookie: {
     name: "__redirectTo",
     path: "/",
@@ -16,7 +17,7 @@ export const { commitSession, getSession } = createCookieSessionStorage({
   },
 });
 
-export function getRedirectSession(request: Request) {
+function getRedirectSession(request: Request) {
   return getSession(request.headers.get("Cookie"));
 }
 

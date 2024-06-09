@@ -13,7 +13,7 @@ export function LoadingBarDivider({ isLoading }: LoadingBarDividerProps) {
   );
 }
 
-export function AnimationDivider({ isLoading }: LoadingBarDividerProps) {
+function AnimationDivider({ isLoading }: LoadingBarDividerProps) {
   const [scope, animate] = useAnimate();
   const [isPresent, safeToRemove] = usePresence();
 

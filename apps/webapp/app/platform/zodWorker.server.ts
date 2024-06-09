@@ -28,7 +28,7 @@ import { env } from "~/env.server";
 
 const tracer = trace.getTracer("zodWorker", "3.0.0.dp.1");
 
-export interface MessageCatalogSchema {
+interface MessageCatalogSchema {
   [key: string]: z.ZodFirstPartySchemaTypes | z.ZodDiscriminatedUnion<any, any>;
 }
 
@@ -60,7 +60,7 @@ const GraphileJobSchema = z.object({
 
 const AddJobResultsSchema = z.array(GraphileJobSchema);
 
-export type ZodTasks<TConsumerSchema extends MessageCatalogSchema> = {
+type ZodTasks<TConsumerSchema extends MessageCatalogSchema> = {
   [K in keyof TConsumerSchema]: {
     jobKey?: string | ((payload: z.infer<TConsumerSchema[K]>) => string | undefined);
     priority?: number;
@@ -76,7 +76,7 @@ type RecurringTaskPayload = {
   backfilled: boolean;
 };
 
-export type ZodRecurringTasks = {
+type ZodRecurringTasks = {
   [key: string]: {
     match: string;
     options?: CronItemOptions;
@@ -86,18 +86,18 @@ export type ZodRecurringTasks = {
 
 type ZodTaskSpec = Omit<TaskSpec, "queueName">;
 
-export type ZodWorkerEnqueueOptions = ZodTaskSpec & {
+type ZodWorkerEnqueueOptions = ZodTaskSpec & {
   tx?: PrismaClientOrTransaction;
 };
 
-export type ZodWorkerDequeueOptions = {
+type ZodWorkerDequeueOptions = {
   tx?: PrismaClientOrTransaction;
 };
 
 const CLEANUP_TASK_NAME = "__cleanupOldJobs";
 const REPORTER_TASK_NAME = "__reporter";
 
-export type ZodWorkerCleanupOptions = {
+type ZodWorkerCleanupOptions = {
   frequencyExpression: string; // cron expression
   ttl: number;
   maxCount: number;
@@ -111,7 +111,7 @@ export interface ZodWorkerRateLimiter {
   wrapTask(t: Task, rescheduler: Task): Task;
 }
 
-export type ZodWorkerOptions<TMessageCatalog extends MessageCatalogSchema> = {
+type ZodWorkerOptions<TMessageCatalog extends MessageCatalogSchema> = {
   name: string;
   runnerOptions: RunnerOptions;
   prisma: PrismaClient;

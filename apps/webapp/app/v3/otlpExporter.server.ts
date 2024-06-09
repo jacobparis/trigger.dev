@@ -26,7 +26,7 @@ import {
 } from "./eventRepository.server";
 import { logger } from "~/services/logger.server";
 
-export type OTLPExporterConfig = {
+type OTLPExporterConfig = {
   batchSize: number;
   batchInterval: number;
 };

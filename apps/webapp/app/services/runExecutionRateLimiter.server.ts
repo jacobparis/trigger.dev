@@ -19,7 +19,7 @@ import {
   RuntimeEnvironment,
 } from "@trigger.dev/database";
 
-export interface RunExecutionRateLimiter {
+interface RunExecutionRateLimiter {
   putConcurrencyLimitGroup(
     concurrencyLimitGroup: ConcurrencyLimitGroup,
     env: RuntimeEnvironment

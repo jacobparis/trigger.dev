@@ -29,7 +29,7 @@ export type RunListOptions = {
 
 const DEFAULT_PAGE_SIZE = 25;
 
-export type RunList = Awaited<ReturnType<RunListPresenter["call"]>>;
+type RunList = Awaited<ReturnType<RunListPresenter["call"]>>;
 export type RunListItem = RunList["runs"][0];
 export type RunListAppliedFilters = RunList["filters"];
 

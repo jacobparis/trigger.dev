@@ -9,7 +9,7 @@ import { Button } from "../primitives/Buttons";
 import { getEditorSetup } from "./codeMirrorSetup";
 import { darkTheme } from "./codeMirrorTheme";
 
-export interface JSONEditorProps extends Omit<ReactCodeMirrorProps, "onBlur"> {
+interface JSONEditorProps extends Omit<ReactCodeMirrorProps, "onBlur"> {
   defaultValue?: string;
   language?: "json";
   readOnly?: boolean;

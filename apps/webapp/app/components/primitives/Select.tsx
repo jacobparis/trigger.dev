@@ -62,7 +62,7 @@ function isSection<TItem>(data: TItem[] | Section<TItem>[]): data is Section<TIt
 }
 
 type ItemFromSection<TItemOrSection> = TItemOrSection extends Section<infer U> ? U : TItemOrSection;
-export interface SelectProps<TValue extends string | string[], TItem>
+interface SelectProps<TValue extends string | string[], TItem>
   extends Omit<Ariakit.SelectProps, "children"> {
   icon?: React.ReactNode;
   text?: React.ReactNode | ((value: TValue) => React.ReactNode);
@@ -221,7 +221,7 @@ export function Select<TValue extends string | string[], TItem>({
   return select;
 }
 
-export interface SelectTriggerProps<TValue = any> extends AriaSelectProps {
+interface SelectTriggerProps<TValue = any> extends AriaSelectProps {
   icon?: React.ReactNode;
   text?: React.ReactNode | ((value: TValue) => React.ReactNode);
   placeholder?: React.ReactNode;
@@ -336,7 +336,7 @@ export function SelectTrigger({
   );
 }
 
-export interface SelectProviderProps<TValue extends string | string[]>
+interface SelectProviderProps<TValue extends string | string[]>
   extends Ariakit.SelectProviderProps<TValue> {}
 export function SelectProvider<TValue extends string | string[]>(
   props: SelectProviderProps<TValue>
@@ -344,7 +344,7 @@ export function SelectProvider<TValue extends string | string[]>(
   return <Ariakit.SelectProvider {...props} />;
 }
 
-export interface ComboboxProviderProps extends Ariakit.ComboboxProviderProps {}
+interface ComboboxProviderProps extends Ariakit.ComboboxProviderProps {}
 export function ComboboxProvider(props: ComboboxProviderProps) {
   return <Ariakit.ComboboxProvider {...props} />;
 }
@@ -387,7 +387,7 @@ function SelectGroupedRenderer<TItem>({
   );
 }
 
-export interface SelectListProps extends Omit<Ariakit.SelectListProps, "store"> {}
+interface SelectListProps extends Omit<Ariakit.SelectListProps, "store"> {}
 export function SelectList(props: SelectListProps) {
   const combobox = Ariakit.useComboboxContext();
   const Component = combobox ? Ariakit.ComboboxList : Ariakit.SelectList;
@@ -403,7 +403,7 @@ export function SelectList(props: SelectListProps) {
   );
 }
 
-export interface SelectItemProps extends Ariakit.SelectItemProps {
+interface SelectItemProps extends Ariakit.SelectItemProps {
   icon?: React.ReactNode;
   checkIcon?: React.ReactNode;
   shortcut?: ShortcutDefinition;
@@ -459,7 +459,7 @@ export function SelectItem({
   );
 }
 
-export interface SelectLinkItemProps extends Ariakit.SelectItemProps {
+interface SelectLinkItemProps extends Ariakit.SelectItemProps {
   icon?: React.ReactNode;
   checkIcon?: React.ReactNode;
   shortcut?: ShortcutDefinition;
@@ -483,7 +483,7 @@ export function SelectLinkItem({
   );
 }
 
-export interface SelectButtonItemProps extends Omit<Ariakit.SelectItemProps, "onClick"> {
+interface SelectButtonItemProps extends Omit<Ariakit.SelectItemProps, "onClick"> {
   icon?: React.ReactNode;
   checkIcon?: React.ReactNode;
   shortcut?: ShortcutDefinition;
@@ -531,19 +531,19 @@ export function shortcutFromIndex(
   return { key: String(adjustedIndex + 1) };
 }
 
-export interface SelectSeparatorProps extends React.ComponentProps<"div"> {}
+interface SelectSeparatorProps extends React.ComponentProps<"div"> {}
 
-export function SelectSeparator(props: SelectSeparatorProps) {
+function SelectSeparator(props: SelectSeparatorProps) {
   return <div {...props} className={cn("h-px bg-charcoal-700", props.className)} />;
 }
 
-export interface SelectGroupProps extends Ariakit.SelectGroupProps {}
+interface SelectGroupProps extends Ariakit.SelectGroupProps {}
 
 export function SelectGroup(props: SelectGroupProps) {
   return <Ariakit.SelectGroup {...props} />;
 }
 
-export interface SelectGroupLabelProps extends Ariakit.SelectGroupLabelProps {}
+interface SelectGroupLabelProps extends Ariakit.SelectGroupLabelProps {}
 
 export function SelectGroupLabel(props: SelectGroupLabelProps) {
   return (
@@ -557,8 +557,8 @@ export function SelectGroupLabel(props: SelectGroupLabelProps) {
   );
 }
 
-export interface SelectHeadingProps extends Ariakit.SelectHeadingProps {}
-export function SelectHeading({ render, ...props }: SelectHeadingProps) {
+interface SelectHeadingProps extends Ariakit.SelectHeadingProps {}
+function SelectHeading({ render, ...props }: SelectHeadingProps) {
   return (
     <div className="flex h-[1.375rem] flex-none cursor-default items-center gap-2 border-b border-charcoal-700 bg-charcoal-750 px-2.5 text-xxs uppercase text-text-bright">
       <Ariakit.SelectHeading render={<>{render}</>} />
@@ -566,7 +566,7 @@ export function SelectHeading({ render, ...props }: SelectHeadingProps) {
   );
 }
 
-export interface SelectPopoverProps extends Ariakit.SelectPopoverProps {}
+interface SelectPopoverProps extends Ariakit.SelectPopoverProps {}
 export function SelectPopover({
   gutter = 5,
   shift = 0,
@@ -592,13 +592,13 @@ export function SelectPopover({
   );
 }
 
-export interface SelectLabelProps extends Ariakit.SelectLabelProps {}
+interface SelectLabelProps extends Ariakit.SelectLabelProps {}
 //currently unstyled
-export function SelectLabel(props: SelectLabelProps) {
+function SelectLabel(props: SelectLabelProps) {
   return <Ariakit.SelectLabel {...props} />;
 }
 
-export interface ComboBoxProps extends Ariakit.ComboboxProps {
+interface ComboBoxProps extends Ariakit.ComboboxProps {
   shortcut?: ShortcutDefinition;
 }
 

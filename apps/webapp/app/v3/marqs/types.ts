@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { AuthenticatedEnvironment } from "~/services/apiAuth.server";
 
-export type QueueCapacity = {
+type QueueCapacity = {
   current: number;
   limit: number;
 };

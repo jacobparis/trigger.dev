@@ -2,7 +2,7 @@ import type { Prettify } from "@trigger.dev/core";
 import { CURRENT_DEPLOYMENT_LABEL } from "~/consts";
 import { Prisma, prisma } from "~/db.server";
 
-export type CurrentWorkerDeployment = Prettify<
+type CurrentWorkerDeployment = Prettify<
   NonNullable<Awaited<ReturnType<typeof findCurrentWorkerDeployment>>>
 >;
 

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { logger } from "~/services/logger.server";
 import { safeJsonParse } from "~/utils/json";
 
-export type ZodPubSubOptions<TMessageCatalog extends ZodMessageCatalogSchema> = {
+type ZodPubSubOptions<TMessageCatalog extends ZodMessageCatalogSchema> = {
   redis: RedisOptions;
   schema: TMessageCatalog;
 };

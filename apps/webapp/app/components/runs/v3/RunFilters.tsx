@@ -52,7 +52,7 @@ import { TaskTriggerSourceIcon } from "./TaskTriggerSource";
 import { DateTime } from "~/components/primitives/DateTime";
 import { BulkActionStatusCombo } from "./BulkAction";
 
-export const TaskAttemptStatus = z.enum(allTaskRunStatuses);
+const TaskAttemptStatus = z.enum(allTaskRunStatuses);
 
 export const TaskRunListSearchFilters = z.object({
   cursor: z.string().optional(),

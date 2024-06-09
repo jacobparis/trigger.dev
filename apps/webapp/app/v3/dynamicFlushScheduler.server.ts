@@ -1,4 +1,4 @@
-export type DynamicFlushSchedulerConfig<T> = {
+type DynamicFlushSchedulerConfig<T> = {
   batchSize: number;
   flushInterval: number;
   callback: (batch: T[]) => Promise<void>;

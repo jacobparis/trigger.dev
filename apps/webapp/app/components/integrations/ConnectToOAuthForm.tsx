@@ -22,7 +22,7 @@ import { InputGroup } from "../primitives/InputGroup";
 import { Label } from "../primitives/Label";
 import { Paragraph } from "../primitives/Paragraph";
 
-export type Status = "loading" | "idle";
+type Status = "loading" | "idle";
 
 export function ConnectToOAuthForm({
   integration,

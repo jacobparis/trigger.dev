@@ -140,7 +140,7 @@ export function environmentTitle(environment: Environment, username?: string) {
   }
 }
 
-export function environmentTypeTitle(environment: Environment) {
+function environmentTypeTitle(environment: Environment) {
   switch (environment.type) {
     case "PRODUCTION":
       return "Prod";
@@ -153,7 +153,7 @@ export function environmentTypeTitle(environment: Environment) {
   }
 }
 
-export function environmentColorClassName(environment: Environment) {
+function environmentColorClassName(environment: Environment) {
   switch (environment.type) {
     case "PRODUCTION":
       return "bg-green-500";

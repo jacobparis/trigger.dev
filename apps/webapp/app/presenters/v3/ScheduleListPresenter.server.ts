@@ -31,8 +31,8 @@ export type ScheduleListItem = {
     userName?: string;
   }[];
 };
-export type ScheduleList = Awaited<ReturnType<ScheduleListPresenter["call"]>>;
-export type ScheduleListAppliedFilters = ScheduleList["filters"];
+type ScheduleList = Awaited<ReturnType<ScheduleListPresenter["call"]>>;
+type ScheduleListAppliedFilters = ScheduleList["filters"];
 
 export class ScheduleListPresenter {
   #prismaClient: PrismaClient;

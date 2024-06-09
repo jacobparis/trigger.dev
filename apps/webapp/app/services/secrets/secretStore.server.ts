@@ -15,7 +15,7 @@ type ProviderInitializationOptions = {
   };
 };
 
-export interface SecretStoreProvider {
+interface SecretStoreProvider {
   getSecret<T>(schema: z.Schema<T>, key: string): Promise<T | undefined>;
   getSecrets<T>(schema: z.Schema<T>, keyPrefix: string): Promise<{ key: string; value: T }[]>;
   setSecret<T extends object>(key: string, value: T): Promise<void>;
@@ -23,7 +23,7 @@ export interface SecretStoreProvider {
 }
 
 /** The SecretStore will use the passed in provider. */
-export class SecretStore {
+class SecretStore {
   constructor(private provider: SecretStoreProvider) {}
 
   getSecret<T>(schema: z.Schema<T>, key: string): Promise<T | undefined> {
@@ -59,7 +59,7 @@ export const EncryptedSecretValueSchema = z.object({
   tag: z.string(),
 });
 
-export type EncryptedSecretValue = z.infer<typeof EncryptedSecretValueSchema>;
+type EncryptedSecretValue = z.infer<typeof EncryptedSecretValueSchema>;
 
 /** This stores secrets in the Postgres Database, encrypted using aes-256-gcm */
 class PrismaSecretStore implements SecretStoreProvider {

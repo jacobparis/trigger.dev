@@ -114,6 +114,5 @@ export {
   AlertFooter,
   AlertTitle,
   AlertDescription,
-  AlertAction,
   AlertCancel,
 };

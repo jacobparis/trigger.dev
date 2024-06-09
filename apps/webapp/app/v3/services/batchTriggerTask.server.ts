@@ -5,7 +5,7 @@ import { BaseService } from "./baseService.server";
 import { TriggerTaskService } from "./triggerTask.server";
 import { batchTaskRunItemStatusForRunStatus } from "~/models/taskRun.server";
 
-export type BatchTriggerTaskServiceOptions = {
+type BatchTriggerTaskServiceOptions = {
   idempotencyKey?: string;
   triggerVersion?: string;
   traceContext?: Record<string, string | undefined>;

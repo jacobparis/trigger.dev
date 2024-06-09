@@ -187,5 +187,5 @@ const EnvironmentSchema = z.object({
   V2_MARQS_VERBOSE: z.string().default("0"),
 });
 
-export type Environment = z.infer<typeof EnvironmentSchema>;
+type Environment = z.infer<typeof EnvironmentSchema>;
 export const env = EnvironmentSchema.parse(process.env);

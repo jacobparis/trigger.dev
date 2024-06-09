@@ -42,7 +42,7 @@ const variants = {
   },
 };
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   variant?: keyof typeof variants;
   icon?: RenderIcon;
   shortcut?: string;

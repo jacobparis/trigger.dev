@@ -51,11 +51,11 @@ export async function sendMagicLinkEmail(options: SendEmailOptions<AuthUser>): P
   }
 }
 
-export async function sendPlainTextEmail(options: SendPlainTextOptions) {
+async function sendPlainTextEmail(options: SendPlainTextOptions) {
   return client.sendPlainText(options);
 }
 
-export async function scheduleWelcomeEmail(user: User) {
+async function scheduleWelcomeEmail(user: User) {
   //delay for one minute in development, longer in production
   const delay = process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 60 * 22;
 

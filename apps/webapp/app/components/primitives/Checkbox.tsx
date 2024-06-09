@@ -49,7 +49,7 @@ const variants = {
   },
 };
 
-export type CheckboxProps = Omit<
+type CheckboxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "checked" | "onChange"
 > & {

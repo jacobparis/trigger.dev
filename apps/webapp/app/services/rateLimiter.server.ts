@@ -13,7 +13,7 @@ type Options = {
 
 export type Limiter = ConstructorParameters<typeof Ratelimit>[0]["limiter"];
 export type Duration = Parameters<typeof Ratelimit.slidingWindow>[1];
-export type RateLimitResponse = Awaited<ReturnType<Ratelimit["limit"]>>;
+type RateLimitResponse = Awaited<ReturnType<Ratelimit["limit"]>>;
 
 export class RateLimiter {
   #ratelimit: Ratelimit;

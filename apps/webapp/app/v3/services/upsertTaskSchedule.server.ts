@@ -9,7 +9,7 @@ import { RegisterNextTaskScheduleInstanceService } from "./registerNextTaskSched
 import cronstrue from "cronstrue";
 import { calculateNextScheduledTimestamp } from "../utils/calculateNextSchedule.server";
 
-export type UpsertTaskScheduleServiceOptions = UpsertSchedule;
+type UpsertTaskScheduleServiceOptions = UpsertSchedule;
 
 type InstanceWithEnvironment = Prisma.TaskScheduleInstanceGetPayload<{
   include: {
