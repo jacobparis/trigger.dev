@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TaskRunError } from "./schemas/common";
 import nodePath from "node:path";
 
-export function parseError(error: unknown): TaskRunError {
+function parseError(error: unknown): TaskRunError {
   if (error instanceof Error) {
     return {
       type: "BUILT_IN_ERROR",

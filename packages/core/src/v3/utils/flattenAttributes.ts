@@ -67,7 +67,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-export function unflattenAttributes(
+function unflattenAttributes(
   obj: Attributes
 ): Record<string, unknown> | string | number | boolean | null | undefined {
   if (typeof obj !== "object" || obj === null || Array.isArray(obj)) {

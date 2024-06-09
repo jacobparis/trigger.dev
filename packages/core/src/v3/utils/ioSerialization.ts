@@ -1,5 +1,4 @@
 import { Span } from "@opentelemetry/api";
-import { SemanticInternalAttributes } from "../semanticInternalAttributes";
 import { TriggerTracer } from "../tracer";
 import { apiClientManager } from "../apiClientManager-api";
 
@@ -26,7 +25,7 @@ export async function conditionallyImportPacket(
       },
       {
         attributes: {
-          [SemanticInternalAttributes.STYLE_ICON]: "cloud-download",
+          "$style.icon": "cloud-download",
         },
       }
     );

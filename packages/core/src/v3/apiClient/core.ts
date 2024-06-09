@@ -14,7 +14,7 @@ import {
   OffsetLimitPageResponse,
 } from "./pagination";
 
-export const defaultRetryOptions = {
+const defaultRetryOptions = {
   maxAttempts: 3,
   factor: 2,
   minTimeoutInMs: 1000,
@@ -356,7 +356,7 @@ const addFormValue = async (form: FormData, key: string, value: unknown): Promis
   }
 };
 
-export type ToFileInput = Uploadable | Exclude<BlobLikePart, string> | AsyncIterable<BlobLikePart>;
+type ToFileInput = Uploadable | Exclude<BlobLikePart, string> | AsyncIterable<BlobLikePart>;
 
 /**
  * Helper for creating a {@link File} to pass to an SDK upload method from a variety of different data formats
@@ -367,7 +367,7 @@ export type ToFileInput = Uploadable | Exclude<BlobLikePart, string> | AsyncIter
  * @param {number=} options.lastModified the last modified timestamp
  * @returns a {@link File} with the given properties
  */
-export async function toFile(
+async function toFile(
   value: ToFileInput | PromiseLike<ToFileInput>,
   name?: string | null | undefined,
   options?: FilePropertyBag | undefined
@@ -451,7 +451,7 @@ const isAsyncIterableIterator = (value: any): value is AsyncIterableIterator<unk
 /**
  * Intended to match web.Blob, node.Blob, node-fetch.Blob, etc.
  */
-export interface BlobLike {
+interface BlobLike {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Blob/size) */
   readonly size: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Blob/type) */
@@ -466,7 +466,7 @@ export interface BlobLike {
 /**
  * Intended to match web.File, node.File, node-fetch.File, etc.
  */
-export interface FileLike extends BlobLike {
+interface FileLike extends BlobLike {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/File/lastModified) */
   readonly lastModified: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/File/name) */
@@ -476,20 +476,20 @@ export interface FileLike extends BlobLike {
 /**
  * Intended to match web.Response, node.Response, node-fetch.Response, etc.
  */
-export interface ResponseLike {
+interface ResponseLike {
   url: string;
   blob(): Promise<BlobLike>;
 }
 
 export type Uploadable = FileLike | ResponseLike | Readable;
 
-export const isResponseLike = (value: any): value is ResponseLike =>
+const isResponseLike = (value: any): value is ResponseLike =>
   value != null &&
   typeof value === "object" &&
   typeof value.url === "string" &&
   typeof value.blob === "function";
 
-export const isFileLike = (value: any): value is FileLike =>
+const isFileLike = (value: any): value is FileLike =>
   value != null &&
   typeof value === "object" &&
   typeof value.name === "string" &&
@@ -500,7 +500,7 @@ export const isFileLike = (value: any): value is FileLike =>
  * The BlobLike type omits arrayBuffer() because @types/node-fetch@^2.6.4 lacks it; but this check
  * adds the arrayBuffer() method type because it is available and used at runtime
  */
-export const isBlobLike = (
+const isBlobLike = (
   value: any
 ): value is BlobLike & { arrayBuffer(): Promise<ArrayBuffer> } =>
   value != null &&
@@ -511,9 +511,9 @@ export const isBlobLike = (
   typeof value.slice === "function" &&
   typeof value.arrayBuffer === "function";
 
-export const isFsReadStream = (value: any): value is Readable => value instanceof Readable;
+const isFsReadStream = (value: any): value is Readable => value instanceof Readable;
 
-export const isUploadable = (value: any): value is Uploadable => {
+const isUploadable = (value: any): value is Uploadable => {
   return isFileLike(value) || isResponseLike(value) || isFsReadStream(value);
 };
 
@@ -536,7 +536,7 @@ export const isRecordLike = (value: any): value is Record<string, string> =>
  * A subclass of `Promise` providing additional helper methods
  * for interacting with the SDK.
  */
-export class ApiPromise<T> extends Promise<T> {
+class ApiPromise<T> extends Promise<T> {
   constructor(private responsePromise: Promise<ZodFetchResult<T>>) {
     super((resolve) => {
       // this is maybe a bit weird but this has to be a no-op to not implicitly
@@ -635,7 +635,7 @@ export class CursorPagePromise<TItemSchema extends z.ZodTypeAny>
   }
 }
 
-export class OffsetLimitPagePromise<TItemSchema extends z.ZodTypeAny>
+class OffsetLimitPagePromise<TItemSchema extends z.ZodTypeAny>
   extends ApiPromise<OffsetLimitPage<z.output<TItemSchema>>>
   implements AsyncIterable<z.output<TItemSchema>>
 {

@@ -23,7 +23,7 @@ const TaskRunStringError = z.object({
 
 type TaskRunStringError = z.infer<typeof TaskRunStringError>;
 
-export const TaskRunErrorCodes = {
+const TaskRunErrorCodes = {
   COULD_NOT_FIND_EXECUTOR: "COULD_NOT_FIND_EXECUTOR",
   COULD_NOT_FIND_TASK: "COULD_NOT_FIND_TASK",
   CONFIGURED_INCORRECTLY: "CONFIGURED_INCORRECTLY",
@@ -166,13 +166,13 @@ export const TaskRunContext = z.object({
 
 export type TaskRunContext = z.infer<typeof TaskRunContext>;
 
-export const TaskRunExecutionRetry = z.object({
+const TaskRunExecutionRetry = z.object({
   timestamp: z.number(),
   delay: z.number(),
   error: z.unknown().optional(),
 });
 
-export type TaskRunExecutionRetry = z.infer<typeof TaskRunExecutionRetry>;
+type TaskRunExecutionRetry = z.infer<typeof TaskRunExecutionRetry>;
 
 export const TaskRunFailedExecutionResult = z.object({
   ok: z.literal(false),

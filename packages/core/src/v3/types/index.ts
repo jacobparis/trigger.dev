@@ -60,7 +60,7 @@ type HandleErrorArgs = {
   retryDelayInMs?: number;
 };
 
-export type HandleErrorFunction = (
+type HandleErrorFunction = (
   payload: any,
   error: unknown,
   params: HandleErrorArgs

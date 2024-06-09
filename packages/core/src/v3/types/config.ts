@@ -3,7 +3,7 @@ import { LogLevel } from "../logger/taskLogger";
 import { RetryOptions } from "../schemas";
 import type { InstrumentationOption } from "@opentelemetry/instrumentation";
 
-export interface ProjectConfig {
+interface ProjectConfig {
   project: string;
   triggerDirectories?: string | string[];
   triggerUrl?: string;

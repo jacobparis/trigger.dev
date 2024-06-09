@@ -9,7 +9,7 @@ export interface OffsetLimitPageParams {
   page?: number;
 }
 
-export interface PageResponse<Item> {
+interface PageResponse<Item> {
   data: Array<Item>;
 }
 
@@ -28,7 +28,7 @@ export interface OffsetLimitPageResponse<Item> extends PageResponse<Item> {
   };
 }
 
-export interface Page<Item> {
+interface Page<Item> {
   getPaginatedItems(): Item[];
   hasNextPage(): boolean;
   hasPreviousPage(): boolean;

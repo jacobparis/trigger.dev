@@ -62,7 +62,7 @@ const EventMatcherSchema = z.union([
 type EventMatcher = z.infer<typeof EventMatcherSchema>;
 
 /** A filter for matching against data */
-export type EventFilter = { [key: string]: EventMatcher | EventFilter };
+type EventFilter = { [key: string]: EventMatcher | EventFilter };
 
 export const EventFilterSchema: z.ZodType<EventFilter> = z.lazy(() =>
   z.record(z.union([EventMatcherSchema, EventFilterSchema]))

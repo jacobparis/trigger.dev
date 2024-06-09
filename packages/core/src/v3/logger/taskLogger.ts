@@ -9,7 +9,7 @@ import { clock } from "../clock-api";
 
 export type LogLevel = "none" | "error" | "warn" | "info" | "debug" | "log";
 
-export const logLevels: Array<LogLevel> = ["none", "error", "warn", "info", "debug"];
+const logLevels: Array<LogLevel> = ["none", "error", "warn", "info", "debug"];
 
 type TaskLoggerConfig = {
   logger: Logger;
@@ -17,7 +17,7 @@ type TaskLoggerConfig = {
   level: LogLevel;
 };
 
-export interface TaskLogger {
+interface TaskLogger {
   debug(message: string, properties?: Record<string, unknown>): void;
   log(message: string, properties?: Record<string, unknown>): void;
   info(message: string, properties?: Record<string, unknown>): void;
@@ -26,7 +26,7 @@ export interface TaskLogger {
   trace<T>(name: string, fn: (span: Span) => Promise<T>, options?: SpanOptions): Promise<T>;
 }
 
-export class OtelTaskLogger implements TaskLogger {
+class OtelTaskLogger implements TaskLogger {
   private readonly _level: number;
 
   constructor(private readonly _config: TaskLoggerConfig) {
@@ -95,7 +95,7 @@ export class OtelTaskLogger implements TaskLogger {
   }
 }
 
-export class NoopTaskLogger implements TaskLogger {
+class NoopTaskLogger implements TaskLogger {
   debug() {}
   log() {}
   info() {}

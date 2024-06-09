@@ -204,7 +204,7 @@ const RegexSchema = z.custom<RegExp>((val) => {
   }
 });
 
-export const Config = z.object({
+const Config = z.object({
   project: z.string(),
   triggerDirectories: z.string().array().optional(),
   triggerUrl: z.string().optional(),
@@ -224,7 +224,7 @@ export const Config = z.object({
   postInstall: z.string().optional(),
 });
 
-export type Config = z.infer<typeof Config>;
+type Config = z.infer<typeof Config>;
 type ResolvedConfig = RequireKeys<
   Config,
   "triggerDirectories" | "triggerUrl" | "projectDir" | "tsconfigPath"

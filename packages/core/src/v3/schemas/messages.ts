@@ -186,7 +186,7 @@ const childToWorkerMessages = {
   UNCAUGHT_EXCEPTION: UncaughtExceptionMessage,
 };
 
-export const ProdChildToWorkerMessages = {
+const ProdChildToWorkerMessages = {
   TASK_RUN_COMPLETED: {
     message: z.object({
       version: z.literal("v1").default("v1"),
@@ -270,7 +270,7 @@ export const ProdChildToWorkerMessages = {
   },
 };
 
-export const ProdWorkerToChildMessages = {
+const ProdWorkerToChildMessages = {
   EXECUTE_TASK_RUN: {
     message: z.object({
       version: z.literal("v1").default("v1"),

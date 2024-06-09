@@ -1,4 +1,4 @@
-export type APIHeaders = Record<string, string | null | undefined>;
+type APIHeaders = Record<string, string | null | undefined>;
 
 export class ApiError extends Error {
   readonly status: number | undefined;
@@ -106,35 +106,35 @@ export class ApiConnectionError extends ApiError {
   }
 }
 
-export class BadRequestError extends ApiError {
+class BadRequestError extends ApiError {
   override readonly status: 400 = 400;
 }
 
-export class AuthenticationError extends ApiError {
+class AuthenticationError extends ApiError {
   override readonly status: 401 = 401;
 }
 
-export class PermissionDeniedError extends ApiError {
+class PermissionDeniedError extends ApiError {
   override readonly status: 403 = 403;
 }
 
-export class NotFoundError extends ApiError {
+class NotFoundError extends ApiError {
   override readonly status: 404 = 404;
 }
 
-export class ConflictError extends ApiError {
+class ConflictError extends ApiError {
   override readonly status: 409 = 409;
 }
 
-export class UnprocessableEntityError extends ApiError {
+class UnprocessableEntityError extends ApiError {
   override readonly status: 422 = 422;
 }
 
-export class RateLimitError extends ApiError {
+class RateLimitError extends ApiError {
   override readonly status: 429 = 429;
 }
 
-export class InternalServerError extends ApiError {}
+class InternalServerError extends ApiError {}
 
 function castToError(err: any): Error {
   if (err instanceof Error) return err;

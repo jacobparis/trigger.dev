@@ -16,7 +16,7 @@ const Accessory = z.object({
   style: z.enum(["codepath"]).optional(),
 });
 
-export type Accessory = z.infer<typeof Accessory>;
+type Accessory = z.infer<typeof Accessory>;
 
 const TaskEventStyle = z
   .object({

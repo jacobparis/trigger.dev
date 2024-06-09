@@ -1,4 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "entry": ["src/v3/index.ts"]
+  "entry": ["src/v3/index.ts"],
+  "ignore": ["dist/**/*", "node_modules/**/*"],
+  "typescript": false,
+  "jest": false,
+  "tsup": false
 }
