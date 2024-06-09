@@ -53,7 +53,7 @@ async function resolveRunConnection(
   };
 }
 
-export async function resolveApiConnection(
+async function resolveApiConnection(
   connection?: ConnectionWithSecretReference
 ): Promise<ConnectionAuth | undefined> {
   if (!connection) {

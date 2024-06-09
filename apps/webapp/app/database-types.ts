@@ -11,7 +11,7 @@ import type {
   RuntimeEnvironmentType as RuntimeEnvironmentTypeType,
 } from "@trigger.dev/database";
 
-export const BatchTaskRunItemStatus = {
+const BatchTaskRunItemStatus = {
   PENDING: "PENDING",
   FAILED: "FAILED",
   CANCELED: "CANCELED",
@@ -42,7 +42,7 @@ export const TaskRunStatus = {
   CRASHED: "CRASHED",
 } as const satisfies Record<TaskRunStatusType, TaskRunStatusType>;
 
-export const JobRunStatus = {
+const JobRunStatus = {
   PENDING: "PENDING",
   QUEUED: "QUEUED",
   WAITING_ON_CONNECTIONS: "WAITING_ON_CONNECTIONS",

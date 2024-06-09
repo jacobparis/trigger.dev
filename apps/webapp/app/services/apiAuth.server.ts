@@ -111,7 +111,7 @@ type DualAuthenticationResult =
       result: ApiAuthenticationResult;
     };
 
-export async function authenticateProjectApiKeyOrPersonalAccessToken(
+async function authenticateProjectApiKeyOrPersonalAccessToken(
   request: Request
 ): Promise<DualAuthenticationResult | undefined> {
   const apiKey = getApiKeyFromRequest(request);
@@ -144,7 +144,7 @@ export async function authenticateProjectApiKeyOrPersonalAccessToken(
   };
 }
 
-export async function authenticatedEnvironmentForAuthentication(
+async function authenticatedEnvironmentForAuthentication(
   auth: DualAuthenticationResult,
   projectRef: string,
   slug: string

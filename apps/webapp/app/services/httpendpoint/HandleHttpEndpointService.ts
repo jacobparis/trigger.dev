@@ -17,7 +17,7 @@ import { ulid } from "../ulid.server";
 import { env } from "~/env.server";
 import { HandleWebhookRequestService } from "../sources/handleWebhookRequest.server";
 
-export const HttpEndpointParamsSchema = z.object({
+const HttpEndpointParamsSchema = z.object({
   httpEndpointId: z.string(),
   envType: z.string(),
   shortcode: z.string(),
@@ -25,7 +25,7 @@ export const HttpEndpointParamsSchema = z.object({
 
 type HttpEndpointParams = z.infer<typeof HttpEndpointParamsSchema>;
 
-export class HandleHttpEndpointService {
+class HandleHttpEndpointService {
   #prismaClient: PrismaClient;
 
   constructor(prismaClient: PrismaClient = prisma) {

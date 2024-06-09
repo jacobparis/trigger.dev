@@ -7,7 +7,7 @@ import { displayableEnvironment } from "~/models/runtimeEnvironment.server";
 import { CANCELLABLE_STATUSES } from "~/v3/services/cancelTaskRun.server";
 import { BasePresenter } from "./basePresenter.server";
 
-export type RunListOptions = {
+type RunListOptions = {
   userId?: string;
   projectId: string;
   //filters

@@ -9,7 +9,7 @@ import { calculateNextBuildVersion } from "../utils/calculateNextBuildVersion";
 import { BaseService } from "./baseService.server";
 import { projectPubSub } from "./projectPubSub.server";
 
-export class CreateBackgroundWorkerService extends BaseService {
+class CreateBackgroundWorkerService extends BaseService {
   public async call(
     projectRef: string,
     environment: AuthenticatedEnvironment,

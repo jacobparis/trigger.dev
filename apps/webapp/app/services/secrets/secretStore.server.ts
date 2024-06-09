@@ -234,7 +234,7 @@ export async function decryptSecret(
   return decrypted;
 }
 
-export async function encryptSecret(
+async function encryptSecret(
   encryptionKey: string,
   value: string
 ): Promise<EncryptedSecretValue> {

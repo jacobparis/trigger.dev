@@ -44,7 +44,7 @@ function runBasicStatus(status: JobRunStatus): RunBasicStatus {
   }
 }
 
-export function runOriginalStatus(status: JobRunStatus) {
+function runOriginalStatus(status: JobRunStatus) {
   switch (status) {
     case "EXECUTING":
     case "WAITING_TO_CONTINUE":

@@ -45,7 +45,7 @@ export type ObfuscatedPersonalAccessToken = Awaited<
 >[number];
 
 /** Gets a PersonalAccessToken from an Auth Code, this only works within 10 mins of the auth code being created */
-export async function getPersonalAccessTokenFromAuthorizationCode(authorizationCode: string) {
+async function getPersonalAccessTokenFromAuthorizationCode(authorizationCode: string) {
   //only allow authorization codes that were created less than 10 mins ago
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
   const code = await prisma.authorizationCode.findUnique({
@@ -173,7 +173,7 @@ export function isPersonalAccessToken(token: string) {
   return token.startsWith(tokenPrefix);
 }
 
-export function createAuthorizationCode() {
+function createAuthorizationCode() {
   return prisma.authorizationCode.create({
     data: {
       code: nanoid(64),
