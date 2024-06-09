@@ -16,7 +16,7 @@ type CreatePersonalAccessTokenOptions = {
 };
 
 /** Returns obfuscated access tokens that aren't revoked */
-export async function getValidPersonalAccessTokens(userId: string) {
+async function getValidPersonalAccessTokens(userId: string) {
   const personalAccessTokens = await prisma.personalAccessToken.findMany({
     select: {
       id: true,
@@ -40,7 +40,7 @@ export async function getValidPersonalAccessTokens(userId: string) {
   }));
 }
 
-export type ObfuscatedPersonalAccessToken = Awaited<
+type ObfuscatedPersonalAccessToken = Awaited<
   ReturnType<typeof getValidPersonalAccessTokens>
 >[number];
 
@@ -79,7 +79,7 @@ async function getPersonalAccessTokenFromAuthorizationCode(authorizationCode: st
   };
 }
 
-export async function revokePersonalAccessToken(tokenId: string) {
+async function revokePersonalAccessToken(tokenId: string) {
   await prisma.personalAccessToken.update({
     where: {
       id: tokenId,
@@ -182,7 +182,7 @@ function createAuthorizationCode() {
 }
 
 /** Creates a PersonalAccessToken from an Auth Code, and return the token. We only ever return the unencrypted token once. */
-export async function createPersonalAccessTokenFromAuthorizationCode(
+async function createPersonalAccessTokenFromAuthorizationCode(
   authorizationCode: string,
   userId: string
 ) {
@@ -260,7 +260,7 @@ export async function createPersonalAccessTokenFromAuthorizationCode(
 }
 
 /** Created a new PersonalAccessToken, and return the token. We only ever return the unencrypted token once. */
-export async function createPersonalAccessToken({
+async function createPersonalAccessToken({
   name,
   userId,
 }: CreatePersonalAccessTokenOptions) {
@@ -286,7 +286,7 @@ export async function createPersonalAccessToken({
   };
 }
 
-export type CreatedPersonalAccessToken = Awaited<ReturnType<typeof createPersonalAccessToken>>;
+type CreatedPersonalAccessToken = Awaited<ReturnType<typeof createPersonalAccessToken>>;
 
 const tokenPrefix = "tr_pat_";
 

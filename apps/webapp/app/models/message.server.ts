@@ -83,7 +83,7 @@ async function setToastMessageCookie(session: Session) {
   };
 }
 
-export async function jsonWithSuccessMessage(
+async function jsonWithSuccessMessage(
   data: any,
   request: Request,
   message: string,
@@ -102,7 +102,7 @@ export async function jsonWithSuccessMessage(
   });
 }
 
-export async function jsonWithErrorMessage(
+async function jsonWithErrorMessage(
   data: any,
   request: Request,
   message: string,

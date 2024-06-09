@@ -64,7 +64,7 @@ type CheckboxProps = Omit<
   onChange?: (isChecked: boolean) => void;
 };
 
-export const CheckboxWithLabel = React.forwardRef<HTMLInputElement, CheckboxProps>(
+const CheckboxWithLabel = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       id,

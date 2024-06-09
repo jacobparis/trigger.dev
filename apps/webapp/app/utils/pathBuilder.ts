@@ -29,7 +29,7 @@ type v3RunForPath = Pick<TaskRun, "friendlyId">;
 type v3SpanForPath = Pick<TaskRun, "spanId">;
 type DeploymentForPath = Pick<WorkerDeployment, "shortCode">;
 
-export const OrganizationParamsSchema = z.object({
+const OrganizationParamsSchema = z.object({
   organizationSlug: z.string(),
 });
 
@@ -173,7 +173,7 @@ export function organizationIntegrationsPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/integrations`;
 }
 
-export function usagePath(organization: OrgForPath) {
+function usagePath(organization: OrgForPath) {
   return `${organizationPath(organization)}/billing`;
 }
 
@@ -185,7 +185,7 @@ export function plansPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/billing/plans`;
 }
 
-export function subscribedPath(organization: OrgForPath) {
+function subscribedPath(organization: OrgForPath) {
   return `${organizationPath(organization)}/subscribed`;
 }
 

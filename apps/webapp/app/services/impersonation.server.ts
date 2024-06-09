@@ -18,7 +18,7 @@ function getImpersonationSession(request: Request) {
   return impersonationSessionStorage.getSession(request.headers.get("Cookie"));
 }
 
-export function commitImpersonationSession(session: Session) {
+function commitImpersonationSession(session: Session) {
   return impersonationSessionStorage.commitSession(session);
 }
 
@@ -28,7 +28,7 @@ export async function getImpersonationId(request: Request) {
   return session.get("impersonatedUserId") as string | undefined;
 }
 
-export async function setImpersonationId(userId: string, request: Request) {
+async function setImpersonationId(userId: string, request: Request) {
   const session = await getImpersonationSession(request);
 
   session.set("impersonatedUserId", userId);
@@ -36,7 +36,7 @@ export async function setImpersonationId(userId: string, request: Request) {
   return session;
 }
 
-export async function clearImpersonationId(request: Request) {
+async function clearImpersonationId(request: Request) {
   const session = await getImpersonationSession(request);
 
   session.unset("impersonatedUserId");

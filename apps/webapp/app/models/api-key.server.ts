@@ -13,7 +13,7 @@ type RegenerateAPIKeyInput = {
   environmentId: string;
 };
 
-export async function regenerateApiKey({ userId, environmentId }: RegenerateAPIKeyInput) {
+async function regenerateApiKey({ userId, environmentId }: RegenerateAPIKeyInput) {
   const environment = await prisma.runtimeEnvironment.findUnique({
     where: {
       id: environmentId,
