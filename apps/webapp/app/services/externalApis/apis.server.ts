@@ -1,4 +1,4 @@
-export type Api = {
+type Api = {
   identifier: string;
   name: string;
   examples?: ApiExample[];
@@ -11,7 +11,7 @@ export type ApiExample = {
   slug: string;
 };
 
-export const apisList = [
+const apisList = [
   {
     identifier: "airtable",
     name: "Airtable",

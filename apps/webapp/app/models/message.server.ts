@@ -168,7 +168,7 @@ export async function redirectBackWithErrorMessage(
   return redirectWithErrorMessage(url.pathname, request, message, options);
 }
 
-export async function redirectBackWithSuccessMessage(
+async function redirectBackWithSuccessMessage(
   request: Request,
   message: string,
   options?: ToastMessageOptions

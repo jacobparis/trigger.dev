@@ -62,7 +62,7 @@ export class NextScheduledEventService {
 
 // this should always return a date in the future
 // if calculateNextStep returns a date in the past, call it again with the result as the previousTimestamp
-export function calculateNextScheduledEvent(
+function calculateNextScheduledEvent(
   schedule: ScheduleMetadata,
   previousTimestamp?: Date | null
 ): Date {

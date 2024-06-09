@@ -22,6 +22,6 @@ const currencyFormatter = Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-export const formatCurrency = (num: number, rounded: boolean): string => {
+const formatCurrency = (num: number, rounded: boolean): string => {
   return rounded ? roundedCurrencyFormatter.format(num) : currencyFormatter.format(num);
 };

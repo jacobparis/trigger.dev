@@ -178,7 +178,7 @@ export const SheetBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivE
   />
 );
 
-export const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
       "mx-4 flex shrink-0 items-center gap-4 border-b border-grid-bright py-3.5",

@@ -67,7 +67,7 @@ export const variantClasses = {
   },
 } as const;
 
-export type CalloutVariant = keyof typeof variantClasses;
+type CalloutVariant = keyof typeof variantClasses;
 
 export function Callout({
   children,

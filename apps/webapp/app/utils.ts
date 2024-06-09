@@ -89,7 +89,7 @@ function hydrateDates(object: any): any {
   return object;
 }
 
-export function titleCase(original: string): string {
+function titleCase(original: string): string {
   return original
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))

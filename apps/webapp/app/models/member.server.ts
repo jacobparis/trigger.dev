@@ -72,7 +72,7 @@ export async function removeTeamMember({
   });
 }
 
-export async function inviteMembers({
+async function inviteMembers({
   slug,
   emails,
   userId,

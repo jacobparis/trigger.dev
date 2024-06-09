@@ -23,7 +23,7 @@ function useOptionalJob(matches?: UIMatch[]) {
   return routeMatch.job;
 }
 
-export function useJob(matches?: UIMatch[]) {
+function useJob(matches?: UIMatch[]) {
   const job = useOptionalJob(matches);
   invariant(job, "Job must be defined");
   return job;

@@ -24,7 +24,7 @@ const HelpSampleSchema = z.object({
   highlight: z.array(z.tuple([z.number(), z.number()])).optional(),
 });
 
-export const HelpSchema = z.object({
+const HelpSchema = z.object({
   samples: z.array(HelpSampleSchema),
 });
 
@@ -180,7 +180,7 @@ type AdditionalField = {
   type: "text" | "password";
 };
 
-export type Scope = {
+type Scope = {
   /** The name of the scope */
   name: string;
   /** Description */
@@ -207,7 +207,7 @@ const OAuth2AccessTokenSchema = z.object({
 export const AccessTokenSchema = OAuth2AccessTokenSchema;
 export type AccessToken = z.infer<typeof AccessTokenSchema>;
 
-export const ConnectionMetadataSchema = z.object({
+const ConnectionMetadataSchema = z.object({
   account: z.string().optional(),
 });
 

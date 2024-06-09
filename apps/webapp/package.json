@@ -104,7 +104,6 @@
     "cron-parser": "^4.9.0",
     "cronstrue": "^2.21.0",
     "cross-env": "^7.0.3",
-    "cuid": "^2.1.8",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "emails": "workspace:*",

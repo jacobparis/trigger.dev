@@ -251,7 +251,7 @@ export function NamedIcon({
   return <StopIcon className={className} />;
 }
 
-export function NamedIconInBox({
+function NamedIconInBox({
   name,
   className,
   fallback,

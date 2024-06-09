@@ -14,9 +14,9 @@ export function isRunCompleted(status: JobRunStatus) {
   return COMPLETED_STATUSES.includes(status);
 }
 
-export type RunBasicStatus = "WAITING" | "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
+type RunBasicStatus = "WAITING" | "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
 
-export function runBasicStatus(status: JobRunStatus): RunBasicStatus {
+function runBasicStatus(status: JobRunStatus): RunBasicStatus {
   switch (status) {
     case "WAITING_ON_CONNECTIONS":
     case "QUEUED":

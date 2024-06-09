@@ -37,39 +37,39 @@ export const ProjectParamSchema = OrganizationParamsSchema.extend({
   projectParam: z.string(),
 });
 
-export const JobParamsSchema = ProjectParamSchema.extend({
+const JobParamsSchema = ProjectParamSchema.extend({
   jobParam: z.string(),
 });
 
-export const RunParamsSchema = JobParamsSchema.extend({
+const RunParamsSchema = JobParamsSchema.extend({
   runParam: z.string(),
 });
 
-export const TaskParamsSchema = RunParamsSchema.extend({
+const TaskParamsSchema = RunParamsSchema.extend({
   taskParam: z.string(),
 });
 
-export const IntegrationClientParamSchema = OrganizationParamsSchema.extend({
+const IntegrationClientParamSchema = OrganizationParamsSchema.extend({
   clientParam: z.string(),
 });
 
-export const TriggerSourceParamSchema = ProjectParamSchema.extend({
+const TriggerSourceParamSchema = ProjectParamSchema.extend({
   triggerParam: z.string(),
 });
 
-export const EventParamSchema = ProjectParamSchema.extend({
+const EventParamSchema = ProjectParamSchema.extend({
   eventParam: z.string(),
 });
 
-export const TriggerSourceRunParamsSchema = TriggerSourceParamSchema.extend({
+const TriggerSourceRunParamsSchema = TriggerSourceParamSchema.extend({
   runParam: z.string(),
 });
 
-export const TriggerSourceRunTaskParamsSchema = TriggerSourceRunParamsSchema.extend({
+const TriggerSourceRunTaskParamsSchema = TriggerSourceRunParamsSchema.extend({
   taskParam: z.string(),
 });
 
-export const HttpEndpointParamSchema = ProjectParamSchema.extend({
+const HttpEndpointParamSchema = ProjectParamSchema.extend({
   httpEndpointParam: z.string(),
 });
 
@@ -177,7 +177,7 @@ export function usagePath(organization: OrgForPath) {
   return `${organizationPath(organization)}/billing`;
 }
 
-export function stripePortalPath(organization: OrgForPath) {
+function stripePortalPath(organization: OrgForPath) {
   return `/resources/${organization.slug}/subscription/portal`;
 }
 
@@ -206,43 +206,43 @@ export function projectSetupPath(organization: OrgForPath, project: ProjectForPa
   return `${projectPath(organization, project)}/setup`;
 }
 
-export function projectSetupNextjsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupNextjsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/nextjs`;
 }
 
-export function projectSetupRemixPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupRemixPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/remix`;
 }
 
-export function projectSetupExpressPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupExpressPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/express`;
 }
 
-export function projectSetupRedwoodPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupRedwoodPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/redwood`;
 }
 
-export function projectSetupNuxtPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupNuxtPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/nuxt`;
 }
 
-export function projectSetupSvelteKitPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupSvelteKitPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/sveltekit`;
 }
 
-export function projectSetupFastifyPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupFastifyPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/fastify`;
 }
 
-export function projectSetupAstroPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupAstroPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/astro`;
 }
 
-export function projectSetupNestjsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectSetupNestjsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/setup/nestjs`;
 }
 
-export function projectJobsPath(organization: OrgForPath, project: ProjectForPath) {
+function projectJobsPath(organization: OrgForPath, project: ProjectForPath) {
   return projectPath(organization, project);
 }
 
@@ -269,7 +269,7 @@ function projectEventPath(
 export function projectHttpEndpointsPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectPath(organization, project)}/http-endpoints`;
 }
-export function projectHttpEndpointPath(
+function projectHttpEndpointPath(
   organization: OrgForPath,
   project: ProjectForPath,
   httpEndpoint: HttpEndpointForPath
@@ -281,18 +281,18 @@ export function projectEnvironmentsPath(organization: OrgForPath, project: Proje
   return `${projectPath(organization, project)}/environments`;
 }
 
-export function projectStreamingPath(id: string) {
+function projectStreamingPath(id: string) {
   return `/resources/projects/${id}/jobs/stream`;
 }
 
-export function projectEnvironmentsStreamingPath(
+function projectEnvironmentsStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath
 ) {
   return `${projectEnvironmentsPath(organization, project)}/stream`;
 }
 
-export function endpointStreamingPath(environment: { id: string }) {
+function endpointStreamingPath(environment: { id: string }) {
   return `/resources/environments/${environment.id}/endpoint/stream`;
 }
 
@@ -333,7 +333,7 @@ export function v3NewProjectAlertPath(organization: OrgForPath, project: Project
   return `${v3ProjectAlertsPath(organization, project)}/new`;
 }
 
-export function v3NewProjectAlertPathConnectToSlackPath(
+function v3NewProjectAlertPathConnectToSlackPath(
   organization: OrgForPath,
   project: ProjectForPath
 ) {
@@ -442,18 +442,18 @@ export function v3DeploymentPath(
 }
 
 // Integration
-export function integrationClientPath(organization: OrgForPath, client: IntegrationForPath) {
+function integrationClientPath(organization: OrgForPath, client: IntegrationForPath) {
   return `${organizationIntegrationsPath(organization)}/${clientParam(client)}`;
 }
 
-export function integrationClientConnectionsPath(
+function integrationClientConnectionsPath(
   organization: OrgForPath,
   client: IntegrationForPath
 ) {
   return `${integrationClientPath(organization, client)}/connections`;
 }
 
-export function integrationClientScopesPath(organization: OrgForPath, client: IntegrationForPath) {
+function integrationClientScopesPath(organization: OrgForPath, client: IntegrationForPath) {
   return `${integrationClientPath(organization, client)}/scopes`;
 }
 
@@ -462,11 +462,11 @@ function clientParam(integration: IntegrationForPath) {
 }
 
 // Triggers
-export function projectScheduledTriggersPath(organization: OrgForPath, project: ProjectForPath) {
+function projectScheduledTriggersPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectTriggersPath(organization, project)}/scheduled`;
 }
 
-export function externalTriggerPath(
+function externalTriggerPath(
   organization: OrgForPath,
   project: ProjectForPath,
   trigger: TriggerForPath
@@ -474,7 +474,7 @@ export function externalTriggerPath(
   return `${projectTriggersPath(organization, project)}/external/${triggerSourceParam(trigger)}`;
 }
 
-export function externalTriggerRunsParentPath(
+function externalTriggerRunsParentPath(
   organization: OrgForPath,
   project: ProjectForPath,
   trigger: TriggerForPath
@@ -482,7 +482,7 @@ export function externalTriggerRunsParentPath(
   return `${externalTriggerPath(organization, project, trigger)}/runs`;
 }
 
-export function externalTriggerRunPath(
+function externalTriggerRunPath(
   organization: OrgForPath,
   project: ProjectForPath,
   trigger: TriggerForPath,
@@ -491,7 +491,7 @@ export function externalTriggerRunPath(
   return `${externalTriggerRunsParentPath(organization, project, trigger)}/${run.id}`;
 }
 
-export function externalTriggerRunStreamingPath(
+function externalTriggerRunStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath,
   trigger: TriggerForPath,
@@ -504,11 +504,11 @@ function triggerSourceParam(trigger: TriggerForPath) {
   return trigger.id;
 }
 
-export function projectWebhookTriggersPath(organization: OrgForPath, project: ProjectForPath) {
+function projectWebhookTriggersPath(organization: OrgForPath, project: ProjectForPath) {
   return `${projectTriggersPath(organization, project)}/webhooks`;
 }
 
-export function webhookTriggerPath(
+function webhookTriggerPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath
@@ -516,7 +516,7 @@ export function webhookTriggerPath(
   return `${projectTriggersPath(organization, project)}/webhooks/${webhookSourceParam(webhook)}`;
 }
 
-export function webhookTriggerRunsParentPath(
+function webhookTriggerRunsParentPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath
@@ -524,7 +524,7 @@ export function webhookTriggerRunsParentPath(
   return `${webhookTriggerPath(organization, project, webhook)}/runs`;
 }
 
-export function webhookTriggerRunPath(
+function webhookTriggerRunPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath,
@@ -533,7 +533,7 @@ export function webhookTriggerRunPath(
   return `${webhookTriggerRunsParentPath(organization, project, webhook)}/${run.id}`;
 }
 
-export function webhookTriggerRunStreamingPath(
+function webhookTriggerRunStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath,
@@ -542,7 +542,7 @@ export function webhookTriggerRunStreamingPath(
   return `${webhookTriggerRunPath(organization, project, webhook, run)}/stream`;
 }
 
-export function webhookDeliveryPath(
+function webhookDeliveryPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath
@@ -550,7 +550,7 @@ export function webhookDeliveryPath(
   return `${webhookTriggerPath(organization, project, webhook)}/delivery`;
 }
 
-export function webhookTriggerDeliveryRunsParentPath(
+function webhookTriggerDeliveryRunsParentPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath
@@ -558,7 +558,7 @@ export function webhookTriggerDeliveryRunsParentPath(
   return `${webhookTriggerRunsParentPath(organization, project, webhook)}/delivery`;
 }
 
-export function webhookTriggerDeliveryRunPath(
+function webhookTriggerDeliveryRunPath(
   organization: OrgForPath,
   project: ProjectForPath,
   webhook: WebhookForPath,
@@ -581,11 +581,11 @@ function webhookSourceParam(webhook: WebhookForPath) {
 }
 
 // Job
-export function jobPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
+function jobPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
   return `${projectPath(organization, project)}/jobs/${jobParam(job)}`;
 }
 
-export function jobTestPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
+function jobTestPath(organization: OrgForPath, project: ProjectForPath, job: JobForPath) {
   return `${jobPath(organization, project, job)}/test`;
 }
 
@@ -593,7 +593,7 @@ function jobTriggerPath(organization: OrgForPath, project: ProjectForPath, job: 
   return `${jobPath(organization, project, job)}/trigger`;
 }
 
-export function jobSettingsPath(
+function jobSettingsPath(
   organization: OrgForPath,
   project: ProjectForPath,
   job: JobForPath
@@ -606,7 +606,7 @@ function jobParam(job: JobForPath) {
 }
 
 // Run
-export function jobRunsParentPath(
+function jobRunsParentPath(
   organization: OrgForPath,
   project: ProjectForPath,
   job: JobForPath
@@ -623,7 +623,7 @@ export function runPath(
   return `${jobRunsParentPath(organization, project, job)}/${runParam(run)}`;
 }
 
-export function jobRunDashboardPath(
+function jobRunDashboardPath(
   organization: OrgForPath,
   project: ProjectForPath,
   job: JobForPath,
@@ -632,7 +632,7 @@ export function jobRunDashboardPath(
   return runTriggerPath(runPath(organization, project, job, run));
 }
 
-export function runStreamingPath(
+function runStreamingPath(
   organization: OrgForPath,
   project: ProjectForPath,
   job: JobForPath,
@@ -646,17 +646,17 @@ function runParam(run: RunForPath) {
 }
 
 // Task
-export function runTaskPath(runPath: string, taskId: string) {
+function runTaskPath(runPath: string, taskId: string) {
   return `${runPath}/tasks/${taskId}`;
 }
 
 // Event
-export function runTriggerPath(runPath: string) {
+function runTriggerPath(runPath: string) {
   return `${runPath}/trigger`;
 }
 
 // Event
-export function runCompletedPath(runPath: string) {
+function runCompletedPath(runPath: string) {
   return `${runPath}/completed`;
 }
 
@@ -669,7 +669,7 @@ export function docsPath(path: string) {
   return `${docsRoot()}/${path}`;
 }
 
-export function docsIntegrationPath(api: string) {
+function docsIntegrationPath(api: string) {
   return `${docsRoot()}/integrations/apis/${api}`;
 }
 
@@ -678,6 +678,6 @@ function docsCreateIntegration() {
 }
 
 //api
-export function apiReferencePath(apiSlug: string) {
+function apiReferencePath(apiSlug: string) {
   return `https://trigger.dev/apis/${apiSlug}`;
 }

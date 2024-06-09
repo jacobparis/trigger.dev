@@ -9,7 +9,7 @@ import {
 import { ClipboardField } from "./primitives/ClipboardField";
 import { Paragraph } from "./primitives/Paragraph";
 
-export function InitCommand({ appOrigin, apiKey }: { appOrigin: string; apiKey: string }) {
+function InitCommand({ appOrigin, apiKey }: { appOrigin: string; apiKey: string }) {
   return (
     <ClientTabs defaultValue="npm">
       <ClientTabsList>
@@ -45,7 +45,7 @@ export function InitCommand({ appOrigin, apiKey }: { appOrigin: string; apiKey: 
   );
 }
 
-export function RunDevCommand({ extra }: { extra?: string }) {
+function RunDevCommand({ extra }: { extra?: string }) {
   return (
     <ClientTabs defaultValue="npm">
       <ClientTabsList>
@@ -78,7 +78,7 @@ export function RunDevCommand({ extra }: { extra?: string }) {
   );
 }
 
-export function TriggerDevCommand({ extra }: { extra?: string }) {
+function TriggerDevCommand({ extra }: { extra?: string }) {
   return (
     <ClientTabs defaultValue="npm">
       <ClientTabsList>
@@ -111,7 +111,7 @@ export function TriggerDevCommand({ extra }: { extra?: string }) {
   );
 }
 
-export function TriggerDevStep({ extra }: { extra?: string }) {
+function TriggerDevStep({ extra }: { extra?: string }) {
   return (
     <>
       <Paragraph spacing>
